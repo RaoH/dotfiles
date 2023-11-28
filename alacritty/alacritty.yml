@@ -9,7 +9,7 @@ window:
   decorations: none
   dimensions:
     columns: 250
-    lines: 95
+    lines: 80
 
 font:
   normal:
