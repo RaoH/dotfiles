@@ -12,3 +12,5 @@ brew install nvm
 #
 #infocmp -l -x | grep Smulx
 #        vpa=\E[%i%p1%dd, Smulx=\E[4\:%p1%dm,
+#
+#git clone  https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
