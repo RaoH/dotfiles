@@ -17,7 +17,7 @@ return {
 					--"csharpls",
 					"cssls",
 					"tsserver",
-					"tailwindcss"
+					"tailwindcss",
 				},
 			})
 		end,
@@ -27,6 +27,30 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		opts = {
+			-- options for vim.diagnostic.config()
+			diagnostics = {
+				underline = true,
+				update_in_insert = false,
+				virtual_text = {
+					spacing = 4,
+					source = "if_many",
+					prefix = "●",
+					-- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+					-- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+					-- prefix = "icons",
+				},
+				severity_sort = true,
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = require("config.icons").icons.diagnostics.Error,
+						[vim.diagnostic.severity.WARN] = require("config.icons").icons.diagnostics.Warn,
+						[vim.diagnostic.severity.HINT] = require("config.icons").icons.diagnostics.Hint,
+						[vim.diagnostic.severity.INFO] = require("config.icons").icons.diagnostics.Info,
+					},
+				},
+			},
+		},
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")

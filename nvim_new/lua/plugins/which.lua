@@ -1,6 +1,16 @@
 return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
+	config = function()
+		local wk = require("which-key")
+		wk.register({
+			b = {
+				name = "Buffer",
+				c = { "<Cmd>bd!<Cr>", "Close current buffer" },
+				D = { "<Cmd>%bd|e#|bd#<Cr>", "Delete all buffers" },
+			},
+		}, { prefix = "<leader>" })
+	end,
 	init = function()
 		vim.o.timeout = true
 		vim.o.timeoutlen = 300
