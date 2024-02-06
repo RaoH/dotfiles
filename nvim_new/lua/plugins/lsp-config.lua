@@ -65,6 +65,10 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.tailwindcss.setup({
+				capabilities = capabilities,
+			})
+
 			local wk = require("which-key")
 			wk.register({
 				c = {
