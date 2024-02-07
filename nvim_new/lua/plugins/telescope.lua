@@ -2,8 +2,12 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.5",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-smart-history.nvim" },
 		config = function()
+			local telescope = require("telescope")
+
+			telescope.load_extension("fzf")
+
 			local wk = require("which-key")
 			wk.register({
 				f = {
@@ -14,6 +18,28 @@ return {
 				},
 				["/"] = { "<cmd>Telescope live_grep<cr>", "which_key_ignore", noremap = false },
 			}, { prefix = "<leader>" })
+		end,
+	},
+	-- {
+	-- 	"nvim-telescope/telescope-smart-history.nvim",
+	-- 	config = function()
+	-- 		local telescope = require("telescope")
+	-- 		telescope.setup({
+	-- 			defaults = {
+	-- 				history = {
+	-- 					path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
+	-- 					limit = 100,
+	-- 				},
+	-- 			},
+	-- 		})
+
+	-- 		telescope.load_extension("smart_history")
+	-- 	end,
+	-- },
+	{
+		"nvim-telescope/telescope-frecency.nvim",
+		config = function()
+			require("telescope").load_extension("frecency")
 		end,
 	},
 	{
