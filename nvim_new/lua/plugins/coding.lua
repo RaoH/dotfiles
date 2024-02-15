@@ -3,7 +3,13 @@ return {
 		"smjonas/inc-rename.nvim",
 		config = function()
 			require("inc_rename").setup()
-			vim.keymap.set("n", "<leader>rn", ":IncRename ")
+			local wk = require("which-key")
+
+			wk.register({
+				c = {
+					s = { ":IncRename ", "IncRename" },
+				},
+			}, { prefix = "<leader>" })
 		end,
 	},
 	{
