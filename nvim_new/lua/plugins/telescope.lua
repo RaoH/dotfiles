@@ -2,7 +2,11 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.5",
-		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-smart-history.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-smart-history.nvim",
+			"nvim-telescope/telescope-fzf-native.nvim",
+		},
 		config = function()
 			local telescope = require("telescope")
 
@@ -20,6 +24,7 @@ return {
 			}, { prefix = "<leader>" })
 		end,
 	},
+	{},
 	-- {
 	-- 	"nvim-telescope/telescope-smart-history.nvim",
 	-- 	config = function()

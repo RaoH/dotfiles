@@ -3,7 +3,20 @@ return {
 		"williamboman/mason.nvim",
 		lazy = false,
 		config = function()
-			require("mason").setup()
+			require("mason").setup({
+				ensure_installed = {
+					"stylua",
+					"selene",
+					"luacheck",
+					"shellcheck",
+					"shfmt",
+					"tailwindcss-language-server",
+					"typescript-language-server",
+					"css-lsp",
+					"netcoredbg",
+					"azure-pipelines-language-server",
+				},
+			})
 			vim.keymap.set("n", "<leader>cm", ":Mason<Return>", {})
 		end,
 	},
@@ -25,6 +38,18 @@ return {
 			auto_install = true,
 		},
 	},
+	{
+		"jose-elias-alvarez/typescript.nvim",
+		config = function()
+			require("lazyvim.util").on_attach(function(_, buffer)
+				-- stylua: ignore
+				vim.keymap.set("n", "<leader>co", "TypescriptOrganizeImports",
+					{ buffer = buffer, desc = "Organize Imports" })
+				vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
+			end)
+		end,
+	},
+
 	{
 		"neovim/nvim-lspconfig",
 		opts = {
