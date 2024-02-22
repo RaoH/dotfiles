@@ -14,14 +14,14 @@ opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
---opt.expandtab = true -- Use spaces instead of tabs
+opt.expandtab = false -- Use spaces instead of tabs
 opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.laststatus = 3 -- global statusline
---opt.list = true -- Show some invisible characters (tabs...
+opt.list = false -- Show some invisible characters (tabs...
 opt.mouse = "a" -- Enable mouse mode
 opt.number = true -- Print line number
 opt.pumblend = 10 -- Popup blend
@@ -51,20 +51,3 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
-opt.fillchars = {
-	foldopen = "",
-	foldclose = "",
-	-- fold = "⸱",
-	fold = " ",
-	foldsep = " ",
-	diff = "╱",
-	eob = " ",
-}
-
-if vim.fn.has("nvim-0.10") == 1 then
-	opt.smoothscroll = true
-end
-
--- Folding
-vim.opt.foldlevel = 99
-vim.opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
