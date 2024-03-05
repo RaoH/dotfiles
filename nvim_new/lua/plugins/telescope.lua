@@ -17,8 +17,9 @@ return {
 				f = {
 					name = "file",
 					f = { "<cmd>Telescope git_files<cr>", "Find Git File" },
-					r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File", noremap = false },
-					["*"] = { "<cmd>Telescope find_files<cr>", "Find files", noremap = false },
+					o = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+					r = { "<cmd>Telescope resume<cr>", "Resume previous telescope search" },
+					["*"] = { "<cmd>Telescope find_files<cr>", "Find files" },
 				},
 				["/"] = { "<cmd>Telescope live_grep<cr>", "which_key_ignore", noremap = false },
 			}, { prefix = "<leader>" })
