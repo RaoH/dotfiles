@@ -3,7 +3,8 @@ return {
 		"stevearc/conform.nvim",
 		opts = {},
 		config = function()
-			require("conform").setup({
+			local conform = require("conform")
+			conform.setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
 					-- Conform will run multiple formatters sequentially
@@ -20,6 +21,14 @@ return {
 					lsp_fallback = true,
 				},
 			})
+
+			vim.keymap.set({ "n", "v" }, "<leader>gf", function()
+				conform.format({
+					lsp_fallback = true,
+					async = false,
+					timeout_ms = 1000,
+				})
+			end, { desc = "Format file or range (in visual mode)" })
 		end,
 	},
 }
