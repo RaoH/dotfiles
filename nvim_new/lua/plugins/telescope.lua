@@ -19,6 +19,7 @@ return {
 					f = { "<cmd>Telescope git_files<cr>", "Find Git File" },
 					o = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
 					r = { "<cmd>Telescope resume<cr>", "Resume previous telescope search" },
+					t = { "<cmd>TodoTelescope<cr>", "Find todos" },
 					["*"] = { "<cmd>Telescope find_files<cr>", "Find files" },
 				},
 				["/"] = { "<cmd>Telescope live_grep<cr>", "which_key_ignore", noremap = false },

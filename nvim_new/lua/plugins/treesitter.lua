@@ -32,10 +32,8 @@ return {
 				"markdown",
 				"markdown_inline",
 				"php",
-				"python",
 				"query",
 				"regex",
-				"rust",
 				"scss",
 				"sql",
 				"svelte",
@@ -50,6 +48,15 @@ return {
 				highlight = { enable = true },
 				indent = { enable = true },
 				autotag = true,
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "<C-space>",
+						node_incremental = "<C-space>",
+						scope_incremental = false,
+						node_decremental = "<bs>",
+					},
+				},
 			})
 		end,
 	},
