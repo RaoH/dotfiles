@@ -1,6 +1,7 @@
 --- https://github.com/EthanJWright/vs-tasks.nvim
 return {
 	"EthanJWright/vs-tasks.nvim",
+	enabled = false,
 	dependencies = {
 		"nvim-lua/popup.nvim",
 		"nvim-lua/plenary.nvim",

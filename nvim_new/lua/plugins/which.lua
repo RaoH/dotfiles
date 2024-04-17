@@ -6,8 +6,8 @@ return {
 		wk.register({
 			b = {
 				name = "Buffer",
-				c = { "<Cmd>bd!<Cr>", "Close current buffer" },
-				D = { "<Cmd>%bd|e#|bd#<Cr>", "Delete all buffers" },
+				c = { "<cmd>bd!<cr>", "Close current buffer" },
+				D = { "<cmd>%bd|e#|bd#<cr>", "Delete all buffers" },
 			},
 		}, { prefix = "<leader>" })
 	end,

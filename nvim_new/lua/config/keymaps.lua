@@ -13,9 +13,6 @@ keymap.set("n", "-", "<C-x>")
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
 
-keymap.set("n", "<C-m>", "<C-i>", opts)
--- Jumplist
-
 --Split window
 keymap.set("n", "ss", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
