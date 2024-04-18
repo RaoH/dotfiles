@@ -14,6 +14,15 @@ return {
 		config = function()
 			local cmp = require("cmp")
 			require("luasnip.loaders.from_vscode").lazy_load()
+			--local format_kinds = cmp.config.formatting.format
+
+			--cmp.config.formatting = {
+			--	format =
+			--		function(entry, item)
+			--			format_kinds(entry, item) -- add icons
+			--			return require("tailwindcss-colorizer-cmp").formatter(entry, item)
+			--		end
+			--}
 
 			cmp.setup({
 				snippet = {
