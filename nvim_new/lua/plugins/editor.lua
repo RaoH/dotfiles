@@ -120,34 +120,4 @@ return {
 			}, { prefix = "<leader>" })
 		end,
 	},
-
-	{
-		"echasnovski/mini.hipatterns",
-		event = "BufReadPre",
-		config = function()
-			local hipatterns = require("mini.hipatterns")
-			hipatterns.setup({
-				highlighters = {
-					-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-					--fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
-					--hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-					--todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-					--note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
-
-					-- Highlight hex color strings (`#rrggbb`) using that color
-					hex_color = hipatterns.gen_highlighter.hex_color(),
-					hsl_color = {
-						pattern = "hsl%(%d+,? %d+,? %d+%)",
-						group = function(_, match)
-							--local utils = require("craftzdog.utils")
-							local h, s, l = match:match("hsl%((%d+),? (%d+),? (%d+)%)")
-							h, s, l = tonumber(h), tonumber(s), tonumber(l)
-							--local hex_color = utils.hslToHex(h, s, l)
-							--return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
-						end,
-					},
-				},
-			})
-		end,
-	},
 }

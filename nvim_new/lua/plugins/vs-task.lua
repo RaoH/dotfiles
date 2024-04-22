@@ -1,7 +1,7 @@
 --- https://github.com/EthanJWright/vs-tasks.nvim
 return {
 	"EthanJWright/vs-tasks.nvim",
-	enabled = false,
+	enabled = true,
 	dependencies = {
 		"nvim-lua/popup.nvim",
 		"nvim-lua/plenary.nvim",
@@ -9,9 +9,34 @@ return {
 	},
 	config = function()
 		require("vstask").setup({})
-		-- nnoremap <Leader>ta :lua require("telescope").extensions.vstask.tasks()<CR>
-		-- nnoremap <Leader>ti :lua require("telescope").extensions.vstask.inputs()<CR>
-		-- nnoremap <Leader>th :lua require("telescope").extensions.vstask.history()<CR>
-		-- nnoremap <Leader>tl :lua require('telescope').extensions.vstask.launch()<cr>
+
+		local wk = require("which-key")
+
+		wk.register({
+			t = {
+				name = "VS Task",
+				a = { function()
+					require("telescope").extensions.vstask.tasks()
+				end, "Task" },
+				i = {
+					function()
+						require("telescope").extensions.vstask.inputs()
+					end,
+					"Inputs",
+				},
+				h = {
+					function()
+						require("telescope").extensions.vstask.history()
+					end,
+					"History",
+				},
+				l = {
+					function()
+						require("telescope").extensions.vstask.launch()
+					end,
+					"Launch",
+				},
+			},
+		}, { prefix = "<leader>" })
 	end,
 }

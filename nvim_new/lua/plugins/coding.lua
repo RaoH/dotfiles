@@ -7,7 +7,7 @@ return {
 
 			wk.register({
 				c = {
-					s = { ":IncRename ", "IncRename" },
+					r = { ":IncRename ", "IncRename" },
 				},
 			}, { prefix = "<leader>" })
 		end,
@@ -32,13 +32,6 @@ return {
 		keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
 		config = true,
 	},
-	{
-		"simrat39/symbols-outline.nvim",
-		cmd = "SymbolsOutline",
-		keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-		config = true,
-	},
-
 	{
 		"folke/todo-comments.nvim",
 		events = { "BufReadPre", "BufNewFile" },
