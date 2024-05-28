@@ -1,10 +1,10 @@
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
 return {
 	-- color_scheme = 'termnial.sexy',
-	color_scheme = 'Catppuccin Mocha',
+	color_scheme = "Catppuccin Mocha",
 	enable_tab_bar = false,
 	font_size = 12.0,
-	font = wezterm.font('Hack Nerd Font Mono'),
+	font = wezterm.font("Hack Nerd Font Mono"),
 	-- macos_window_background_blur = 40,
 	macos_window_background_blur = 30,
 
@@ -16,21 +16,21 @@ return {
 	-- },
 	-- window_background_opacity = 0.92,
 	-- window_background_opacity = 1.0,
-	window_background_opacity = 0.78,
+	window_background_opacity = 0.85,
 	-- window_background_opacity = 0.20,
-	window_decorations = 'RESIZE',
+	window_decorations = "RESIZE",
 	keys = {
 		{
-			key = 'f',
-			mods = 'CTRL',
+			key = "f",
+			mods = "CTRL",
 			action = wezterm.action.ToggleFullScreen,
 		},
 	},
 	mouse_bindings = {
 		-- Ctrl-click will open the link under the mouse cursor
 		{
-			event = { Up = { streak = 1, button = 'Left' } },
-			mods = 'CTRL',
+			event = { Up = { streak = 1, button = "Left" } },
+			mods = "CTRL",
 			action = wezterm.action.OpenLinkAtMouseCursor,
 		},
 	},
