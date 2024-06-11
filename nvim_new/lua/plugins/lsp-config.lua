@@ -77,6 +77,11 @@ return {
 			})
 			lspconfig.tsserver.setup({
 				capabilities = capabilities,
+				init_options = {
+					preferences = {
+						importModuleSpecifierPreference = "non-relative",
+					},
+				},
 			})
 
 			lspconfig.tailwindcss.setup({
