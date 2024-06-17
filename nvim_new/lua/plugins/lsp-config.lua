@@ -75,11 +75,43 @@ return {
 			lspconfig.html.setup({
 				capabilities = capabilities,
 			})
+
 			lspconfig.tsserver.setup({
+				enabled = false,
 				capabilities = capabilities,
 				init_options = {
 					preferences = {
 						importModuleSpecifierPreference = "non-relative",
+					},
+				},
+			})
+
+			lspconfig.vtsls.setup({
+				capabilities = capabilities,
+				init_options = {
+					complete_function_calls = true,
+					vtsls = {
+						enableMoveToFileCodeAction = true,
+						autoUseWorkspaceTsdk = true,
+						experimental = {
+							completion = {
+								enableServerSideFuzzyMatch = true,
+							},
+						},
+					},
+					typescript = {
+						updateImportsOnFileMove = { enabled = "always" },
+						suggest = {
+							completeFunctionCalls = true,
+						},
+						inlayHints = {
+							enumMemberValues = { enabled = true },
+							functionLikeReturnTypes = { enabled = true },
+							parameterNames = { enabled = "literals" },
+							parameterTypes = { enabled = true },
+							propertyDeclarationTypes = { enabled = true },
+							variableTypes = { enabled = false },
+						},
 					},
 				},
 			})
