@@ -22,6 +22,9 @@ return {
 					t = { "<cmd>TodoTelescope<cr>", "Find todos" },
 					["*"] = { "<cmd>Telescope find_files<cr>", "Find files" },
 				},
+				b = {
+					l = { "<cmd>Telescope buffers <cr>", "Find buffers" },
+				},
 				["/"] = { "<cmd>Telescope live_grep<cr>", "which_key_ignore", noremap = false },
 			}, { prefix = "<leader>" })
 		end,

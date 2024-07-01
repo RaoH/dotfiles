@@ -15,6 +15,7 @@ return {
 					"css-lsp",
 					"netcoredbg",
 					"azure-pipelines-language-server",
+					"css-variables-language-server",
 				},
 			})
 			vim.keymap.set("n", "<leader>cm", ":Mason<Return>", {})
@@ -74,6 +75,27 @@ return {
 			})
 			lspconfig.html.setup({
 				capabilities = capabilities,
+			})
+
+			lspconfig.cssls.setup({
+				capabilities = capabilities,
+			})
+
+			lspconfig.css_variables.setup({
+				capabilities = capabilities,
+				--cssVariables = {
+				--	lookupFiles = { "**/*.less", "**/*.scss", "**/*.sass", "**/*.css" },
+				--},
+			})
+
+			lspconfig.tsserver.setup({
+				enabled = false,
+				capabilities = capabilities,
+				init_options = {
+					preferences = {
+						importModuleSpecifierPreference = "non-relative",
+					},
+				},
 			})
 
 			lspconfig.tsserver.setup({

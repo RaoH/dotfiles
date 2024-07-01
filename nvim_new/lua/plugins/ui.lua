@@ -16,6 +16,7 @@ return {
 		"rcarriga/nvim-notify",
 		config = function()
 			require("notify").setup({
+
 				timeout = 5000,
 				background_colour = "#000000",
 			})
@@ -54,6 +55,11 @@ return {
 						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
 						["vim.lsp.util.stylize_markdown"] = true,
 						["cmp.entry.get_documentation"] = true,
+					},
+					hover = {
+						-- Set not show a message if hover is not available
+						-- ex: shift+k on Typescript code
+						silent = true,
 					},
 				},
 				-- you can enable a preset for easier configuration
