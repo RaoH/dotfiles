@@ -11,11 +11,12 @@ return {
 					"shellcheck",
 					"shfmt",
 					"tailwindcss-language-server",
-					"typescript-language-server",
+					--"typescript-language-server",
 					"css-lsp",
 					"netcoredbg",
 					"azure-pipelines-language-server",
 					"css-variables-language-server",
+					"vtsls"
 				},
 			})
 			vim.keymap.set("n", "<leader>cm", ":Mason<Return>", {})
@@ -136,6 +137,15 @@ return {
 						},
 					},
 				},
+			})
+
+			lspconfig.eslint.setup({
+				capabilities = capabilities,
+				settings = {
+					validate = "on",
+				},
+				root_dir = lspconfig.util.root_pattern(".eslintrc.js", ".eslintrc.json", "package.json"),
+				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 			})
 
 			lspconfig.tailwindcss.setup({
