@@ -9,7 +9,6 @@ return {
 					kitty = { enabled = true, font = "+2" },
 				},
 			})
-			vim.keymap.set("n", "<leader>z", ":ZenMode<Return>", {})
 		end,
 	},
 	{

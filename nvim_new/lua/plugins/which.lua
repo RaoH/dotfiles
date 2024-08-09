@@ -3,13 +3,122 @@ return {
 	event = "VeryLazy",
 	config = function()
 		local wk = require("which-key")
-		wk.register({
-			b = {
-				name = "Buffer",
-				c = { "<cmd>bd!<cr>", "Close current buffer" },
-				D = { "<cmd>%bd|e#|bd#<cr>", "Delete all buffers" },
+		wk.add({
+			{ "<leader>f",  group = "file" }, -- group
+			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File",                       mode = "n" },
+			{ "<leader>fn", desc = "New File" },
+
+			{ "<leader>/",  "<cmd>Telescope live_grep<cr>",  hidden = true,                            remap = true },
+			{ "<leader>f*", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+			{ "<leader>ff", "<cmd>Telescope git_files<cr>",  desc = "Find Git File" },
+			{ "<leader>fo", "<cmd>Telescope oldfiles<cr>",   desc = "Open Recent File" },
+			{ "<leader>fr", "<cmd>Telescope resume<cr>",     desc = "Resume previous telescope search" },
+			{ "<leader>fe", "<cmd>Oil<cr>",                  desc = "Oil" },
+
+			{ "<leader>b",  group = "Buffers" },
+			{ "<leader>bl", "<cmd>Telescope buffers <cr>",   desc = "Find buffers" },
+			{
+				"<leader>bD",
+				function()
+					require("mini.bufremove").delete(0, true)
+				end,
+				desc = "Delete Buffer (Force)"
 			},
-		}, { prefix = "<leader>" })
+			{
+				"<leader>bd",
+				function()
+					local bd = require("mini.bufremove").delete
+					if vim.bo.modified then
+						local choice =
+							vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
+						if choice == 1 then -- Yes
+							vim.cmd.write()
+							bd(0)
+						elseif choice == 2 then -- No
+							bd(0, true)
+						end
+					else
+						bd(0)
+					end
+				end,
+				desc = "Delete buffer"
+			},
+
+			{ "<leader>c",  group = "code" },
+			{ "<leader>ca", vim.lsp.buf.code_action,    desc = "Action" },
+			{ "<leader>cr", "<cmd>:IncRename ",         desc = "IncRename" },
+			{ "<leader>cs", "<cmd>:SymbolsOutline<cr>", desc = "Symbols Outline" },
+			{ "<leader>cm", "<cmd>:Mason<cr>",          desc = "Symbols Outline" },
+			{
+				mode = { "n", "v" },
+				{
+					"<leader>cf",
+					function()
+						require("conform").format({
+							lsp_fallback = true,
+							async = false,
+							timeout_ms = 1000,
+						})
+					end,
+					desc = "Format file or range (in visual mode)"
+				},
+			},
+			{
+				"<leader>crr",
+				function()
+					require("refactoring").select_refactor()
+				end,
+				desc = "Select refactoring"
+			},
+
+			{ "<leader>g",   group = "git" },
+			{
+				"<leader>gb",
+				function()
+					require("gitsigns").blame_line { full = true }
+				end,
+				desc = "Git blame"
+			},
+			{ "<leader>glg", "<cmd>LazyGit<cr>",                             desc = "Open Lazygit" },
+
+			-- { "<leader>lg",  "<cmd>LazyGit<cr>",                             desc = "Open Lazygit" },
+
+			{ "<leader>x",   group = "Trouble" },
+			{ "<leader>xd",  "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Open trouble document diagnostics" },
+			{ "<leader>xl",  "<cmd>TroubleToggle loclist<cr>",               desc = "Open trouble location list" },
+			{ "<leader>xq",  "<cmd>TroubleToggle quickfix<cr>",              desc = "Open trouble quickfix list" },
+			{ "<leader>xt",  "<cmd>TodoTrouble<cr>",                         desc = "Open todos in trouble" },
+			{ "<leader>xw",  "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Open trouble workspace diagnostics" },
+			{ "<leader>xx",  "<cmd>TroubleToggle<cr>",                       desc = "Open/Close trouble list" },
+
+			{ "<leader>t",   group = "Todo" },
+			{ "<leader>ft",  "<cmd>TodoTelescope<cr>",                       desc = "Find todos" },
+			{ "cta",         "<cmd>TodoTrouble<cr>",                         desc = "List project TODOs" },
+			{ "ctt",         "<cmd>TodoTelescop<cr>",                        desc = "Search project TODOs" },
+			{
+				mode = { "n" },
+				{ "gd",        vim.lsp.buf.definition, hidden = true },
+				{ "K",         vim.lsp.buf.hover,      hidden = true },
+				{ "<leader>z", ":Zenmode<cr>",         desc = 'Zenmode' },
+				{ "zR",
+					function()
+						require("ufo").openAllFolds()
+					end
+				},
+				{ "zM",
+					function()
+						require("ufo").closeAllFolds()
+					end
+				},
+
+			},
+			{
+				mode = { "n" },
+				{ "<leader>ca", vim.lsp.buf.definition, hidden = true },
+			},
+
+
+		})
 	end,
 	init = function()
 		vim.o.timeout = true

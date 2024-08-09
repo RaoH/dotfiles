@@ -71,13 +71,14 @@ return {
 	{
 		"dinhhuy258/git.nvim",
 		event = "BufReadPre",
+		enabled = false,
 		config = function()
 			local opts = {
 				keymaps = {
 					-- Open blame window
-					blame = "<Leader>gb",
+					blame = "<leader>gb",
 					-- Open file/folder in git repository
-					browse = "<Leader>go",
+					browse = "<leader>go",
 				},
 			}
 			require("git").setup(opts)
@@ -86,38 +87,6 @@ return {
 
 	{
 		"echasnovski/mini.bufremove",
-		config = function()
-			local bufremove = function()
-				local bd = require("mini.bufremove").delete
-				if vim.bo.modified then
-					local choice =
-						vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-					if choice == 1 then -- Yes
-						vim.cmd.write()
-						bd(0)
-					elseif choice == 2 then -- No
-						bd(0, true)
-					end
-				else
-					bd(0)
-				end
-			end
-
-			local wk = require("which-key")
-
-			wk.register({
-				b = {
-					name = "Buffer",
-					d = { bufremove, "Delete buffer" },
-					D = {
-						function()
-							require("mini.bufremove").delete(0, true)
-						end,
-						"Delete Buffer (Force)",
-					},
-					A = { "<Cmd>%bd|e#|bd#<Cr>", "Delete all buffers" },
-				},
-			}, { prefix = "<leader>" })
-		end,
+		enabled = true,
 	},
 }

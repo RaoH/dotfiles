@@ -12,6 +12,7 @@ return {
 		config = function()
 			local treesitter_conf = require("nvim-treesitter.configs")
 			local ensure_install_list = {
+				"gleam",
 				"astro",
 				"bash",
 				"cmake",

@@ -3,13 +3,6 @@ return {
 		"smjonas/inc-rename.nvim",
 		config = function()
 			require("inc_rename").setup()
-			local wk = require("which-key")
-
-			wk.register({
-				c = {
-					r = { ":IncRename ", "IncRename" },
-				},
-			}, { prefix = "<leader>" })
 		end,
 	},
 	{
@@ -20,16 +13,11 @@ return {
 		},
 		config = function()
 			require("refactoring").setup()
-
-			vim.keymap.set({ "n", "x" }, "<leader>rr", function()
-				require("refactoring").select_refactor()
-			end)
 		end,
 	},
 	{
 		"simrat39/symbols-outline.nvim",
 		cmd = "SymbolsOutline",
-		keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
 		config = true,
 	},
 	{
@@ -60,18 +48,6 @@ return {
 					pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
 				},
 			}
-
-			local wk = require("which-key")
-			wk.register({
-				c = {
-					t = {
-						name = "Todo",
-						a = { "<cmd>TodoTrouble<cr>", "List project TODOs" },
-						t = { "<cmd>TodoTelescop<cr>", "Search project TODOs" },
-					},
-				},
-			})
-
 			require("todo-comments").setup(opts)
 		end,
 	},
