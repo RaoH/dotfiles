@@ -16,7 +16,7 @@ return {
 					"netcoredbg",
 					"azure-pipelines-language-server",
 					"css-variables-language-server",
-					"vtsls"
+					"vtsls",
 				},
 			})
 		end,
@@ -79,6 +79,17 @@ return {
 
 			lspconfig.cssls.setup({
 				capabilities = capabilities,
+				settings = {
+					css = { validate = true, lint = {
+						unknownAtRules = "ignore",
+					} },
+					scss = { validate = true, lint = {
+						unknownAtRules = "ignore",
+					} },
+					less = { validate = true, lint = {
+						unknownAtRules = "ignore",
+					} },
+				},
 			})
 
 			lspconfig.css_variables.setup({

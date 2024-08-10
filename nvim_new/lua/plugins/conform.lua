@@ -4,6 +4,23 @@ return {
 		opts = {},
 		config = function()
 			local conform = require("conform")
+
+			require("conform.formatters.prettier").cwd = require("conform.util").root_file({
+				".custom-config.json",
+				-- These are the builtins
+				".prettierrc",
+				".prettierrc.json",
+				".prettierrc.yml",
+				".prettierrc.yaml",
+				".prettierrc.json5",
+				".prettierrc.js",
+				".prettierrc.cjs",
+				".prettierrc.toml",
+				"prettier.config.js",
+				"prettier.config.cjs",
+				"package.json",
+			})
+
 			conform.setup({
 				formatters_by_ft = {
 					javascript = { "prettier" },
