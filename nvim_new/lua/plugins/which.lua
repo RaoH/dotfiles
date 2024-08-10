@@ -45,7 +45,13 @@ return {
 			},
 
 			{ "<leader>c",  group = "code" },
-			{ "<leader>ca", vim.lsp.buf.code_action,    desc = "Action" },
+			{
+				"<leader>ca",
+				function()
+					vim.lsp.buf.code_action()
+				end,
+				desc = "Code action "
+			},
 			{ "<leader>cr", "<cmd>:IncRename ",         desc = "IncRename" },
 			{ "<leader>cs", "<cmd>:SymbolsOutline<cr>", desc = "Symbols Outline" },
 			{ "<leader>cm", "<cmd>:Mason<cr>",          desc = "Symbols Outline" },
@@ -79,22 +85,29 @@ return {
 				end,
 				desc = "Git blame"
 			},
-			{ "<leader>glg", "<cmd>LazyGit<cr>",                             desc = "Open Lazygit" },
+			{ "<leader>glg", "<cmd>LazyGit<cr>",                                       desc = "Open Lazygit" },
 
 			-- { "<leader>lg",  "<cmd>LazyGit<cr>",                             desc = "Open Lazygit" },
 
 			{ "<leader>x",   group = "Trouble" },
-			{ "<leader>xd",  "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Open trouble document diagnostics" },
-			{ "<leader>xl",  "<cmd>TroubleToggle loclist<cr>",               desc = "Open trouble location list" },
-			{ "<leader>xq",  "<cmd>TroubleToggle quickfix<cr>",              desc = "Open trouble quickfix list" },
-			{ "<leader>xt",  "<cmd>TodoTrouble<cr>",                         desc = "Open todos in trouble" },
-			{ "<leader>xw",  "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Open trouble workspace diagnostics" },
-			{ "<leader>xx",  "<cmd>TroubleToggle<cr>",                       desc = "Open/Close trouble list" },
+			{ "<leader>xd",  "<cmd>TroubleToggle document_diagnostics<cr>",            desc = "Open trouble document diagnostics" },
+			{ "<leader>xl",  "<cmd>TroubleToggle loclist<cr>",                         desc = "Open trouble location list" },
+			{ "<leader>xq",  "<cmd>TroubleToggle quickfix<cr>",                        desc = "Open trouble quickfix list" },
+			{ "<leader>xt",  "<cmd>TodoTrouble<cr>",                                   desc = "Open todos in trouble" },
+			{ "<leader>xw",  "<cmd>TroubleToggle workspace_diagnostics<cr>",           desc = "Open trouble workspace diagnostics" },
+			{ "<leader>xx",  "<cmd>TroubleToggle<cr>",                                 desc = "Open/Close trouble list" },
 
-			{ "<leader>t",   group = "Todo" },
-			{ "<leader>ft",  "<cmd>TodoTelescope<cr>",                       desc = "Find todos" },
-			{ "cta",         "<cmd>TodoTrouble<cr>",                         desc = "List project TODOs" },
-			{ "ctt",         "<cmd>TodoTelescop<cr>",                        desc = "Search project TODOs" },
+			-- Terminal stuff
+			{ "<leader>t",   group = "Terminal" },
+			{ "<leader>tn",  "<cmd>ToggleTerm direction=float<cr>",                    desc = "Float" },
+			{ "<leader>th",  "<cmd>ToggleTerm cmd=htop direction=float name=htop<cr>", desc = "htop" },
+
+
+			{ "<leader>p",   group = "Project" },
+			{ "<leader>pt",  group = "Todo" },
+			{ "<leader>ptt", "<cmd>TodoTelescope<cr>",                                 desc = "Find todos" },
+			{ "cta",         "<cmd>TodoTrouble<cr>",                                   desc = "List project TODOs" },
+			{ "ctt",         "<cmd>TodoTelescop<cr>",                                  desc = "Search project TODOs" },
 			{
 				mode = { "n" },
 				{ "gd",        vim.lsp.buf.definition, hidden = true },
@@ -112,12 +125,6 @@ return {
 				},
 
 			},
-			{
-				mode = { "n" },
-				{ "<leader>ca", vim.lsp.buf.definition, hidden = true },
-			},
-
-
 		})
 	end,
 	init = function()
