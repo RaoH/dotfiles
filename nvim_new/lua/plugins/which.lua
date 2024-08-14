@@ -45,13 +45,7 @@ return {
 			},
 
 			{ "<leader>c",  group = "code" },
-			{
-				"<leader>ca",
-				function()
-					vim.lsp.buf.code_action()
-				end,
-				desc = "Code action "
-			},
+			{ "<leader>ca", vim.lsp.buf.code_action,    desc = "Code action " },
 			{ "<leader>cr", "<cmd>:IncRename ",         desc = "IncRename" },
 			{ "<leader>cs", "<cmd>:SymbolsOutline<cr>", desc = "Symbols Outline" },
 			{ "<leader>cm", "<cmd>:Mason<cr>",          desc = "Symbols Outline" },
@@ -85,7 +79,7 @@ return {
 				end,
 				desc = "Git blame"
 			},
-			{ "<leader>glg", "<cmd>LazyGit<cr>",                                       desc = "Open Lazygit" },
+			{ "<leader>gl",  "<cmd>LazyGit<cr>",                                       desc = "Open Lazygit" },
 
 			-- { "<leader>lg",  "<cmd>LazyGit<cr>",                             desc = "Open Lazygit" },
 
