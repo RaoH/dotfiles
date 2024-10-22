@@ -30,7 +30,7 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
-					"csharpls",
+					"csharp_ls",
 					"cssls",
 					"ts_ls",
 					"tailwindcss",
