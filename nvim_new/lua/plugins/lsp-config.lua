@@ -16,6 +16,7 @@ return {
 					"netcoredbg",
 					"azure-pipelines-language-server",
 					"css-variables-language-server",
+					"csharp-language-server",
 					"vtsls",
 				},
 			})
@@ -30,8 +31,9 @@ return {
 					"lua_ls",
 					--"csharpls",
 					"cssls",
-					"tsserver",
+					--"tsserver",
 					"tailwindcss",
+					"vtsls",
 				},
 			})
 		end,
@@ -110,16 +112,17 @@ return {
 			})
 
 			lspconfig.gleam.setup({})
+			--lspconfig.csharp_ls.setup({})
 
-			lspconfig.tsserver.setup({
-				enabled = false,
-				capabilities = capabilities,
-				init_options = {
-					preferences = {
-						importModuleSpecifierPreference = "non-relative",
-					},
-				},
-			})
+			--lspconfig.tsserver.setup({
+			--	enabled = false,
+			--	capabilities = capabilities,
+			--	init_options = {
+			--		preferences = {
+			--			importModuleSpecifierPreference = "non-relative",
+			--		},
+			--	},
+			--})
 
 			lspconfig.vtsls.setup({
 				capabilities = capabilities,

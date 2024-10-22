@@ -17,6 +17,12 @@ return {
 	-- },
 	window_background_opacity = 0.85,
 	window_decorations = "RESIZE",
+	window_padding = {
+		right = 0,
+		left = 0,
+		top = 0,
+		bottom = 0,
+	},
 	keys = {
 		{
 			key = "f",
