@@ -17,7 +17,8 @@ return {
 					"azure-pipelines-language-server",
 					"css-variables-language-server",
 					"csharp-language-server",
-					"vtsls",
+					--"vtsls",
+					"ts_ls",
 				},
 			})
 		end,
@@ -29,11 +30,11 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
-					--"csharpls",
+					"csharpls",
 					"cssls",
-					--"tsserver",
+					"ts_ls",
 					"tailwindcss",
-					"vtsls",
+					-- vtsls",
 				},
 			})
 		end,
@@ -71,6 +72,7 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
+
 			lspconfig.lua_ls.setup({
 				inlay_hints = { enabled = true },
 				capabilities = capabilities,
@@ -82,15 +84,24 @@ return {
 			lspconfig.cssls.setup({
 				capabilities = capabilities,
 				settings = {
-					css = { validate = true, lint = {
-						unknownAtRules = "ignore",
-					} },
-					scss = { validate = true, lint = {
-						unknownAtRules = "ignore",
-					} },
-					less = { validate = true, lint = {
-						unknownAtRules = "ignore",
-					} },
+					css = {
+						validate = true,
+						lint = {
+							unknownAtRules = "ignore",
+						}
+					},
+					scss = {
+						validate = true,
+						lint = {
+							unknownAtRules = "ignore",
+						}
+					},
+					less = {
+						validate = true,
+						lint = {
+							unknownAtRules = "ignore",
+						}
+					},
 				},
 			})
 
@@ -101,18 +112,24 @@ return {
 				--},
 			})
 
-			lspconfig.tsserver.setup({
-				enabled = false,
+
+			--lspconfig.gleam.setup({})
+			--https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
+			lspconfig.ts_ls.setup({
+				enabled = true,
 				capabilities = capabilities,
 				init_options = {
 					preferences = {
 						importModuleSpecifierPreference = "non-relative",
+						--organizeImportsIgnoreCase = ' '
+
+
 					},
 				},
 			})
 
-			lspconfig.gleam.setup({})
-			--lspconfig.csharp_ls.setup({})
+			--lspconfig.gleam.setup({})
+			lspconfig.csharp_ls.setup({})
 
 			--lspconfig.tsserver.setup({
 			--	enabled = false,
@@ -124,35 +141,35 @@ return {
 			--	},
 			--})
 
-			lspconfig.vtsls.setup({
-				capabilities = capabilities,
-				init_options = {
-					complete_function_calls = true,
-					vtsls = {
-						enableMoveToFileCodeAction = true,
-						autoUseWorkspaceTsdk = true,
-						experimental = {
-							completion = {
-								enableServerSideFuzzyMatch = true,
-							},
-						},
-					},
-					typescript = {
-						updateImportsOnFileMove = { enabled = "always" },
-						suggest = {
-							completeFunctionCalls = true,
-						},
-						inlayHints = {
-							enumMemberValues = { enabled = true },
-							functionLikeReturnTypes = { enabled = true },
-							parameterNames = { enabled = "literals" },
-							parameterTypes = { enabled = true },
-							propertyDeclarationTypes = { enabled = true },
-							variableTypes = { enabled = false },
-						},
-					},
-				},
-			})
+			--lspconfig.vtsls.setup({
+			--	capabilities = capabilities,
+			--	init_options = {
+			--		complete_function_calls = true,
+			--		vtsls = {
+			--			enableMoveToFileCodeAction = true,
+			--			autoUseWorkspaceTsdk = true,
+			--			experimental = {
+			--				completion = {
+			--					enableServerSideFuzzyMatch = true,
+			--				},
+			--			},
+			--		},
+			--		typescript = {
+			--			updateImportsOnFileMove = { enabled = "always" },
+			--			suggest = {
+			--				completeFunctionCalls = true,
+			--			},
+			--			inlayHints = {
+			--				enumMemberValues = { enabled = true },
+			--				functionLikeReturnTypes = { enabled = true },
+			--				parameterNames = { enabled = "literals" },
+			--				parameterTypes = { enabled = true },
+			--				propertyDeclarationTypes = { enabled = true },
+			--				variableTypes = { enabled = false },
+			--			},
+			--		},
+			--	},
+			--})
 
 			lspconfig.eslint.setup({
 				capabilities = capabilities,

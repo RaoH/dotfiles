@@ -96,6 +96,9 @@ return {
 			{ "<leader>tn",  "<cmd>ToggleTerm direction=float<cr>",                    desc = "Float" },
 			{ "<leader>th",  "<cmd>ToggleTerm cmd=htop direction=float name=htop<cr>", desc = "htop" },
 
+			{ "<leader>e",   group = "Editor" },
+			{ "<leader>ep",  "<cmd>Precognition toggle<cr>",                           desc = "Precognition toggle" },
+
 
 			{ "<leader>p",   group = "Project" },
 			{ "<leader>pt",  group = "Todo" },
