@@ -2,6 +2,7 @@
     "diagnostics.globals": [
         "vim",
         "MiniHipatterns",
-        "buffer"
+        "buffer",
+        "Snacks"
     ]
 }

@@ -12,7 +12,6 @@ return {
 				ts_config = {
 					lua = { "string" },
 					javascript = { "template_string" },
-					java = false,
 				},
 			})
 
@@ -21,6 +20,7 @@ return {
 			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
 	},
+	--TODO see if we can swap this out for mini.surround
 	{
 		"kylechui/nvim-surround",
 		config = function()
@@ -29,6 +29,7 @@ return {
 	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		enabled = false,
 		config = function()
 			local highlight = {
 				"RainbowRed",
@@ -62,31 +63,11 @@ return {
 		main = "ibl",
 		opts = {},
 	},
+	--TODO Might be possible to switch this up.
 	{
 		"windwp/nvim-ts-autotag",
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
-	},
-	{
-		"dinhhuy258/git.nvim",
-		event = "BufReadPre",
-		enabled = false,
-		config = function()
-			local opts = {
-				keymaps = {
-					-- Open blame window
-					blame = "<leader>gb",
-					-- Open file/folder in git repository
-					browse = "<leader>go",
-				},
-			}
-			require("git").setup(opts)
-		end,
-	},
-
-	{
-		"echasnovski/mini.bufremove",
-		enabled = true,
 	},
 }

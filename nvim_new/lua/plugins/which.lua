@@ -24,31 +24,15 @@ return {
 				end,
 				desc = "Delete Buffer (Force)"
 			},
-			{
-				"<leader>bd",
-				function()
-					local bd = require("mini.bufremove").delete
-					if vim.bo.modified then
-						local choice =
-							vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
-						if choice == 1 then -- Yes
-							vim.cmd.write()
-							bd(0)
-						elseif choice == 2 then -- No
-							bd(0, true)
-						end
-					else
-						bd(0)
-					end
-				end,
-				desc = "Delete buffer"
-			},
+			{ "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+
+			{ "<leader>.",  function() Snacks.scratch() end,   desc = "Toggle Scratch Buffer" },
 
 			{ "<leader>c",  group = "code" },
-			{ "<leader>ca", vim.lsp.buf.code_action,    desc = "Code action " },
-			{ "<leader>cr", "<cmd>:IncRename ",         desc = "IncRename" },
-			{ "<leader>cs", "<cmd>:SymbolsOutline<cr>", desc = "Symbols Outline" },
-			{ "<leader>cm", "<cmd>:Mason<cr>",          desc = "Symbols Outline" },
+			{ "<leader>ca", vim.lsp.buf.code_action,           desc = "Code action " },
+			{ "<leader>cr", "<cmd>:IncRename ",                desc = "IncRename" },
+			{ "<leader>cs", "<cmd>:SymbolsOutline<cr>",        desc = "Symbols Outline" },
+			{ "<leader>cm", "<cmd>:Mason<cr>",                 desc = "Symbols Outline" },
 			{
 				mode = { "n", "v" },
 				{
@@ -72,13 +56,7 @@ return {
 			},
 
 			{ "<leader>g",   group = "git" },
-			{
-				"<leader>gb",
-				function()
-					require("gitsigns").blame_line { full = true }
-				end,
-				desc = "Git blame"
-			},
+			{ "<leader>gb",  function() Snacks.git.blame_line() end,                   desc = "Git Blame Line" },
 			{ "<leader>gl",  "<cmd>LazyGit<cr>",                                       desc = "Open Lazygit" },
 
 			-- { "<leader>lg",  "<cmd>LazyGit<cr>",                             desc = "Open Lazygit" },
@@ -107,9 +85,9 @@ return {
 			{ "ctt",         "<cmd>TodoTelescop<cr>",                                  desc = "Search project TODOs" },
 			{
 				mode = { "n" },
-				{ "gd",        vim.lsp.buf.definition, hidden = true },
-				{ "K",         vim.lsp.buf.hover,      hidden = true },
-				{ "<leader>z", ":Zenmode<cr>",         desc = 'Zenmode' },
+				{ "gd",        vim.lsp.buf.definition,      hidden = true },
+				{ "K",         vim.lsp.buf.hover,           hidden = true },
+				{ "<leader>z", function() Snacks.zen() end, desc = 'Zenmode' },
 				{ "zR",
 					function()
 						require("ufo").openAllFolds()
@@ -122,6 +100,8 @@ return {
 				},
 
 			},
+			{ "<leader>n",  function() Snacks.notifier.show_history() end, desc = "Notification History" },
+			{ "<leader>un", function() Snacks.notifier.hide() end,         desc = "Dismiss All Notifications" },
 		})
 	end,
 	init = function()
