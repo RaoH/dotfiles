@@ -11,14 +11,12 @@ return {
 					"shellcheck",
 					"shfmt",
 					"tailwindcss-language-server",
-					--"typescript-language-server",
 					"css-lsp",
 					"netcoredbg",
 					"azure-pipelines-language-server",
 					"css-variables-language-server",
 					"csharp-language-server",
-					--"vtsls",
-					"ts_ls",
+					"vtsls",
 				},
 			})
 		end,
@@ -77,6 +75,7 @@ return {
 				inlay_hints = { enabled = true },
 				capabilities = capabilities,
 			})
+
 			lspconfig.html.setup({
 				capabilities = capabilities,
 			})
@@ -88,19 +87,19 @@ return {
 						validate = true,
 						lint = {
 							unknownAtRules = "ignore",
-						}
+						},
 					},
 					scss = {
 						validate = true,
 						lint = {
 							unknownAtRules = "ignore",
-						}
+						},
 					},
 					less = {
 						validate = true,
 						lint = {
 							unknownAtRules = "ignore",
-						}
+						},
 					},
 				},
 			})
@@ -111,13 +110,6 @@ return {
 				--	lookupFiles = { "**/*.less", "**/*.scss", "**/*.sass", "**/*.css" },
 				--},
 			})
-
-
-			--lspconfig.gleam.setup({})
-			--https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
-
-			--lspconfig.gleam.setup({})
-			--lspconfig.csharp_ls.setup({})
 
 			lspconfig.vtsls.setup({
 				capabilities = capabilities,
