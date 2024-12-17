@@ -1,27 +1,5 @@
 return {
 	{
-		"folke/zen-mode.nvim",
-		config = function()
-			require("zen-mode").setup({
-				plugins = {
-					gitsigns = true,
-					tmux = true,
-					kitty = { enabled = true, font = "+2" },
-				},
-			})
-		end,
-	},
-	{
-		"rcarriga/nvim-notify",
-		config = function()
-			require("notify").setup({
-
-				timeout = 5000,
-				background_colour = "#000000",
-			})
-		end,
-	},
-	{
 		"b0o/incline.nvim",
 		event = "BufReadPre",
 		priority = 1200,

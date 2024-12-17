@@ -18,7 +18,7 @@ return {
 	{
 		"simrat39/symbols-outline.nvim",
 		cmd = "SymbolsOutline",
-		config = true,
+		config = false,
 	},
 	{
 		"folke/todo-comments.nvim",

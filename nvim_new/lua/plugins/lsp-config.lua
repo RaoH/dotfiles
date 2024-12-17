@@ -30,11 +30,11 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
-					"csharp_ls",
+					-- "csharp_ls",
 					"cssls",
-					"ts_ls",
+					-- "ts_ls",
 					"tailwindcss",
-					-- vtsls",
+					"vtsls",
 				},
 			})
 		end,
@@ -70,7 +70,7 @@ return {
 			},
 		},
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = require('blink.cmp').get_lsp_capabilities()
 			local lspconfig = require("lspconfig")
 
 			lspconfig.lua_ls.setup({
@@ -115,61 +115,39 @@ return {
 
 			--lspconfig.gleam.setup({})
 			--https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
-			lspconfig.ts_ls.setup({
-				enabled = true,
+
+			--lspconfig.gleam.setup({})
+			--lspconfig.csharp_ls.setup({})
+
+			lspconfig.vtsls.setup({
 				capabilities = capabilities,
 				init_options = {
-					preferences = {
-						importModuleSpecifierPreference = "non-relative",
-						--organizeImportsIgnoreCase = ' '
-
-
+					complete_function_calls = true,
+					vtsls = {
+						enableMoveToFileCodeAction = true,
+						autoUseWorkspaceTsdk = true,
+						experimental = {
+							completion = {
+								enableServerSideFuzzyMatch = true,
+							},
+						},
+					},
+					typescript = {
+						updateImportsOnFileMove = { enabled = "always" },
+						suggest = {
+							completeFunctionCalls = true,
+						},
+						inlayHints = {
+							enumMemberValues = { enabled = true },
+							functionLikeReturnTypes = { enabled = true },
+							parameterNames = { enabled = "literals" },
+							parameterTypes = { enabled = true },
+							propertyDeclarationTypes = { enabled = true },
+							variableTypes = { enabled = false },
+						},
 					},
 				},
 			})
-
-			--lspconfig.gleam.setup({})
-			lspconfig.csharp_ls.setup({})
-
-			--lspconfig.tsserver.setup({
-			--	enabled = false,
-			--	capabilities = capabilities,
-			--	init_options = {
-			--		preferences = {
-			--			importModuleSpecifierPreference = "non-relative",
-			--		},
-			--	},
-			--})
-
-			--lspconfig.vtsls.setup({
-			--	capabilities = capabilities,
-			--	init_options = {
-			--		complete_function_calls = true,
-			--		vtsls = {
-			--			enableMoveToFileCodeAction = true,
-			--			autoUseWorkspaceTsdk = true,
-			--			experimental = {
-			--				completion = {
-			--					enableServerSideFuzzyMatch = true,
-			--				},
-			--			},
-			--		},
-			--		typescript = {
-			--			updateImportsOnFileMove = { enabled = "always" },
-			--			suggest = {
-			--				completeFunctionCalls = true,
-			--			},
-			--			inlayHints = {
-			--				enumMemberValues = { enabled = true },
-			--				functionLikeReturnTypes = { enabled = true },
-			--				parameterNames = { enabled = "literals" },
-			--				parameterTypes = { enabled = true },
-			--				propertyDeclarationTypes = { enabled = true },
-			--				variableTypes = { enabled = false },
-			--			},
-			--		},
-			--	},
-			--})
 
 			lspconfig.eslint.setup({
 				capabilities = capabilities,
