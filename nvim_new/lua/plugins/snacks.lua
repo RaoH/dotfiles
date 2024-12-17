@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 local logo = [[
  ██▀███   ▄▄▄       ▒█████   ██░ ██ ▓█████▄ ▓█████ ██▒   █▓
  ▓██ ▒ ██▒▒████▄    ▒██▒  ██▒▓██░ ██▒▒██▀ ██▌▓█   ▀▓██░   █▒
@@ -11,7 +10,6 @@ local logo = [[
    ░           ░  ░    ░ ░   ░  ░  ░   ░       ░  ░     ░
                                      ░                 ░
 ]]
-
 
 return {
 	"folke/snacks.nvim",
@@ -32,5 +30,5 @@ return {
 		statuscolumn = { enabled = false },
 		words = { enabled = true },
 		zen = { enabled = true },
-	}
+	},
 }
