@@ -21,9 +21,29 @@ local function command_exists(cmd)
 	return false
 end
 
+local function gh_is_active()
+	-- First check if gh command exists
+	if not command_exists("gh") then
+		return false
+	end
+
+	-- Check if gh is authenticated and working
+	local handle = io.popen("gh issue list 2>&1")
+	if handle then
+		local result = handle:read("*a")
+		handle:close()
+		vim.notify(result)
+		return not result:match(
+			"none of the git remotes configured for this repository point to a known GitHub host. To tell gh about a new GitHub host, please use `gh auth login`"
+		)
+	end
+
+	return false
+end
+
 local dashboard_layout_section = {
 	{ section = "header" },
-	{ section = "keys", gap = 1, padding = 1 },
+	{ section = "keys",  gap = 1, padding = 1 },
 	{
 		pane = 2,
 		icon = " ",
@@ -39,7 +59,7 @@ local dashboard_layout_section = {
 		local cmds = {}
 
 		-- Add "gh" related commands only if the command exists
-		if command_exists("gh") then
+		if gh_is_active() then
 			table.insert(cmds, {
 				title = "Notifications",
 				cmd = "gh notify -s -a -n5",
@@ -56,6 +76,7 @@ local dashboard_layout_section = {
 				title = "Open Issues",
 				cmd = "gh issue list -L 3",
 				key = "i",
+				enabled = false,
 				action = function()
 					vim.fn.jobstart("gh issue list --web", { detach = true })
 				end,
