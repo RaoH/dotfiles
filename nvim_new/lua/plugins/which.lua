@@ -1,3 +1,5 @@
+local is_dimmed = false
+
 return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
@@ -5,14 +7,18 @@ return {
 		local wk = require("which-key")
 		wk.add({
 			{ "<leader>f", group = "file" }, -- group
+			-- Telescope
 			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
 			{ "<leader>fn", desc = "New File" },
 
 			{ "<leader>/", "<cmd>Telescope live_grep<cr>", hidden = true, remap = true },
-			{ "<leader>f*", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+			{ "<leader>fd", "<cmd>Telescope find_files<cr>", desc = "Find files" },
 			{ "<leader>ff", "<cmd>Telescope git_files<cr>", desc = "Find Git File" },
 			{ "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
+			{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Open Recent File" },
 			{ "<leader>fr", "<cmd>Telescope resume<cr>", desc = "Resume previous telescope search" },
+			{ "<leader>ft", "<cmd>Telescope builtin<cr>", desc = "Resume previous telescope search" },
+			---
 			{ "<leader>fe", "<cmd>Oil<cr>", desc = "Oil" },
 
 			{ "<leader>b", group = "Buffers" },
@@ -75,9 +81,13 @@ return {
 				end,
 				desc = "Git Blame Line",
 			},
-			{ "<leader>gl", "<cmd>LazyGit<cr>", desc = "Open Lazygit" },
-
-			-- { "<leader>lg",  "<cmd>LazyGit<cr>",                             desc = "Open Lazygit" },
+			{
+				"<leader>gl",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "Git Blame Line",
+			},
 
 			{ "<leader>x", group = "Trouble" },
 			{
@@ -112,6 +122,23 @@ return {
 			{ "<leader>tn", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
 			{ "<leader>th", "<cmd>ToggleTerm cmd=htop direction=float name=htop<cr>", desc = "htop" },
 			{
+				"<leader>th",
+				function()
+					Snacks.terminal.toggle(nil, {
+						win = {
+							style = {
+								position = "float",
+								backdrop = 60,
+								height = 0.9,
+								width = 0.9,
+								zindex = 50,
+							},
+						},
+					})
+				end,
+				desc = "Snacks toggle term",
+			},
+			{
 				"<C-/>",
 				mode = { "n", "t" },
 				function()
@@ -124,8 +151,20 @@ return {
 				end,
 				desc = "htop",
 			},
+
 			{ "<leader>e", group = "Editor" },
-			{ "<leader>ep", "<cmd>Precognition toggle<cr>", desc = "Precognition toggle" },
+			{
+				"<leader>ed",
+				function()
+					if is_dimmed then
+						Snacks.dim.disable()
+					else
+						is_dimmed = true
+						Snacks.dim.enable()
+					end
+				end,
+				desc = "Precognition toggle",
+			},
 
 			{ "<leader>p", group = "Project" },
 			{ "<leader>pt", group = "Todo" },

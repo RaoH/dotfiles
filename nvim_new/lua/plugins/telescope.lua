@@ -5,7 +5,7 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-smart-history.nvim",
-			"nvim-telescope/telescope-fzf-native.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = 'make' },
 		},
 		config = function()
 			local telescope = require("telescope")
@@ -14,23 +14,6 @@ return {
 			telescope.load_extension("toggleterm")
 		end,
 	},
-	{},
-	-- {
-	-- 	"nvim-telescope/telescope-smart-history.nvim",
-	-- 	config = function()
-	-- 		local telescope = require("telescope")
-	-- 		telescope.setup({
-	-- 			defaults = {
-	-- 				history = {
-	-- 					path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
-	-- 					limit = 100,
-	-- 				},
-	-- 			},
-	-- 		})
-
-	-- 		telescope.load_extension("smart_history")
-	-- 	end,
-	-- },
 	{
 		"nvim-telescope/telescope-frecency.nvim",
 		enabled = false,

@@ -7,7 +7,7 @@ return {
 				ft = "snacks_terminal",
 				size = { height = 0.4 },
 				title = "%{b:snacks_terminal.id}: %{b:term_title}",
-				filter = function(_buf, win)
+				filter = function(_, win)
 					return vim.w[win].snacks_win
 						and vim.w[win].snacks_win.position == pos
 						and vim.w[win].snacks_win.relative == "editor"
@@ -16,7 +16,7 @@ return {
 			})
 		end
 	end,
-	-- config = function()
-	-- 	require("symbols-outline.config").setup()
-	-- end,
+	config = function()
+		require("symbols-outline.config").setup()
+	end,
 }
