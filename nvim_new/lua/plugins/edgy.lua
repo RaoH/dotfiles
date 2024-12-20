@@ -16,7 +16,4 @@ return {
 			})
 		end
 	end,
-	config = function()
-		require("symbols-outline.config").setup()
-	end,
 }

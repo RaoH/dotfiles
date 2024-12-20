@@ -16,11 +16,6 @@ return {
 		end,
 	},
 	{
-		"simrat39/symbols-outline.nvim",
-		cmd = "SymbolsOutline",
-		config = false,
-	},
-	{
 		"folke/todo-comments.nvim",
 		events = { "BufReadPre", "BufNewFile" },
 		dependencies = { "nvim-lua/plenary.nvim" },

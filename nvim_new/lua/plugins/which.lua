@@ -6,18 +6,22 @@ return {
 	config = function()
 		local wk = require("which-key")
 		wk.add({
+			{
+				"<leader>!",
+				function()
+					Snacks.dashboard.open()
+				end,
+				desc = "Open dashboard",
+			},
 			{ "<leader>f", group = "file" }, -- group
 			-- Telescope
-			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
-			{ "<leader>fn", desc = "New File" },
-
 			{ "<leader>/", "<cmd>Telescope live_grep<cr>", hidden = true, remap = true },
 			{ "<leader>fd", "<cmd>Telescope find_files<cr>", desc = "Find files" },
 			{ "<leader>ff", "<cmd>Telescope git_files<cr>", desc = "Find Git File" },
 			{ "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
 			{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Open Recent File" },
 			{ "<leader>fr", "<cmd>Telescope resume<cr>", desc = "Resume previous telescope search" },
-			{ "<leader>ft", "<cmd>Telescope builtin<cr>", desc = "Resume previous telescope search" },
+			{ "<leader>ft", "<cmd>Telescope builtin<cr>", desc = "Telescope builtin" },
 			---
 			{ "<leader>fe", "<cmd>Oil<cr>", desc = "Oil" },
 
@@ -26,9 +30,9 @@ return {
 			{
 				"<leader>bD",
 				function()
-					require("mini.bufremove").delete(0, true)
+					Snacks.bufdelete.all({ force = true })
 				end,
-				desc = "Delete Buffer (Force)",
+				desc = "Delete All Buffer (Force)",
 			},
 			{
 				"<leader>bd",
@@ -36,6 +40,14 @@ return {
 					Snacks.bufdelete()
 				end,
 				desc = "Delete Buffer",
+			},
+
+			{
+				"<leader>bo",
+				function()
+					Snacks.bufdelete.other({ force = true })
+				end,
+				desc = "Delete other buffers",
 			},
 
 			{
@@ -48,9 +60,16 @@ return {
 
 			{ "<leader>c", group = "code" },
 			{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code action " },
-			{ "<leader>cr", "<cmd>:IncRename ", desc = "IncRename" },
-			{ "<leader>cs", "<cmd>:SymbolsOutline<cr>", desc = "Symbols Outline" },
-			{ "<leader>cm", "<cmd>:Mason<cr>", desc = "Symbols Outline" },
+			{ "<leader>cr", ":IncRename ", desc = "IncRename" },
+			{ "<leader>cs", "<cmd>:AerialToggle<cr>", desc = "Symbols Outline" },
+			{ "<leader>cm", "<cmd>:Mason<cr>", desc = "Mason" },
+			{
+				"<leader>cc",
+				function()
+					require("refactoring").select_refactor()
+				end,
+				desc = "Select refactoring",
+			},
 			{
 				mode = { "n", "v" },
 				{
@@ -65,13 +84,17 @@ return {
 					desc = "Format file or range (in visual mode)",
 				},
 			},
-			{
-				"<leader>crr",
-				function()
-					require("refactoring").select_refactor()
-				end,
-				desc = "Select refactoring",
-			},
+
+			-- Copilot
+			{ "<leader>cp", group = "Copilot" },
+			{ "<leader>cpo", "<cmd>:CopilotChatOpen<cr>", desc = "Copilot Chat " },
+			{ "<leader>cpt", "<cmd>:CopilotChatToggle<cr>", desc = "Copilot Chat toggle " },
+			{ "<leader>cpr", "<cmd>:CopilotChatReview<cr>", desc = "Copilot Chat Review " },
+			{ "<leader>cpe", "<cmd>:CopilotChatExplain<cr>", desc = "Copilot Chat Explain " },
+			{ "<leader>cpf", "<cmd>:CopilotChatFix<cr>", desc = "Copilot Chat Fix " },
+			{ "<leader>cpc", "<cmd>:CopilotChatCommit<cr>", desc = "Copilot Chat Commit " },
+			{ "<leader>cpq", "<cmd>:CopilotChatReset<cr>", desc = "Copilot Chat Commit " },
+			-- Conform
 
 			{ "<leader>g", group = "git" },
 			{
@@ -86,7 +109,7 @@ return {
 				function()
 					Snacks.lazygit()
 				end,
-				desc = "Git Blame Line",
+				desc = "lazygit",
 			},
 
 			{ "<leader>x", group = "Trouble" },
@@ -122,7 +145,7 @@ return {
 			{ "<leader>tn", "<cmd>ToggleTerm direction=float<cr>", desc = "Float" },
 			{ "<leader>th", "<cmd>ToggleTerm cmd=htop direction=float name=htop<cr>", desc = "htop" },
 			{
-				"<leader>th",
+				"<leader>tt",
 				function()
 					Snacks.terminal.toggle(nil, {
 						win = {
@@ -152,6 +175,11 @@ return {
 				desc = "htop",
 			},
 
+			-- Project
+			{ "<leader>p", group = "Project" },
+			{ "<leader>pt", group = "Todo" },
+			{ "<leader>ptt", "<cmd>TodoTelescope<cr>", desc = "Find todos" },
+			-- Editor
 			{ "<leader>e", group = "Editor" },
 			{
 				"<leader>ed",
@@ -165,12 +193,6 @@ return {
 				end,
 				desc = "Precognition toggle",
 			},
-
-			{ "<leader>p", group = "Project" },
-			{ "<leader>pt", group = "Todo" },
-			{ "<leader>ptt", "<cmd>TodoTelescope<cr>", desc = "Find todos" },
-			{ "cta", "<cmd>TodoTrouble<cr>", desc = "List project TODOs" },
-			{ "ctt", "<cmd>TodoTelescop<cr>", desc = "Search project TODOs" },
 			{
 				mode = { "n" },
 				{ "gd", vim.lsp.buf.definition, hidden = true },
