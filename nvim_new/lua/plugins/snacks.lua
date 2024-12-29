@@ -32,13 +32,16 @@ local function gh_is_active()
 	if handle then
 		local result = handle:read("*a")
 		handle:close()
-		vim.notify(result)
-		return not result:match(
-			"none of the git remotes configured for this repository point to a known GitHub host. To tell gh about a new GitHub host, please use `gh auth login`"
-		)
+		if not result:match(
+				"failed to run git: fatal: not a git repository (or any of the parent directories): .git"
+			) or not result:match(
+				"none of the git remotes configured for this repository point to a known GitHub host. To tell gh about a new GitHub host, please use `gh auth login`"
+			) then
+			return false
+		else
+			return true
+		end
 	end
-
-	return false
 end
 
 local dashboard_layout_section = {
