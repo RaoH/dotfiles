@@ -1,0 +1,9 @@
+background-opacity = 0.85
+background-blur-radius = 20
+window-decoration = false
+window-height=2500
+window-width=2500
+theme = catppuccin-mocha
+font-family = Hack Nerd Font Mono
+font-size = 12
+font-feature = -liga
