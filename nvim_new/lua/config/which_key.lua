@@ -55,10 +55,10 @@ M.keymap = {
 	},
 
 	{ "<leader>c",  group = "code" },
-	{ "<leader>ca", vim.lsp.buf.code_action,  desc = "Code action " },
-	{ "<leader>cr", ":IncRename ",            desc = "IncRename" },
-	{ "<leader>cs", "<cmd>:AerialToggle<cr>", desc = "Symbols Outline" },
-	{ "<leader>cm", "<cmd>:Mason<cr>",        desc = "Mason" },
+	{ "<leader>ca", vim.lsp.buf.code_action,     desc = "Code action " },
+	{ "<leader>cr", ":IncRename ",               desc = "IncRename" },
+	{ "<leader>cs", "<cmd>Telescope aerial<cr>", desc = "Symbols Outline" },
+	{ "<leader>cm", "<cmd>Mason<cr>",            desc = "Mason" },
 	{
 		"<leader>cc",
 		function()
