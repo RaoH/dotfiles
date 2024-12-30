@@ -10,6 +10,16 @@ return {
 		config = function()
 			local telescope = require("telescope")
 
+			telescope.setup({
+				pickers = {
+					find_files = {
+					}
+				},
+				extensions = {
+					fzf = {}
+				}
+			})
+
 			telescope.load_extension("fzf")
 			telescope.load_extension("toggleterm")
 		end,
