@@ -1,50 +1,18 @@
 return {
 	{
-		"williamboman/mason.nvim",
-		lazy = false,
-		config = function()
-			require("mason").setup({
-				ensure_installed = {
-					"stylua",
-					"selene",
-					"luacheck",
-					"shellcheck",
-					"shfmt",
-					"tailwindcss-language-server",
-					"css-lsp",
-					"netcoredbg",
-					"azure-pipelines-language-server",
-					"css-variables-language-server",
-					"csharp-language-server",
-					"vtsls",
-				},
-			})
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		lazy = false,
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"lua_ls",
-					-- "csharp_ls",
-					"cssls",
-					-- "ts_ls",
-					"tailwindcss",
-					"vtsls",
-				},
-			})
-		end,
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
 		opts = {
-			auto_install = true,
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
 		},
 	},
-
 	{
 		"neovim/nvim-lspconfig",
 		opts = {
-			-- options for vim.diagnostic.config()
 			diagnostics = {
 				underline = true,
 				update_in_insert = false,
@@ -52,9 +20,6 @@ return {
 					spacing = 4,
 					source = "if_many",
 					prefix = "●",
-					-- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-					-- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-					-- prefix = "icons",
 				},
 				severity_sort = true,
 				signs = {
@@ -71,9 +36,14 @@ return {
 			local capabilities = require('blink.cmp').get_lsp_capabilities()
 			local lspconfig = require("lspconfig")
 
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+				border = "rounded",
+			})
+
 			lspconfig.lua_ls.setup({
 				inlay_hints = { enabled = true },
 				capabilities = capabilities,
+
 			})
 
 			lspconfig.html.setup({
@@ -106,9 +76,9 @@ return {
 
 			lspconfig.css_variables.setup({
 				capabilities = capabilities,
-				--cssVariables = {
-				--	lookupFiles = { "**/*.less", "**/*.scss", "**/*.sass", "**/*.css" },
-				--},
+				cssVariables = {
+					lookupFiles = { "**/*.less", "**/*.scss", "**/*.sass", "**/*.css" },
+				},
 			})
 
 			lspconfig.vtsls.setup({
