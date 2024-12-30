@@ -213,15 +213,16 @@ M.keymap = {
 			end,
 		},
 	},
+	{ "<leader>n", group = "Notifications" },
 	{
-		"<leader>n",
+		"<leader>nh",
 		function()
 			Snacks.notifier.show_history()
 		end,
 		desc = "Notification History",
 	},
 	{
-		"<leader>un",
+		"<leader>nd",
 		function()
 			Snacks.notifier.hide()
 		end,
