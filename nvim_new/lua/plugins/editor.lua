@@ -20,49 +20,49 @@ return {
 			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
 	},
-	--TODO see if we can swap this out for mini.surround
 	{
-		"kylechui/nvim-surround",
+		"echasnovski/mini.surround",
+		version = false,
 		config = function()
-			require("nvim-surround").setup({})
+			require("mini.surround").setup({})
 		end,
 	},
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		enabled = false,
-		config = function()
-			local highlight = {
-				"RainbowRed",
-				"RainbowYellow",
-				"RainbowBlue",
-				"RainbowOrange",
-				"RainbowGreen",
-				"RainbowViolet",
-				"RainbowCyan",
-			}
-
-			local hooks = require("ibl.hooks")
-			hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-				vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-				vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-				vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-				vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-				vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-				vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-				vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-			end)
-
-			require("ibl").setup({
-				exclude = { filetypes = { "dashboard" } },
-				indent = { highlight = highlight },
-				scope = {
-					show_start = false,
-				},
-			})
-		end,
-		main = "ibl",
-		opts = {},
-	},
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	enabled = false,
+	-- 	config = function()
+	-- 		local highlight = {
+	-- 			"RainbowRed",
+	-- 			"RainbowYellow",
+	-- 			"RainbowBlue",
+	-- 			"RainbowOrange",
+	-- 			"RainbowGreen",
+	-- 			"RainbowViolet",
+	-- 			"RainbowCyan",
+	-- 		}
+	--
+	-- 		local hooks = require("ibl.hooks")
+	-- 		hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+	-- 			vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+	-- 			vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+	-- 		end)
+	--
+	-- 		require("ibl").setup({
+	-- 			exclude = { filetypes = { "dashboard" } },
+	-- 			indent = { highlight = highlight },
+	-- 			scope = {
+	-- 				show_start = false,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- 	main = "ibl",
+	-- 	opts = {},
+	-- },
 	--TODO Might be possible to switch this up.
 	{
 		"windwp/nvim-ts-autotag",
