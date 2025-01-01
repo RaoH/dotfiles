@@ -1,6 +1,28 @@
 local M = {}
 
 local is_dimmed = false
+
+local function get_current_dir()
+	local current_dir = vim.fn.expand("%:p:h")
+	if current_dir == "" or vim.fn.isdirectory(current_dir) == 0 then
+		current_dir = vim.fn.getcwd()
+	end
+	return current_dir
+end
+
+local function open_named_terminal(cmd)
+	local current_dir = get_current_dir()
+	Snacks.terminal(cmd, {
+		cwd = current_dir,
+		win = {
+			style = {
+				border = "rounded",
+			}
+		}
+	})
+end
+
+
 M.keymap = {
 	{
 		"<leader>!",
@@ -62,7 +84,7 @@ M.keymap = {
 	{
 		"<leader>cc",
 		function()
-			require("refactoring").select_refactor()
+			require("refactoring").select_refactor({})
 		end,
 		desc = "Select refactoring",
 	},
@@ -137,15 +159,47 @@ M.keymap = {
 	},
 
 	-- Terminal stuff
-	{ "<leader>t",  group = "Terminal" },
-	{ "<leader>tn", "<cmd>ToggleTerm direction=float<cr>",                    desc = "Float" },
-	{ "<leader>th", "<cmd>ToggleTerm cmd=htop direction=float name=htop<cr>", desc = "htop" },
+	{ "<leader>t",   group = "Terminal" },
+	{
+		"<leader>tp",
+		function()
+			open_named_terminal('cbonsai')
+		end,
+		desc = "Terminal bottom"
+	},
 	{
 		"<leader>tt",
+		group = "Turborepo"
+	},
+	{
+		"<leader>ttb",
 		function()
-			Snacks.terminal.toggle(nil, {
+			open_named_terminal("turbo build")
+		end,
+		desc = "Turbo"
+	},
+	-- {
+	-- 	"<leader>ttr",
+	-- 	function()
+	-- 		Snacks.input(
+	-- 			{
+	-- 				prompt: "Which app should be loaded"
+	-- 				completion:
+	-- 			}	
+	-- 		)
+	-- 		open_named_terminal("turbo build")
+	-- 	end,
+	-- 	desc = "Turbo"
+	-- },
+
+	{
+		"<c-\\>",
+		mode = { "n", "t" },
+		function()
+			Snacks.terminal(nil, {
 				win = {
 					style = {
+						border = "rounded",
 						position = "float",
 						backdrop = 60,
 						height = 0.9,
@@ -157,20 +211,6 @@ M.keymap = {
 		end,
 		desc = "Snacks toggle term",
 	},
-	{
-		"<C-/>",
-		mode = { "n", "t" },
-		function()
-			local venv = vim.b["virtual_env"]
-			local term = require("toggleterm.terminal").Terminal:new({
-				env = venv and { VIRTUAL_ENV = venv } or nil,
-				count = vim.v.count > 0 and vim.v.count or 1,
-			})
-			term:toggle()
-		end,
-		desc = "htop",
-	},
-
 	-- Project
 	{ "<leader>p",   group = "Project" },
 	{ "<leader>pt",  group = "Todo" },
