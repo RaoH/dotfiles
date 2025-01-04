@@ -37,7 +37,7 @@ M.keymap = {
 	{ "<leader>fd", "<cmd>Telescope find_files<cr>", desc = "Find files" },
 	{ "<leader>ff", "<cmd>Telescope git_files<cr>",  desc = "Find Git File" },
 	{ "<leader>fo", "<cmd>Telescope oldfiles<cr>",   desc = "Open Recent File" },
-	{ "<leader>fh", "<cmd>Telescope help_tags<cr>",  desc = "Open Recent File" },
+	{ "<leader>fh", "<cmd>Telescope help_tags<cr>",  desc = "Open Help Tags" },
 	{ "<leader>fr", "<cmd>Telescope resume<cr>",     desc = "Resume previous telescope search" },
 	{ "<leader>ft", "<cmd>Telescope builtin<cr>",    desc = "Telescope builtin" },
 	---
@@ -81,6 +81,7 @@ M.keymap = {
 	{ "<leader>cr", ":IncRename ",               desc = "IncRename" },
 	{ "<leader>cs", "<cmd>Telescope aerial<cr>", desc = "Symbols Outline" },
 	{ "<leader>cm", "<cmd>Mason<cr>",            desc = "Mason" },
+	{ "<leader>cl", "<cmd>LspRestart<cr>",       desc = "LspRestart" },
 	{
 		"<leader>cc",
 		function()
@@ -121,6 +122,15 @@ M.keymap = {
 			Snacks.git.blame_line()
 		end,
 		desc = "Git Blame Line",
+	},
+	{
+		"<leader>gc", "<cmd>Telescope git_commits", desc = "Git commits",
+	},
+	{
+		"<leader>g!", "<cmd>Telescope git_status", desc = "Git status",
+	},
+	{
+		"<leader>gs", "<cmd>Telescope git_stash", desc = "Git stash",
 	},
 	{
 		"<leader>gl",
