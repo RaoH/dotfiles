@@ -4,7 +4,9 @@ return {
 		opts = {},
 		-- Optional dependencies
 		config = function()
-			require("aerial").setup()
+			require("aerial").setup({
+				backends = { "lsp", "treesitter", "markdown", "asciidoc", "man" },
+			})
 		end,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
