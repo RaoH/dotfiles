@@ -116,7 +116,7 @@ return {
 				settings = {
 					validate = "on",
 				},
-				root_dir = lspconfig.util.root_pattern(".eslintrc.js", ".eslintrc.json", "package.json"),
+				root_dir = lspconfig.util.root_pattern(".eslintrc.js", ".eslintrc.json", "package.json", ".eslintrc.cjs"),
 				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 			})
 

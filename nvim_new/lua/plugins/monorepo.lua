@@ -1,5 +1,6 @@
 return {
 	"imNel/monorepo.nvim",
+	enabled = false,
 	config = function()
 		require("monorepo").setup({
 			-- Your config here!

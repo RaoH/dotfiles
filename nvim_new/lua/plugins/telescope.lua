@@ -1,12 +1,14 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
+		-- tag = "0.1.5",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-smart-history.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = 'make' },
+			"nvim-telescope/telescope-file-browser.nvim",
 		},
+		enabled = false,
 		config = function()
 			local telescope = require("telescope")
 
@@ -50,6 +52,7 @@ return {
 	},
 	{
 		"nvim-telescope/telescope-ui-select.nvim",
+		enabled = false,
 		config = function()
 			require("telescope").setup({
 				extensions = {

@@ -47,5 +47,6 @@ return {
 		lazygit = { enabled = true },
 		toggle = { enabled = true },
 		terminal = { enabled = true },
+		picker = { enabled = true },
 	},
 }
