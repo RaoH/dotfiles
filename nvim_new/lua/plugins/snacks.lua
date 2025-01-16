@@ -20,7 +20,10 @@ return {
 		dim = { enabled = true },
 		bigfile = { enabled = true },
 		bufdelete = { enabled = true },
-		dashboard = { preset = { header = dashboard_settings.logo }, sections = dashboard_settings.dashboard_layout_section },
+		dashboard = {
+			preset = { header = dashboard_settings.logo },
+			sections = dashboard_settings.dashboard_layout_section,
+		},
 		indent = {
 			animate = { enabled = false },
 			indent = {
@@ -32,8 +35,8 @@ return {
 					"RainbowGreen",
 					"RainbowViolet",
 					"RainbowCyan",
-				}
-			}
+				},
+			},
 		},
 		notifier = { enabled = true, timeout = 3000 },
 		quickfiles = { enabled = true },
@@ -43,6 +46,6 @@ return {
 		zen = { enabled = true },
 		lazygit = { enabled = true },
 		toggle = { enabled = true },
-		terminal = { enabled = true }
+		terminal = { enabled = true },
 	},
 }

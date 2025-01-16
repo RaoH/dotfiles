@@ -17,11 +17,10 @@ local function open_named_terminal(cmd)
 		win = {
 			style = {
 				border = "rounded",
-			}
-		}
+			},
+		},
 	})
 end
-
 
 M.keymap = {
 	{
@@ -31,20 +30,20 @@ M.keymap = {
 		end,
 		desc = "Open dashboard",
 	},
-	{ "<leader>f",  group = "file" }, -- group
+	{ "<leader>f", group = "file" }, -- group
 	-- Telescope
-	{ "<leader>/",  "<cmd>Telescope live_grep<cr>",  hidden = true,                            remap = true },
+	{ "<leader>/", "<cmd>Telescope live_grep<cr>", hidden = true, remap = true },
 	{ "<leader>fd", "<cmd>Telescope find_files<cr>", desc = "Find files" },
-	{ "<leader>ff", "<cmd>Telescope git_files<cr>",  desc = "Find Git File" },
-	{ "<leader>fo", "<cmd>Telescope oldfiles<cr>",   desc = "Open Recent File" },
-	{ "<leader>fh", "<cmd>Telescope help_tags<cr>",  desc = "Open Help Tags" },
-	{ "<leader>fr", "<cmd>Telescope resume<cr>",     desc = "Resume previous telescope search" },
-	{ "<leader>ft", "<cmd>Telescope builtin<cr>",    desc = "Telescope builtin" },
+	{ "<leader>ff", "<cmd>Telescope git_files<cr>", desc = "Find Git File" },
+	{ "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
+	{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Open Help Tags" },
+	{ "<leader>fr", "<cmd>Telescope resume<cr>", desc = "Resume previous telescope search" },
+	{ "<leader>ft", "<cmd>Telescope builtin<cr>", desc = "Telescope builtin" },
 	---
-	{ "<leader>fe", "<cmd>Oil<cr>",                  desc = "Oil" },
+	{ "<leader>fe", "<cmd>Oil<cr>", desc = "Oil" },
 
-	{ "<leader>b",  group = "Buffers" },
-	{ "<leader>bl", "<cmd>Telescope buffers <cr>",   desc = "Find buffers" },
+	{ "<leader>b", group = "Buffers" },
+	{ "<leader>bl", "<cmd>Telescope buffers <cr>", desc = "Find buffers" },
 	{
 		"<leader>bD",
 		function()
@@ -76,12 +75,12 @@ M.keymap = {
 		desc = "Toggle Scratch Buffer",
 	},
 
-	{ "<leader>c",  group = "code" },
-	{ "<leader>ca", vim.lsp.buf.code_action,     desc = "Code action " },
-	{ "<leader>cr", ":IncRename ",               desc = "IncRename" },
+	{ "<leader>c", group = "code" },
+	{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code action " },
+	{ "<leader>cr", ":IncRename ", desc = "IncRename" },
 	{ "<leader>cs", "<cmd>Telescope aerial<cr>", desc = "Symbols Outline" },
-	{ "<leader>cm", "<cmd>Mason<cr>",            desc = "Mason" },
-	{ "<leader>cl", "<cmd>LspRestart<cr>",       desc = "LspRestart" },
+	{ "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
+	{ "<leader>cl", "<cmd>LspRestart<cr>", desc = "LspRestart" },
 	{
 		"<leader>cc",
 		function()
@@ -105,17 +104,17 @@ M.keymap = {
 	},
 
 	-- Copilot
-	{ "<leader>cp",  group = "Copilot" },
-	{ "<leader>cpo", "<cmd>:CopilotChatOpen<cr>",    desc = "Copilot Chat " },
-	{ "<leader>cpt", "<cmd>:CopilotChatToggle<cr>",  desc = "Copilot Chat toggle " },
-	{ "<leader>cpr", "<cmd>:CopilotChatReview<cr>",  desc = "Copilot Chat Review " },
+	{ "<leader>cp", group = "Copilot" },
+	{ "<leader>cpo", "<cmd>:CopilotChatOpen<cr>", desc = "Copilot Chat " },
+	{ "<leader>cpt", "<cmd>:CopilotChatToggle<cr>", desc = "Copilot Chat toggle " },
+	{ "<leader>cpr", "<cmd>:CopilotChatReview<cr>", desc = "Copilot Chat Review " },
 	{ "<leader>cpe", "<cmd>:CopilotChatExplain<cr>", desc = "Copilot Chat Explain " },
-	{ "<leader>cpf", "<cmd>:CopilotChatFix<cr>",     desc = "Copilot Chat Fix " },
-	{ "<leader>cpc", "<cmd>:CopilotChatCommit<cr>",  desc = "Copilot Chat Commit " },
-	{ "<leader>cpq", "<cmd>:CopilotChatReset<cr>",   desc = "Copilot Chat Commit " },
+	{ "<leader>cpf", "<cmd>:CopilotChatFix<cr>", desc = "Copilot Chat Fix " },
+	{ "<leader>cpc", "<cmd>:CopilotChatCommit<cr>", desc = "Copilot Chat Commit " },
+	{ "<leader>cpq", "<cmd>:CopilotChatReset<cr>", desc = "Copilot Chat Commit " },
 	-- Conform
 
-	{ "<leader>g",   group = "git" },
+	{ "<leader>g", group = "git" },
 	{
 		"<leader>gb",
 		function()
@@ -124,13 +123,19 @@ M.keymap = {
 		desc = "Git Blame Line",
 	},
 	{
-		"<leader>gc", "<cmd>Telescope git_commits", desc = "Git commits",
+		"<leader>gc",
+		"<cmd>Telescope git_commits",
+		desc = "Git commits",
 	},
 	{
-		"<leader>g!", "<cmd>Telescope git_status", desc = "Git status",
+		"<leader>g!",
+		"<cmd>Telescope git_status",
+		desc = "Git status",
 	},
 	{
-		"<leader>gs", "<cmd>Telescope git_stash", desc = "Git stash",
+		"<leader>gs",
+		"<cmd>Telescope git_stash",
+		desc = "Git stash",
 	},
 	{
 		"<leader>gl",
@@ -140,7 +145,7 @@ M.keymap = {
 		desc = "lazygit",
 	},
 
-	{ "<leader>x",  group = "Trouble" },
+	{ "<leader>x", group = "Trouble" },
 	{
 		"<leader>xd",
 		"<cmd>TroubleToggle document_diagnostics<cr>",
@@ -169,25 +174,54 @@ M.keymap = {
 	},
 
 	-- Terminal stuff
-	{ "<leader>t",   group = "Terminal" },
+	{ "<leader>t", group = "Terminal" },
 	{
 		"<leader>tp",
 		function()
-			open_named_terminal('cbonsai')
+			open_named_terminal("cbonsai")
 		end,
-		desc = "Terminal bottom"
+		desc = "Terminal bottom",
 	},
 	{
 		"<leader>tt",
-		group = "Turborepo"
+		group = "Turborepo",
 	},
 	{
 		"<leader>ttb",
 		function()
 			open_named_terminal("turbo build")
 		end,
-		desc = "Turbo"
+		desc = "Turbo",
 	},
+	{
+		"<leader>ttt",
+		function()
+			open_named_terminal("turbo test")
+		end,
+		desc = "Turbo test",
+	},
+	{
+		"<leader>ttp",
+		function()
+			open_named_terminal("turbo playwright:run")
+		end,
+		desc = "Turbo playwright",
+	},
+	{
+		"<leader>ttw",
+		function()
+			open_named_terminal("turbo run dev:ssl --filter kollarna-wizard")
+		end,
+		desc = "Turbo run kollarna-wizard",
+	},
+	{
+		"<leader>tta",
+		function()
+			open_named_terminal("turbo run dev:ssl --filter kollarna-patient-portal")
+		end,
+		desc = "Turbo run kollarna-patient-portal",
+	},
+
 	-- {
 	-- 	"<leader>ttr",
 	-- 	function()
@@ -195,7 +229,7 @@ M.keymap = {
 	-- 			{
 	-- 				prompt: "Which app should be loaded"
 	-- 				completion:
-	-- 			}	
+	-- 			}
 	-- 		)
 	-- 		open_named_terminal("turbo build")
 	-- 	end,
@@ -222,11 +256,11 @@ M.keymap = {
 		desc = "Snacks toggle term",
 	},
 	-- Project
-	{ "<leader>p",   group = "Project" },
-	{ "<leader>pt",  group = "Todo" },
+	{ "<leader>p", group = "Project" },
+	{ "<leader>pt", group = "Todo" },
 	{ "<leader>ptt", "<cmd>TodoTelescope<cr>", desc = "Find todos" },
 	-- Editor
-	{ "<leader>e",   group = "Editor" },
+	{ "<leader>e", group = "Editor" },
 	{
 		"<leader>ed",
 		function()
@@ -242,7 +276,7 @@ M.keymap = {
 	{
 		mode = { "n" },
 		{ "gd", vim.lsp.buf.definition, hidden = true },
-		{ "K",  vim.lsp.buf.hover,      hidden = true },
+		{ "K", vim.lsp.buf.hover, hidden = true },
 		{
 			"<leader>z",
 			function()
