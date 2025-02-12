@@ -33,7 +33,7 @@ return {
 			},
 		},
 		config = function()
-			local capabilities = require('blink.cmp').get_lsp_capabilities()
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			local lspconfig = require("lspconfig")
 
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -43,7 +43,6 @@ return {
 			lspconfig.lua_ls.setup({
 				inlay_hints = { enabled = true },
 				capabilities = capabilities,
-
 			})
 
 			lspconfig.html.setup({
@@ -116,7 +115,12 @@ return {
 				settings = {
 					validate = "on",
 				},
-				root_dir = lspconfig.util.root_pattern(".eslintrc.js", ".eslintrc.json", "package.json", ".eslintrc.cjs"),
+				root_dir = lspconfig.util.root_pattern(
+					".eslintrc.js",
+					".eslintrc.json",
+					"package.json",
+					".eslintrc.cjs"
+				),
 				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
 			})
 
