@@ -48,6 +48,8 @@ M.keymap = {
 	{ "<leader>fh", function() Snacks.picker.help() end,      desc = "Open Help Tags" },
 	{ "<leader>fe", "<cmd>Oil<cr>",                           desc = "Oil" },
 
+	{ "<leader>u",  function() Snacks.picker.help() end,      desc = "Undo picker" },
+
 	{ "<leader>b",  group = "Buffers" },
 	{ "<leader>bl", function() Snacks.picker.buffers() end,   desc = "Find buffers" },
 	{

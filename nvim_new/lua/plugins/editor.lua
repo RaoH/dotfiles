@@ -1,26 +1,33 @@
 return {
+	-- {
+	-- 	"windwp/nvim-autopairs",
+	-- 	event = { "InsertEnter" },
+	-- 	config = function()
+	-- 		local autopairs = require("nvim-autopairs")
+	-- 		autopairs.setup({
+	-- 			check_ts = true,
+	-- 		})
+	-- 	end,
+	-- },
 	{
-		"windwp/nvim-autopairs",
-		event = { "InsertEnter" },
+		"echasnovski/mini.pairs",
+		version = false,
 		config = function()
-			local autopairs = require("nvim-autopairs")
-			autopairs.setup({
-				check_ts = true,
-			})
+			require("mini.pairs").setup()
 		end,
 	},
 	{
 		"echasnovski/mini.ai",
 		version = false,
 		config = function()
-			require("mini.ai").setup({})
+			require("mini.ai").setup()
 		end,
 	},
 	{
 		"echasnovski/mini.surround",
 		version = false,
 		config = function()
-			require("mini.surround").setup({})
+			require("mini.surround").setup()
 		end,
 	},
 	{
