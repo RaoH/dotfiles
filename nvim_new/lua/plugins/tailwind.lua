@@ -11,6 +11,7 @@ return {
 	{
 		"catgoose/nvim-colorizer.lua",
 		event = "BufReadPre",
+		enabled = false,
 		config = function()
 			require("colorizer").setup({
 				user_default_options = {
@@ -24,4 +25,13 @@ return {
 		opts = { -- set to setup table
 		},
 	},
+
+	{
+		"luckasRanarison/tailwind-tools.nvim",
+		name = "tailwind-tools",
+		build = ":UpdateRemotePlugins",
+		opts = {}
+	}
+
+
 }
