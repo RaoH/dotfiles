@@ -3,7 +3,7 @@ local trigger_text = ";"
 return {
 	{
 		'saghen/blink.cmp',
-		dependencies = { 'rafamadriz/friendly-snippets', { 'L3MON4D3/LuaSnip', version = 'v2.*' } },
+		dependencies = { "xzbdmw/colorful-menu.nvim", 'rafamadriz/friendly-snippets', },
 
 		-- use a release tag to download pre-built binaries
 		version = '*',
@@ -19,17 +19,29 @@ return {
 			completion = {
 				menu = {
 					border = "rounded",
+					-- draw = {
+					-- 	columns = { { "kind_icon" }, { "label", gap = 1 } },
+					-- 	components = {
+					-- 		label = {
+					-- 			text = function(ctx)
+					-- 				return require("colorful-menu").blink_components_text(ctx)
+					-- 			end,
+					-- 			highlight = function(ctx)
+					-- 				return require("colorful-menu").blink_components_highlight(ctx)
+					-- 			end,
+					-- 		},
+					-- 	},
+					-- }
 				},
 				documentation = {
 					window = {
 						border = "rounded",
 					},
 					auto_show = true,
-					auto_show_delay_ms = 300,
 				},
-				trigger = {
-					show_on_keyword = true,
-				}
+				-- trigger = {
+				-- 	show_on_keyword = true,
+				-- }
 
 				-- ghost_text = { enabled = true }
 			},
@@ -57,7 +69,6 @@ return {
 							}
 						end
 						return vim.tbl_filter(function(item)
-							vim.notify_once("Testing")
 							return item.kind == require('blink.cmp.types').CompletionItemKind.Snippet
 						end, items)
 					else
@@ -85,12 +96,11 @@ return {
 			signature = { enabled = true }
 		},
 	},
-	-- 	{
-	-- 		"xzbdmw/colorful-menu.nvim",
-	-- 		config = function()
-	-- 			require("colorful-menu").setup()
-	-- 		end,
-	-- 	},
-	-- }
+	-- {
+	-- 	"xzbdmw/colorful-menu.nvim",
+	-- 	config = function()
+	-- 		require("colorful-menu").setup()
+	-- 	end,
+	-- },
 
 }
