@@ -1,6 +1,7 @@
 return {
 	{
 		"stevearc/aerial.nvim",
+		enabled = false,
 		opts = {},
 		-- Optional dependencies
 		config = function()
