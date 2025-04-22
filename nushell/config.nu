@@ -1,37 +1,37 @@
-# config.nu
-#
-# Installed by:
-# version = "0.103.0"
-#
-# This file is used to override default Nushell settings, define
-# (or import) custom commands, or run any other startup tasks.
-# See https://www.nushell.sh/book/configuration.html
-#
-# This file is loaded after env.nu and before login.nu
-#
-# You can open this file in your default editor using:
-# config nu
-#
-# See `help config nu` for more options
-#
-# You can remove these comments if you want or leave
-# them for future reference.
-
-use std "path add"
-path add "/opt/homebrew/bin/"
-
-#$env.EDITOR = nvim
+$env.PNPM_HOME = '/Users/raoul/Library/pnpm'
+$env.config.show_banner = false
 $env.config.buffer_editor = 'nvim'
+$env.STARSHIP_CONFIG = "/Users/raoul/.config/starship/starship.toml";
 
 #VI mode
 $env.config = {
 	edit_mode: 'vi' 
 }
 
+use std "path add"
+path add "/opt/homebrew/bin/"
+path add "/Users/raoul/.local/bin"
+path add "/Users/raoul/Library/pnpm"
+path add "/opt/homebrew/opt/redis@6.2/bin"
+path add "/opt/podman/bin"
+
+# Update paths
+let $fnm_all_vars = fnm env --shell bash | str  replace -a "export " '' | str replace -a '"' '' |  lines | split column "=" | rename name value | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value };
+
+let $fnm_path: string = $fnm_all_vars.PATH | str replace ":$PATH" ""
+#print "Adding FNM to path: " $fnm_path
+$env.PATH = $env.PATH | append $fnm_path;
+
+# Add env vars
+let $fnm_vars = $fnm_all_vars | reject PATH;
+#print "Adding FNM vars to shell env: " $fnm_vars
+load-env $fnm_vars
+
+
 alias vim = nvim
 #alias chrome-debug="_chrome_debug"
 alias v = fd --type f --hidden --exclude .git | fzf #-p -- --reverse | xargs nvim
-alias ls = eza
+#alias ls = eza
 alias cat = bat
 alias ai = ollama run codellama
 alias lt = eza --tree --level=2 --long --icons --git

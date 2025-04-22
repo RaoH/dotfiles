@@ -33,7 +33,7 @@ M.dashboard_layout_section = {
 
 		table.insert(cmds, {
 			title = "Notifications",
-			cmd = "gh notify -s -a -n5 || true",
+			cmd = "gh notify -s -a -n5",
 			action = function()
 				vim.ui.open("https://github.com/notifications")
 			end,
@@ -45,7 +45,7 @@ M.dashboard_layout_section = {
 
 		table.insert(cmds, {
 			title = "Open Issues",
-			cmd = "gh issue list -L 3 || true",
+			cmd = "try {gh issue list -L 3}",
 			key = "i",
 			action = function()
 				vim.fn.jobstart("gh issue list --web", { detach = true })
@@ -57,7 +57,7 @@ M.dashboard_layout_section = {
 		table.insert(cmds, {
 			icon = " ",
 			title = "Open PRs",
-			cmd = "gh pr list -L 3 || true",
+			cmd = "try {gh pr list -L 3}",
 			key = "p",
 			action = function()
 				vim.fn.jobstart("gh pr list --web", { detach = true })
@@ -69,7 +69,7 @@ M.dashboard_layout_section = {
 		table.insert(cmds, {
 			icon = " ",
 			title = "Git Status",
-			cmd = "git --no-pager diff --stat -B -M -C || true",
+			cmd = "try {git --no-pager diff --stat -B -M -C}",
 			height = 10,
 		})
 

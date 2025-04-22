@@ -49,6 +49,10 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.jsonls.setup({
+				capabilities = capabilities,
+			})
+
 			lspconfig.cssls.setup({
 				capabilities = capabilities,
 				settings = {
