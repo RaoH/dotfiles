@@ -27,6 +27,18 @@ let $fnm_vars = $fnm_all_vars | reject PATH;
 #print "Adding FNM vars to shell env: " $fnm_vars
 load-env $fnm_vars
 
+# Load aliass	
+source /Users/raoul/.config/nushell/aliases.nu
+
+#Load completions
+source /Users/raoul/.config/nushell/completions/aerospace-completions.nu
+source /Users/raoul/.config/nushell/completions/curl.nu
+source /Users/raoul/.config/nushell/completions/op-completions.nu
+source /Users/raoul/.config/nushell/completions/pnpm-completions.nu
+
+# load modules
+source /Users/raoul/.config/nushell/modules/docker/
+source /Users/raoul/.config/nushell/modules/fnm/fnm.nu
 
 alias vim = nvim
 #alias chrome-debug="_chrome_debug"
@@ -37,8 +49,7 @@ alias ai = ollama run codellama
 alias lt = eza --tree --level=2 --long --icons --git
 alias n = nvim
 
-
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
-zoxide init nushell | save -f ~/.zoxide.nu
+zoxide init nushell | save -f /Users/raoul/.zoxide.nu
