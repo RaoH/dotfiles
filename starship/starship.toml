@@ -4,6 +4,7 @@ format = """
 [](color_orange)\
 $os\
 $username\
+$battery\
 [](bg:color_yellow fg:color_orange)\
 $directory\
 [](fg:color_yellow bg:color_aqua)\
@@ -29,6 +30,11 @@ $cmd_duration\
 $line_break$character"""
 
 palette = 'gruvbox_dark'
+
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '⚡️ '
+discharging_symbol = '💀 '
 
 [palettes.gruvbox_dark]
 color_fg0 = '#fbf1c7'
