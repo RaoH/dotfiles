@@ -86,6 +86,8 @@ return {
 				},
 			})
 
+			lspconfig.svelte.setup({})
+
 			lspconfig.vtsls.setup({
 				capabilities = capabilities,
 				init_options = {
@@ -114,6 +116,7 @@ return {
 						},
 					},
 				},
+				--filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 			})
 
 			lspconfig.eslint.setup({
@@ -127,7 +130,7 @@ return {
 					"package.json",
 					".eslintrc.cjs"
 				),
-				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte" },
 			})
 
 			lspconfig.tailwindcss.setup({

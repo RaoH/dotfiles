@@ -11,6 +11,7 @@ return {
 					"shellcheck",
 					"shfmt",
 					"tailwindcss-language-server",
+					"svelte",
 					"css-lsp",
 					"netcoredbg",
 					"css-variables-language-server",
@@ -32,6 +33,7 @@ return {
 					"cssls",
 					"tailwindcss",
 					"vtsls",
+					"svelte",
 				},
 			})
 		end,
