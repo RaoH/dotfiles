@@ -14,6 +14,7 @@ path add "/Users/raoul/.local/bin"
 path add "/Users/raoul/Library/pnpm"
 path add "/opt/homebrew/opt/redis@6.2/bin"
 path add "/opt/podman/bin"
+path add "/usr/local/share/dotnet"
 
 # Update paths
 #let $fnm_all_vars = fnm env --shell bash | str  replace -a "export " '' | str replace -a '"' '' |  lines | split column "=" | rename name value | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value };

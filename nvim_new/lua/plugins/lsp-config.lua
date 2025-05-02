@@ -40,6 +40,8 @@ return {
 				border = "rounded",
 			})
 
+			lspconfig.csharp_ls.setup({})
+
 			lspconfig.lua_ls.setup({
 				inlay_hints = { enabled = true },
 				capabilities = capabilities,
