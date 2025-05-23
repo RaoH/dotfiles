@@ -9,9 +9,9 @@ return {
 		},
 		build = "make tiktoken", -- Only on MacOS or Linux
 		opts = {
-			debug = false,       -- Enable debugging
+			debug = false, -- Enable debugging
 			--model = "claude-3.5-sonnet",
-			model = 'gemini-2.0-flash-001',
+			model = "claude-sonnet-4",
 			window = {
 				layout = "float",
 			},

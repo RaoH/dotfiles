@@ -30,28 +30,68 @@ M.keymap = {
 		end,
 		desc = "Open dashboard",
 	},
-	{ "<leader>f",  group = "file" }, -- group
-	-- Telescope
-	-- { "<leader>/", "<cmd>Telescope live_grep<cr>", hidden = true, remap = true },
-	-- { "<leader>fd", "<cmd>Telescope find_files<cr>", desc = "Find files" },
-	-- { "<leader>ff", "<cmd>Telescope git_files<cr>", desc = "Find Git File" },
-	-- { "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
-	-- { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Open Help Tags" },
-	-- { "<leader>fr", "<cmd>Telescope resume<cr>", desc = "Resume previous telescope search" },
-	-- { "<leader>ft", "<cmd>Telescope builtin<cr>", desc = "Telescope builtin" },
-	---
-	{ "<leader>/",  function() Snacks.picker.grep() end,      hidden = true,            remap = true },
-	{ "<leader>fd", function() Snacks.picker.files() end,     desc = "Find files" },
-	{ "<leader>ff", function() Snacks.picker.git_files() end, desc = "Find Git File" },
-	{ "<leader>fo", function() Snacks.picker.recent() end,    desc = "Open Recent File" },
-	{ "<leader>fr", function() Snacks.picker.resume() end,    desc = "Resume search" },
-	{ "<leader>fh", function() Snacks.picker.help() end,      desc = "Open Help Tags" },
-	{ "<leader>fe", "<cmd>Oil<cr>",                           desc = "Oil" },
+	{ "<leader>f", group = "file" }, -- group
+	{
+		"<leader>/",
+		function()
+			Snacks.picker.grep()
+		end,
+		hidden = true,
+		remap = true,
+	},
+	{
+		"<leader>fd",
+		function()
+			Snacks.picker.files()
+		end,
+		desc = "Find files",
+	},
+	{
+		"<leader>ff",
+		function()
+			Snacks.picker.git_files()
+		end,
+		desc = "Find Git File",
+	},
+	{
+		"<leader>fo",
+		function()
+			Snacks.picker.recent()
+		end,
+		desc = "Open Recent File",
+	},
+	{
+		"<leader>fr",
+		function()
+			Snacks.picker.resume()
+		end,
+		desc = "Resume search",
+	},
+	{
+		"<leader>fh",
+		function()
+			Snacks.picker.help()
+		end,
+		desc = "Open Help Tags",
+	},
+	{ "<leader>fe", "<cmd>Oil<cr>", desc = "Oil" },
 
-	{ "<leader>u",  function() Snacks.picker.help() end,      desc = "Undo picker" },
+	{
+		"<leader>u",
+		function()
+			Snacks.picker.help()
+		end,
+		desc = "Undo picker",
+	},
 
-	{ "<leader>b",  group = "Buffers" },
-	{ "<leader>bl", function() Snacks.picker.buffers() end,   desc = "Find buffers" },
+	{ "<leader>b", group = "Buffers" },
+	{
+		"<leader>bl",
+		function()
+			Snacks.picker.buffers()
+		end,
+		desc = "Find buffers",
+	},
 	{
 		"<leader>bD",
 		function()
@@ -83,12 +123,12 @@ M.keymap = {
 		desc = "Toggle Scratch Buffer",
 	},
 
-	{ "<leader>c",  group = "code" },
+	{ "<leader>c", group = "code" },
 	{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code action " },
-	{ "<leader>cr", ":IncRename ",           desc = "IncRename" },
+	{ "<leader>cr", ":IncRename ", desc = "IncRename" },
 	{ "<leader>cs", "<cmd>AerialToggle<cr>", desc = "Symbols Outline" },
-	{ "<leader>cm", "<cmd>Mason<cr>",        desc = "Mason" },
-	{ "<leader>cl", "<cmd>LspRestart<cr>",   desc = "LspRestart" },
+	{ "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
+	{ "<leader>cl", "<cmd>LspRestart<cr>", desc = "LspRestart" },
 	{
 		"<leader>cc",
 		function()
@@ -112,17 +152,17 @@ M.keymap = {
 	},
 
 	-- Copilot
-	{ "<leader>cp",  group = "Copilot" },
-	{ "<leader>cpo", "<cmd>:CopilotChatOpen<cr>",    desc = "Copilot Chat " },
-	{ "<leader>cpt", "<cmd>:CopilotChatToggle<cr>",  desc = "Copilot Chat toggle " },
-	{ "<leader>cpr", "<cmd>:CopilotChatReview<cr>",  desc = "Copilot Chat Review " },
+	{ "<leader>cp", group = "Copilot" },
+	{ "<leader>cpo", "<cmd>:CopilotChatOpen<cr>", desc = "Copilot Chat " },
+	{ "<leader>cpt", "<cmd>:CopilotChatToggle<cr>", desc = "Copilot Chat toggle " },
+	{ "<leader>cpr", "<cmd>:CopilotChatReview<cr>", desc = "Copilot Chat Review " },
 	{ "<leader>cpe", "<cmd>:CopilotChatExplain<cr>", desc = "Copilot Chat Explain " },
-	{ "<leader>cpf", "<cmd>:CopilotChatFix<cr>",     desc = "Copilot Chat Fix " },
-	{ "<leader>cpc", "<cmd>:CopilotChatCommit<cr>",  desc = "Copilot Chat Commit " },
-	{ "<leader>cpq", "<cmd>:CopilotChatReset<cr>",   desc = "Copilot Chat Commit " },
+	{ "<leader>cpf", "<cmd>:CopilotChatFix<cr>", desc = "Copilot Chat Fix " },
+	{ "<leader>cpc", "<cmd>:CopilotChatCommit<cr>", desc = "Copilot Chat Commit " },
+	{ "<leader>cpq", "<cmd>:CopilotChatReset<cr>", desc = "Copilot Chat Commit " },
 	-- Conform
 
-	{ "<leader>g",   group = "git" },
+	{ "<leader>g", group = "git" },
 	{
 		"<leader>gb",
 		function()
@@ -131,10 +171,18 @@ M.keymap = {
 		desc = "Git Blame Line",
 	},
 	{
-		"<leader>gc", function() Snacks.picker.git_log() end, desc = "Git commits",
+		"<leader>gc",
+		function()
+			Snacks.picker.git_log()
+		end,
+		desc = "Git commits",
 	},
 	{
-		"<leader>g!", function() Snacks.picker.git_status() end, desc = "Git status",
+		"<leader>g!",
+		function()
+			Snacks.picker.git_status()
+		end,
+		desc = "Git status",
 	},
 	{
 		"<leader>gl",
@@ -143,7 +191,7 @@ M.keymap = {
 		end,
 		desc = "lazygit",
 	},
-	{ "<leader>x",  group = "Trouble" },
+	{ "<leader>x", group = "Trouble" },
 	{
 		"<leader>xd",
 		"<cmd>TroubleToggle document_diagnostics<cr>",
@@ -172,7 +220,7 @@ M.keymap = {
 	},
 
 	-- Terminal stuff
-	{ "<leader>t",   group = "Terminal" },
+	{ "<leader>t", group = "Terminal" },
 	{
 		"<leader>tp",
 		function()
@@ -254,11 +302,17 @@ M.keymap = {
 		desc = "Snacks toggle term",
 	},
 	-- Project
-	{ "<leader>p",   group = "Project" },
-	{ "<leader>pt",  group = "Todo" },
-	{ "<leader>ptt", function() Snacks.picker.todo_comments() end, desc = "Find todos" },
+	{ "<leader>p", group = "Project" },
+	{ "<leader>pt", group = "Todo" },
+	{
+		"<leader>ptt",
+		function()
+			Snacks.picker.todo_comments()
+		end,
+		desc = "Find todos",
+	},
 	-- Editor
-	{ "<leader>e",   group = "Editor" },
+	{ "<leader>e", group = "Editor" },
 	{
 		"<leader>ed",
 		function()
@@ -274,7 +328,7 @@ M.keymap = {
 	{
 		mode = { "n" },
 		{ "gd", vim.lsp.buf.definition, hidden = true },
-		{ "K",  vim.lsp.buf.hover,      hidden = true },
+		{ "K", vim.lsp.buf.hover, hidden = true },
 		{
 			"<leader>z",
 			function()
@@ -295,6 +349,7 @@ M.keymap = {
 			end,
 		},
 	},
+
 	{ "<leader>n", group = "Notifications" },
 	{
 		"<leader>nh",
@@ -309,6 +364,65 @@ M.keymap = {
 			Snacks.notifier.hide()
 		end,
 		desc = "Dismiss All Notifications",
+	},
+	{ "<leader>k", group = "Kulala" },
+	{
+		"<leader>kb",
+		function()
+			require("kulala").scratchpad()
+		end,
+		desc = "Open scratchpad",
+	},
+	{
+		"<leader>ko",
+		function()
+			require("kulala").open()
+		end,
+		desc = "Open kulala",
+	},
+	{
+		"<leader>kc",
+		function()
+			require("kulala").close()
+		end,
+		desc = "close kulala",
+	},
+	{
+		"<leader>ks",
+		function()
+			require("kulala").run()
+		end,
+		desc = "Run query",
+		mode = { "n", "v" },
+	},
+	-- {'<leader>ku', group = 'Kulala UI'},
+	{
+		"<leader>kH",
+		function()
+			require("kulala.ui").show_headers()
+		end,
+		desc = "Show headers",
+	},
+	{
+		"<leader>kB",
+		function()
+			require("kulala.ui").show_body()
+		end,
+		desc = "Show body",
+	},
+	{
+		"<leader>kA",
+		function()
+			require("kulala.ui").show_headers_body()
+		end,
+		desc = "Show body and headers",
+	},
+	{
+		"<leader>kV",
+		function()
+			require("kulala.ui").show_headers_body()
+		end,
+		desc = "Show verbose",
 	},
 }
 

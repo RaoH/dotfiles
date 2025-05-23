@@ -13,19 +13,44 @@ return {
 			"nvim-neotest/nvim-nio",
 			"mxsdev/nvim-dap-vscode-js",
 			-- build debugger from source
-			{
-				"microsoft/vscode-js-debug",
-				version = "1.x",
-				build = "npm i && npm run compile vsDebugServerBundle && mv dist out"
-			}
+			-- {
+			-- 	"microsoft/vscode-js-debug",
+			-- 	version = "1.x",
+			-- 	build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
+			-- },
 		},
 		keys = {
 			-- normal mode is default
-			{ "<leader>db", function() require 'dap'.toggle_breakpoint() end },
-			{ "<leader>dc", function() require 'dap'.continue() end },
-			{ "<leader>do", function() require 'dap'.step_over() end },
-			{ "<leader>di", function() require 'dap'.step_into() end },
-			{ "<leader>dO", function() require 'dap'.step_out() end },
+			{
+				"<leader>db",
+				function()
+					require("dap").toggle_breakpoint()
+				end,
+			},
+			{
+				"<leader>dc",
+				function()
+					require("dap").continue()
+				end,
+			},
+			{
+				"<leader>do",
+				function()
+					require("dap").step_over()
+				end,
+			},
+			{
+				"<leader>di",
+				function()
+					require("dap").step_into()
+				end,
+			},
+			{
+				"<leader>dO",
+				function()
+					require("dap").step_out()
+				end,
+			},
 			{
 				"<leader>da",
 				function()
@@ -43,12 +68,12 @@ return {
 			},
 		},
 		config = function()
-			local dap = require('dap')
+			local dap = require("dap")
 			-- setup adapters
-			require('dap-vscode-js').setup({
-				debugger_path = vim.fn.stdpath('data') .. '/mason/packages/js-debug-adapter',
-				debugger_cmd = { 'js-debug-adapter' },
-				adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' },
+			require("dap-vscode-js").setup({
+				debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter",
+				debugger_cmd = { "js-debug-adapter" },
+				adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
 			})
 			for _, adapter in pairs({ "pwa-node", "pwa-chrome", "node-terminal" }) do
 				dap.adapters[adapter] = {
@@ -62,7 +87,7 @@ return {
 				}
 			end
 
-			for name, sign in pairs(require('config.icons').icons.dap) do
+			for name, sign in pairs(require("config.icons").icons.dap) do
 				sign = type(sign) == "table" and sign or { sign }
 				vim.fn.sign_define(
 					"Dap" .. name,
@@ -71,55 +96,55 @@ return {
 			end
 
 			-- language config
-			for _, language in ipairs({ 'typescript', 'javascript' }) do
+			for _, language in ipairs({ "typescript", "javascript" }) do
 				dap.configurations[language] = {
 					{
-						name = 'Launch',
-						type = 'pwa-node',
-						request = 'launch',
-						program = '${file}',
-						rootPath = '${workspaceFolder}',
-						cwd = '${workspaceFolder}',
+						name = "Launch",
+						type = "pwa-node",
+						request = "launch",
+						program = "${file}",
+						rootPath = "${workspaceFolder}",
+						cwd = "${workspaceFolder}",
 						sourceMaps = true,
-						skipFiles = { '<node_internals>/**' },
-						protocol = 'inspector',
-						console = 'integratedTerminal',
+						skipFiles = { "<node_internals>/**" },
+						protocol = "inspector",
+						console = "integratedTerminal",
 					},
 					{
-						name = 'Attach to node process',
-						type = 'pwa-node',
-						request = 'attach',
-						rootPath = '${workspaceFolder}',
-						processId = require('dap.utils').pick_process,
+						name = "Attach to node process",
+						type = "pwa-node",
+						request = "attach",
+						rootPath = "${workspaceFolder}",
+						processId = require("dap.utils").pick_process,
 						attachSimplePort = 9229,
-						console = 'integratedTerminal',
-						skipFiles = { '<node_internals>/**' },
+						console = "integratedTerminal",
+						skipFiles = { "<node_internals>/**" },
 						sourceMaps = true,
 						-- protocol = 'inspector',
 						-- sourceMaps = true,
 						-- skipFiles = { '<node_internals>/**' },
 					},
 					{
-						name = 'Debug Main Process (Electron)',
-						type = 'pwa-node',
-						request = 'launch',
-						program = '${workspaceFolder}/node_modules/.bin/electron',
+						name = "Debug Main Process (Electron)",
+						type = "pwa-node",
+						request = "launch",
+						program = "${workspaceFolder}/node_modules/.bin/electron",
 						args = {
-							'${workspaceFolder}/dist/index.js',
+							"${workspaceFolder}/dist/index.js",
 						},
 						outFiles = {
-							'${workspaceFolder}/dist/*.js',
+							"${workspaceFolder}/dist/*.js",
 						},
 						resolveSourceMapLocations = {
-							'${workspaceFolder}/dist/**/*.js',
-							'${workspaceFolder}/dist/*.js',
+							"${workspaceFolder}/dist/**/*.js",
+							"${workspaceFolder}/dist/*.js",
 						},
-						rootPath = '${workspaceFolder}',
-						cwd = '${workspaceFolder}',
+						rootPath = "${workspaceFolder}",
+						cwd = "${workspaceFolder}",
 						sourceMaps = true,
-						skipFiles = { '<node_internals>/**' },
-						protocol = 'inspector',
-						console = 'integratedTerminal',
+						skipFiles = { "<node_internals>/**" },
+						protocol = "inspector",
+						console = "integratedTerminal",
 					},
 				}
 			end
@@ -132,5 +157,5 @@ return {
 			dap.listeners.before.event_terminated["dapui_config"] = dapui.close
 			dap.listeners.before.event_exited["dapui_config"] = dapui.close
 		end,
-	}
+	},
 }

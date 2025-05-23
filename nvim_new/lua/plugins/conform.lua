@@ -22,7 +22,15 @@ return {
 			})
 
 			conform.setup({
+				formatters = {
+					kulala = {
+						command = "kulala-fmt",
+						args = { "format", "$FILENAME" },
+						stdin = false,
+					},
+				},
 				formatters_by_ft = {
+					http = { "kulala" },
 					javascript = { "prettier" },
 					typescript = { "prettier" },
 					javascriptreact = { "prettier" },

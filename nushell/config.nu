@@ -2,6 +2,7 @@ $env.PNPM_HOME = '/Users/raoul/Library/pnpm'
 $env.config.show_banner = false
 $env.config.buffer_editor = 'nvim'
 $env.STARSHIP_CONFIG = "/Users/raoul/.config/starship/starship.toml";
+$env.DOCKER_HOST = "unix:///var/folders/s7/5yc_kfq10_7937dgr3xfcv600000gn/T/podman/podman-machine-default-api.sock";
 
 #VI mode
 $env.config = {
@@ -10,8 +11,10 @@ $env.config = {
 
 use std "path add"
 path add "/opt/homebrew/bin/"
+path add "/opt/homebrew/sbin/"
 path add "/Users/raoul/.local/bin"
 path add "/Users/raoul/Library/pnpm"
+path add "/Users/raoul/.docker"
 path add "/opt/homebrew/opt/redis@6.2/bin"
 path add "/opt/podman/bin"
 path add "/usr/local/share/dotnet"

@@ -55,6 +55,10 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.kulala_ls.setup({
+				capabilities = capabilities,
+			})
+
 			lspconfig.cssls.setup({
 				capabilities = capabilities,
 				settings = {
