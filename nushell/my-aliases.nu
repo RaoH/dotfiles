@@ -6,3 +6,4 @@ alias cat = bat
 alias ai = ollama run codellama
 alias lt = eza --tree --level=2 --long --icons --git
 alias n = nvim
+alias mo = ^open 
