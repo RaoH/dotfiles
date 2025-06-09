@@ -1,8 +1,9 @@
 $env.PNPM_HOME = '/Users/raoul/Library/pnpm'
 $env.config.show_banner = false
 $env.config.buffer_editor = 'nvim'
-$env.STARSHIP_CONFIG = "/Users/raoul/.config/starship/starship.toml";
-$env.DOCKER_HOST = "unix:///var/folders/s7/5yc_kfq10_7937dgr3xfcv600000gn/T/podman/podman-machine-default-api.sock";
+$env.STARSHIP_CONFIG = "/Users/raoul/.config/starship/starship.toml"
+$env.DOCKER_HOST = ^podman info | from yaml | $in.host.remoteSocket.path
+$env.config.completions.algorithm = "Fuzzy"
 
 #VI mode
 $env.config = {
@@ -18,18 +19,6 @@ path add "/Users/raoul/.docker"
 path add "/opt/homebrew/opt/redis@6.2/bin"
 path add "/opt/podman/bin"
 path add "/usr/local/share/dotnet"
-
-# Update paths
-#let $fnm_all_vars = fnm env --shell bash | str  replace -a "export " '' | str replace -a '"' '' |  lines | split column "=" | rename name value | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value };
-
-#let $fnm_path: string = $fnm_all_vars.PATH | str replace ":$PATH" ""
-#print "Adding FNM to path: " $fnm_path
-#$env.PATH = $env.PATH | append $fnm_path;
-
-# Add env vars
-#let $fnm_vars = $fnm_all_vars | reject PATH;
-#print "Adding FNM vars to shell env: " $fnm_vars
-#load-env $fnm_vars
 
 # Load aliass	
 source /Users/raoul/.config/nushell/my-aliases.nu
