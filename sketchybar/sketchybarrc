@@ -29,7 +29,7 @@ if networksetup -getairportnetwork en0 2>/dev/null | grep -q "Current Wi-Fi Netw
     source "$ITEM_DIR/wifi.sh"
 fi
 
-source "$ITEM_DIR/weather.sh"
+#source "$ITEM_DIR/weather.sh"
 
 sketchybar --update
 

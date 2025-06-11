@@ -17,6 +17,7 @@ default=(
   background.drawing=off
 )
 
+sketchybar --hotload on
 sketchybar --default "${default[@]}"
 
 sketchybar --add event aerospace_workspace_change
