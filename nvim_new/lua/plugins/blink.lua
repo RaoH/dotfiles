@@ -3,7 +3,7 @@ local trigger_text = ";"
 return {
 	{
 		'saghen/blink.cmp',
-		dependencies = { "xzbdmw/colorful-menu.nvim", 'rafamadriz/friendly-snippets', },
+		dependencies = { "xzbdmw/colorful-menu.nvim", 'rafamadriz/friendly-snippets', "onsails/lspkind.nvim", },
 
 		-- use a release tag to download pre-built binaries
 		version = '*',
@@ -19,39 +19,68 @@ return {
 			completion = {
 				menu = {
 					border = "rounded",
-					-- draw = {
-					-- 	columns = { { "kind_icon" }, { "label", gap = 1 } },
-					-- 	components = {
-					-- 		label = {
-					-- 			text = function(ctx)
-					-- 				return require("colorful-menu").blink_components_text(ctx)
-					-- 			end,
-					-- 			highlight = function(ctx)
-					-- 				return require("colorful-menu").blink_components_highlight(ctx)
-					-- 			end,
-					-- 		},
-					-- 	},
-					-- }
+
+					cmdline_position = function()
+						if vim.g.ui_cmdline_pos ~= nil then
+							local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+							return { pos[1] - 1, pos[2] }
+						end
+						local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+						return { vim.o.lines - height, 0 }
+					end,
+
+					draw = {
+						columns = {
+							{ "kind_icon", "label", gap = 1 },
+							{ "kind" },
+						},
+						components = {
+							kind_icon = {
+								text = function(item)
+									local kind = require("lspkind").symbol_map[item.kind] or ""
+									return kind .. " "
+								end,
+								highlight = "CmpItemKind",
+							},
+							label = {
+								text = function(item)
+									return item.label
+								end,
+								highlight = "CmpItemAbbr",
+							},
+							kind = {
+								text = function(item)
+									return item.kind
+								end,
+								highlight = "CmpItemKind",
+							},
+						},
+					},
 				},
 				documentation = {
-					window = {
-						border = "rounded",
-					},
 					auto_show = true,
+					auto_show_delay_ms = 250,
+					window = { border = "rounded" },
 				},
-				-- trigger = {
-				-- 	show_on_keyword = true,
-				-- }
-
-				-- ghost_text = { enabled = true }
+				-- documentation = {
+				-- 	window = {
+				-- 		border = "rounded",
+				-- 	},
+				-- 	auto_show = true,
+				-- },
 			},
 			appearance = {
-				use_nvim_cmp_as_default = true,
+				use_nvim_cmp_as_default = false,
 				nerd_font_variant = "mono",
 			},
-			cmdline = { enabled = false },
+
+			kcmdline = { enabled = false },
+
+			signature = {
+				enabled = true,
+				window = { border = "rounded" },
+			},
 			sources = {
-				--default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
 				default = { 'lazydev', 'lsp', 'snippets', 'buffer' },
 				transform_items = function(ctx, items)
 					local _ = ctx
@@ -84,23 +113,9 @@ return {
 						-- make lazydev completions top priority (see `:h blink.cmp`)
 						score_offset = 100,
 					},
-					-- snippets = {
-					-- 	should_show_items = function(ctx)
-					-- 		vim.notify('triggered')
-					-- 		return ctx.trigger.initial_kind ~= ';'
-					-- 	end
-					-- }
 				},
 			},
 			snippets = { preset = 'luasnip' },
-			signature = { enabled = true }
 		},
 	},
-	-- {
-	-- 	"xzbdmw/colorful-menu.nvim",
-	-- 	config = function()
-	-- 		require("colorful-menu").setup()
-	-- 	end,
-	-- },
-
 }

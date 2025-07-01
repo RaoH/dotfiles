@@ -30,7 +30,7 @@ M.keymap = {
 		end,
 		desc = "Open dashboard",
 	},
-	{ "<leader>f", group = "file" }, -- group
+	{ "<leader>f",  group = "file" }, -- group
 	{
 		"<leader>/",
 		function()
@@ -84,7 +84,7 @@ M.keymap = {
 		desc = "Undo picker",
 	},
 
-	{ "<leader>b", group = "Buffers" },
+	{ "<leader>b",  group = "Buffers" },
 	{
 		"<leader>bl",
 		function()
@@ -123,12 +123,12 @@ M.keymap = {
 		desc = "Toggle Scratch Buffer",
 	},
 
-	{ "<leader>c", group = "code" },
+	{ "<leader>c",  group = "code" },
 	{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code action " },
-	{ "<leader>cr", ":IncRename ", desc = "IncRename" },
+	{ "<leader>cr", ":IncRename ",           desc = "IncRename" },
 	{ "<leader>cs", "<cmd>AerialToggle<cr>", desc = "Symbols Outline" },
-	{ "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
-	{ "<leader>cl", "<cmd>LspRestart<cr>", desc = "LspRestart" },
+	{ "<leader>cm", "<cmd>Mason<cr>",        desc = "Mason" },
+	{ "<leader>cl", "<cmd>LspRestart<cr>",   desc = "LspRestart" },
 	{
 		"<leader>cc",
 		function()
@@ -152,17 +152,17 @@ M.keymap = {
 	},
 
 	-- Copilot
-	{ "<leader>cp", group = "Copilot" },
-	{ "<leader>cpo", "<cmd>:CopilotChatOpen<cr>", desc = "Copilot Chat " },
-	{ "<leader>cpt", "<cmd>:CopilotChatToggle<cr>", desc = "Copilot Chat toggle " },
-	{ "<leader>cpr", "<cmd>:CopilotChatReview<cr>", desc = "Copilot Chat Review " },
+	{ "<leader>cp",  group = "Copilot" },
+	{ "<leader>cpo", "<cmd>:CopilotChatOpen<cr>",    desc = "Copilot Chat " },
+	{ "<leader>cpt", "<cmd>:CopilotChatToggle<cr>",  desc = "Copilot Chat toggle " },
+	{ "<leader>cpr", "<cmd>:CopilotChatReview<cr>",  desc = "Copilot Chat Review " },
 	{ "<leader>cpe", "<cmd>:CopilotChatExplain<cr>", desc = "Copilot Chat Explain " },
-	{ "<leader>cpf", "<cmd>:CopilotChatFix<cr>", desc = "Copilot Chat Fix " },
-	{ "<leader>cpc", "<cmd>:CopilotChatCommit<cr>", desc = "Copilot Chat Commit " },
-	{ "<leader>cpq", "<cmd>:CopilotChatReset<cr>", desc = "Copilot Chat Commit " },
+	{ "<leader>cpf", "<cmd>:CopilotChatFix<cr>",     desc = "Copilot Chat Fix " },
+	{ "<leader>cpc", "<cmd>:CopilotChatCommit<cr>",  desc = "Copilot Chat Commit " },
+	{ "<leader>cpq", "<cmd>:CopilotChatReset<cr>",   desc = "Copilot Chat Commit " },
 	-- Conform
 
-	{ "<leader>g", group = "git" },
+	{ "<leader>g",   group = "git" },
 	{
 		"<leader>gb",
 		function()
@@ -191,7 +191,7 @@ M.keymap = {
 		end,
 		desc = "lazygit",
 	},
-	{ "<leader>x", group = "Trouble" },
+	{ "<leader>x",  group = "Trouble" },
 	{
 		"<leader>xd",
 		"<cmd>TroubleToggle document_diagnostics<cr>",
@@ -220,7 +220,7 @@ M.keymap = {
 	},
 
 	-- Terminal stuff
-	{ "<leader>t", group = "Terminal" },
+	{ "<leader>t",  group = "Terminal" },
 	{
 		"<leader>tp",
 		function()
@@ -302,7 +302,7 @@ M.keymap = {
 		desc = "Snacks toggle term",
 	},
 	-- Project
-	{ "<leader>p", group = "Project" },
+	{ "<leader>p",  group = "Project" },
 	{ "<leader>pt", group = "Todo" },
 	{
 		"<leader>ptt",
@@ -327,8 +327,8 @@ M.keymap = {
 	},
 	{
 		mode = { "n" },
-		{ "gd", vim.lsp.buf.definition, hidden = true },
-		{ "K", vim.lsp.buf.hover, hidden = true },
+		{ "gd", vim.lsp.buf.definition,                    hidden = true },
+		{ "K",  vim.lsp.buf.hover({ border = 'rounded' }), hidden = true },
 		{
 			"<leader>z",
 			function()

@@ -1,27 +1,6 @@
 return {
 	{
 		"mason-org/mason.nvim",
-		opts = {},
-		config = function()
-			require("mason").setup({
-				ensure_installed = {
-					"stylua",
-					"selene",
-					"luacheck",
-					"shellcheck",
-					"shfmt",
-					"tailwindcss-language-server",
-					"css-lsp",
-					"netcoredbg",
-					"css-variables-language-server",
-					"csharp-language-server",
-					"vtsls",
-				},
-			})
-		end,
-	},
-	{
-		"mason-org/mason.nvim",
 		lazy = false,
 		config = function()
 			require("mason").setup({
