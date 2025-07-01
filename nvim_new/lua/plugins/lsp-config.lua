@@ -51,6 +51,10 @@ return {
 				capabilities = capabilities,
 			})
 
+			lspconfig.yamlls.setup({
+				capabilities = capabilities,
+			})
+
 			lspconfig.kulala_ls.setup({
 				capabilities = capabilities,
 			})
