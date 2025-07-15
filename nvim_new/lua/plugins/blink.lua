@@ -62,19 +62,13 @@ return {
 					auto_show_delay_ms = 250,
 					window = { border = "rounded" },
 				},
-				-- documentation = {
-				-- 	window = {
-				-- 		border = "rounded",
-				-- 	},
-				-- 	auto_show = true,
-				-- },
 			},
 			appearance = {
 				use_nvim_cmp_as_default = false,
 				nerd_font_variant = "mono",
 			},
 
-			kcmdline = { enabled = false },
+			cmdline = { enabled = false },
 
 			signature = {
 				enabled = true,

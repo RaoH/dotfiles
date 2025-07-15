@@ -2,7 +2,7 @@ $env.PNPM_HOME = '/Users/raoul/Library/pnpm'
 $env.config.show_banner = false
 $env.config.buffer_editor = 'nvim'
 $env.STARSHIP_CONFIG = "/Users/raoul/.config/starship/starship.toml"
-$env.DOCKER_HOST = ^podman info | from yaml | $in.host.remoteSocket.path
+#$env.DOCKER_HOST = ^podman info | from yaml | $in.host.remoteSocket.path
 $env.config.completions.algorithm = "Fuzzy"
 
 #VI mode
