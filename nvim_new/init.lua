@@ -16,5 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Vim options
 require("vim-options")
 
+-- Project-specific indent detection
+require("config.project-indent")
+
 -- Loading lazy
 require("lazy").setup("plugins")

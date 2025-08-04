@@ -14,7 +14,7 @@ opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 2           -- Hide * markup for bold and italic, but not markers with substitutions
 opt.confirm = true             -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true          -- Enable highlighting of the current line
-opt.expandtab = false          -- Use spaces instead of tabs
+
 opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
@@ -30,7 +30,7 @@ opt.relativenumber = true  -- Relative line numbers
 opt.scrolloff = 4          -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true      -- Round indent
-opt.shiftwidth = 4         -- Size of an indent
+
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.showmode = false       -- Dont show mode since we have a statusline
 opt.sidescrolloff = 8      -- Columns of context
@@ -41,7 +41,7 @@ opt.spelllang = { "en" }
 opt.splitbelow = true      -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true      -- Put new windows right of current
-opt.tabstop = 4            -- Number of spaces tabs count for
+
 opt.termguicolors = true   -- True color support
 opt.timeoutlen = 300
 opt.undofile = true
