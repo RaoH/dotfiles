@@ -61,6 +61,40 @@ local function find_prettier_config(bufpath)
 	return nil
 end
 
+-- Expand brace patterns like {*.ts,*.tsx} into individual patterns
+local function expand_braces(pattern)
+	local patterns = {}
+
+	-- Check if pattern contains braces
+	local brace_content = pattern:match("{([^}]+)}")
+	if not brace_content then
+		return { pattern }
+	end
+
+	-- Split comma-separated items inside braces
+	local prefix = pattern:match("^([^{]*)")
+	local suffix = pattern:match("}(.*)$")
+
+	for item in brace_content:gmatch("[^,]+") do
+		item = item:gsub("^%s+", ""):gsub("%s+$", "") -- trim whitespace
+		table.insert(patterns, prefix .. item .. suffix)
+	end
+
+	return patterns
+end
+
+-- Check if filename matches a glob pattern
+local function matches_glob(filename, pattern)
+	-- Escape special lua pattern characters except * and ?
+	local escaped = pattern:gsub("[%(%)%.%+%-%^%$%%]", "%%%1")
+	-- Convert glob wildcards to lua patterns
+	escaped = escaped:gsub("%*", ".*"):gsub("%?", ".")
+	-- Anchor the pattern
+	escaped = "^" .. escaped .. "$"
+
+	return filename:match(escaped) ~= nil
+end
+
 -- Find and parse editorconfig
 local function find_editorconfig(bufpath)
 	local editorconfig_path = vim.fs.find(".editorconfig", {
@@ -81,26 +115,32 @@ local function find_editorconfig(bufpath)
 	local content = file:read("*all")
 	file:close()
 
-	-- Simple editorconfig parser for indent settings
+	-- Enhanced editorconfig parser for indent settings
 	local settings = {}
-	local in_global_section = false
 	local in_matching_section = false
 	local filename = vim.fs.basename(bufpath)
-	local extension = filename:match("%.([^%.]+)$") or ""
 
 	for line in content:gmatch("[^\r\n]+") do
 		line = line:gsub("^%s+", ""):gsub("%s+$", "")
-		
+
 		if line:match("^%[.-%]$") then
 			local section = line:sub(2, -2)
-			in_global_section = section == "*"
-			in_matching_section = section == "*." .. extension or section == filename or section == "*"
-		elseif (in_global_section or in_matching_section) and line:match("=") then
+			in_matching_section = false
+
+			-- Expand brace patterns and check each one
+			local patterns = expand_braces(section)
+			for _, pattern in ipairs(patterns) do
+				if pattern == "*" or matches_glob(filename, pattern) then
+					in_matching_section = true
+					break
+				end
+			end
+		elseif in_matching_section and line:match("=") then
 			local key, value = line:match("([^=]+)=([^=]+)")
 			if key and value then
 				key = key:gsub("%s+", "")
 				value = value:gsub("%s+", "")
-				
+
 				if key == "indent_size" and tonumber(value) then
 					settings.tabstop = tonumber(value)
 					settings.shiftwidth = tonumber(value)
@@ -181,3 +221,4 @@ end
 setup_autocmd()
 
 return M
+
