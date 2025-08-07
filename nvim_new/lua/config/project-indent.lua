@@ -36,8 +36,63 @@ local function find_prettier_config(bufpath)
 		return parsed
 	end
 
-	for _, filename in ipairs(prettier_files) do
-		local config_path = vim.fs.find(filename, {
+	-- Apply prettier config with override support
+	local function apply_prettier_config(config, filename)
+		if not config then
+			return nil
+		end
+
+		local settings = {}
+
+		-- Start with global settings
+		if config.tabWidth then
+			settings.tabstop = config.tabWidth
+			settings.shiftwidth = config.tabWidth
+		end
+		if config.useTabs ~= nil then
+			settings.expandtab = not config.useTabs
+		end
+
+		-- Apply overrides if they exist
+		if config.overrides and type(config.overrides) == "table" then
+			for _, override in ipairs(config.overrides) do
+				if override.files and override.options then
+					local files = override.files
+					if type(files) == "string" then
+						files = { files }
+					end
+
+					-- Check if any file pattern matches
+					for _, pattern in ipairs(files) do
+						-- Expand brace patterns and check each one
+						local patterns = expand_braces(pattern)
+						for _, expanded_pattern in ipairs(patterns) do
+							if matches_glob(filename, expanded_pattern) then
+								-- Apply override settings
+								if override.options.tabWidth then
+									settings.tabstop = override.options.tabWidth
+									settings.shiftwidth = override.options.tabWidth
+								end
+								if override.options.useTabs ~= nil then
+									settings.expandtab = not override.options
+									.useTabs
+								end
+								goto continue_override_loop
+							end
+						end
+					end
+					::continue_override_loop::
+				end
+			end
+		end
+
+		return next(settings) and settings or nil
+	end
+
+	local filename = vim.fs.basename(bufpath)
+
+	for _, config_filename in ipairs(prettier_files) do
+		local config_path = vim.fs.find(config_filename, {
 			upward = true,
 			stop = vim.env.HOME,
 			path = vim.fs.dirname(bufpath),
@@ -46,15 +101,7 @@ local function find_prettier_config(bufpath)
 		if config_path then
 			local config = parse_json_config(config_path)
 			if config then
-				local settings = {}
-				if config.tabWidth then
-					settings.tabstop = config.tabWidth
-					settings.shiftwidth = config.tabWidth
-				end
-				if config.useTabs ~= nil then
-					settings.expandtab = not config.useTabs
-				end
-				return settings
+				return apply_prettier_config(config, filename)
 			end
 		end
 	end
@@ -221,4 +268,3 @@ end
 setup_autocmd()
 
 return M
-
