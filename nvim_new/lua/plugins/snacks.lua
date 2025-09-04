@@ -48,6 +48,10 @@ return {
 		toggle = { enabled = true },
 		terminal = { enabled = true },
 		picker = {
+			exclude = { -- add folder names here to exclude
+				".git",
+				"node_modules",
+			},
 			layout = {
 				reverse = true,
 				layout = {

@@ -24,10 +24,14 @@ return {
 				severity_sort = true,
 				signs = {
 					text = {
-						[vim.diagnostic.severity.ERROR] = require("config.icons").icons.diagnostics.Error,
-						[vim.diagnostic.severity.WARN] = require("config.icons").icons.diagnostics.Warn,
-						[vim.diagnostic.severity.HINT] = require("config.icons").icons.diagnostics.Hint,
-						[vim.diagnostic.severity.INFO] = require("config.icons").icons.diagnostics.Info,
+						[vim.diagnostic.severity.ERROR] = require("config.icons").icons
+						.diagnostics.Error,
+						[vim.diagnostic.severity.WARN] = require("config.icons").icons
+						.diagnostics.Warn,
+						[vim.diagnostic.severity.HINT] = require("config.icons").icons
+						.diagnostics.Hint,
+						[vim.diagnostic.severity.INFO] = require("config.icons").icons
+						.diagnostics.Info,
 					},
 				},
 			},
@@ -90,7 +94,20 @@ return {
 				},
 			})
 
-			lspconfig.svelte.setup({})
+			lspconfig.svelte.setup({
+				settings = {
+					svelte = {
+						plugin = {
+							typescript = {
+								enable = true,
+								diagnostics = { enable = true },
+								hover = { enable = true },
+								completions = { enable = true }
+							}
+						}
+					}
+				}
+			})
 
 			lspconfig.vtsls.setup({
 				capabilities = capabilities,

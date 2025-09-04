@@ -40,16 +40,16 @@ M.keymap = {
 		remap = true,
 	},
 	{
-		"<leader>fd",
+		"<leader>fg",
 		function()
-			Snacks.picker.files()
+			Snacks.picker.git_files({ hidden = true })
 		end,
 		desc = "Find files",
 	},
 	{
 		"<leader>ff",
 		function()
-			Snacks.picker.git_files()
+			Snacks.picker.files({ hidden = true })
 		end,
 		desc = "Find Git File",
 	},
@@ -89,6 +89,13 @@ M.keymap = {
 		"<leader>bl",
 		function()
 			Snacks.picker.buffers()
+		end,
+		desc = "Find buffers",
+	},
+	{
+		"<leader>bg",
+		function()
+			Snacks.picker.grep_buffers()
 		end,
 		desc = "Find buffers",
 	},
@@ -136,6 +143,7 @@ M.keymap = {
 		end,
 		desc = "Select refactoring",
 	},
+	-- Conform
 	{
 		mode = { "n", "v" },
 		{
@@ -160,7 +168,6 @@ M.keymap = {
 	{ "<leader>cpf", "<cmd>:CopilotChatFix<cr>",     desc = "Copilot Chat Fix " },
 	{ "<leader>cpc", "<cmd>:CopilotChatCommit<cr>",  desc = "Copilot Chat Commit " },
 	{ "<leader>cpq", "<cmd>:CopilotChatReset<cr>",   desc = "Copilot Chat Commit " },
-	-- Conform
 
 	{ "<leader>g",   group = "git" },
 	{
@@ -194,7 +201,7 @@ M.keymap = {
 	{ "<leader>x",  group = "Trouble" },
 	{
 		"<leader>xd",
-		"<cmd>TroubleToggle document_diagnostics<cr>",
+		"<cmd>Trouble diagnostics<cr>",
 		desc = "Open trouble document diagnostics",
 	},
 	{

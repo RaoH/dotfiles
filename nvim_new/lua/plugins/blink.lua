@@ -37,7 +37,8 @@ return {
 						components = {
 							kind_icon = {
 								text = function(item)
-									local kind = require("lspkind").symbol_map[item.kind] or ""
+									local kind = require("lspkind").symbol_map
+									[item.kind] or ""
 									return kind .. " "
 								end,
 								highlight = "CmpItemKind",
@@ -76,11 +77,20 @@ return {
 			},
 			sources = {
 				default = { 'lazydev', 'lsp', 'snippets', 'buffer' },
+				per_filetype = {
+					javascript = { 'lazydev', 'lsp', 'snippets' },
+					typescript = { 'lazydev', 'lsp', 'snippets' },
+					javascriptreact = { 'lazydev', 'lsp', 'snippets' },
+					typescriptreact = { 'lazydev', 'lsp', 'snippets' },
+					vue = { 'lazydev', 'lsp', 'snippets' },
+					svelte = { 'lazydev', 'lsp', 'snippets' },
+				},
 				transform_items = function(ctx, items)
 					local _ = ctx
 					local col = vim.api.nvim_win_get_cursor(0)[2]
 					local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
-					local trigger_pos = before_cursor:find(trigger_text .. "[^" .. trigger_text .. "]*$")
+					local trigger_pos = before_cursor:find(trigger_text ..
+					"[^" .. trigger_text .. "]*$")
 					if trigger_pos then
 						for _, item in ipairs(items) do
 							item.textEdit = {
@@ -92,11 +102,13 @@ return {
 							}
 						end
 						return vim.tbl_filter(function(item)
-							return item.kind == require('blink.cmp.types').CompletionItemKind.Snippet
+							return item.kind ==
+							require('blink.cmp.types').CompletionItemKind.Snippet
 						end, items)
 					else
 						return vim.tbl_filter(function(item)
-							return item.kind ~= require('blink.cmp.types').CompletionItemKind.Snippet
+							return item.kind ~=
+							require('blink.cmp.types').CompletionItemKind.Snippet
 						end, items)
 					end
 				end,
