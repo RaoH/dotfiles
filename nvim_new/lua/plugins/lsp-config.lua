@@ -25,13 +25,13 @@ return {
 				signs = {
 					text = {
 						[vim.diagnostic.severity.ERROR] = require("config.icons").icons
-						.diagnostics.Error,
+						    .diagnostics.Error,
 						[vim.diagnostic.severity.WARN] = require("config.icons").icons
-						.diagnostics.Warn,
+						    .diagnostics.Warn,
 						[vim.diagnostic.severity.HINT] = require("config.icons").icons
-						.diagnostics.Hint,
+						    .diagnostics.Hint,
 						[vim.diagnostic.severity.INFO] = require("config.icons").icons
-						.diagnostics.Info,
+						    .diagnostics.Info,
 					},
 				},
 			},
@@ -49,6 +49,18 @@ return {
 
 			lspconfig.html.setup({
 				capabilities = capabilities,
+			})
+
+			lspconfig.emmet_ls.setup({
+				capabilities = capabilities,
+				filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte" },
+				init_options = {
+					html = {
+						options = {
+							["bem.enabled"] = true,
+						},
+					},
+				},
 			})
 
 			lspconfig.jsonls.setup({

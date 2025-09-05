@@ -38,7 +38,7 @@ return {
 							kind_icon = {
 								text = function(item)
 									local kind = require("lspkind").symbol_map
-									[item.kind] or ""
+									    [item.kind] or ""
 									return kind .. " "
 								end,
 								highlight = "CmpItemKind",
@@ -90,25 +90,68 @@ return {
 					local col = vim.api.nvim_win_get_cursor(0)[2]
 					local before_cursor = vim.api.nvim_get_current_line():sub(1, col)
 					local trigger_pos = before_cursor:find(trigger_text ..
-					"[^" .. trigger_text .. "]*$")
+						"[^" .. trigger_text .. "]*$")
 					if trigger_pos then
 						for _, item in ipairs(items) do
-							item.textEdit = {
-								newText = item.insertText or item.label,
-								range = {
-									start = { line = vim.fn.line(".") - 1, character = trigger_pos - 1 },
-									["end"] = { line = vim.fn.line(".") - 1, character = col },
-								},
-							}
+							-- Detect Emmet items by insertTextFormat = 2 and detail matching label
+							-- Complete Emmet syntax patterns:
+							local is_emmet = item.insertTextFormat == 2 and
+							    item.detail and item.label and
+							    item.detail == item.label and
+							    (item.label:match("%.") or -- classes: div.class
+								    item.label:match("#") or -- ids: div#id
+								    item.label:match(">") or -- children: div>p
+								    item.label:match("%+") or -- siblings: div+p
+								    item.label:match("%^") or -- climb-up: div>p^div
+								    item.label:match("%*") or -- multiplication: li*5
+								    item.label:match("%(") or -- grouping: (div>p)*3
+								    item.label:match("%[") or -- attributes: a[href]
+								    item.label:match("{") or -- text: a{Click me}
+								    item.label:match("%$") or -- numbering: li.item$*5
+								    item.label:match("lorem") or -- lorem ipsum
+								    item.label:match("!") or -- html:5 or !
+								    -- Also catch simple HTML tags and common abbreviations
+								    item.label:match("^[a-zA-Z][a-zA-Z0-9]*$"))
+
+							if is_emmet then
+								-- For Emmet items, find the actual end of the abbreviation on the line
+								local full_line = vim.api.nvim_get_current_line()
+								local abbreviation_end = col
+
+								-- If the item has curly braces, find the matching closing brace
+								if item.label:match("{") then
+									local closing_brace = full_line:find("}",
+										trigger_pos + 1)
+									if closing_brace then
+										-- Include the closing brace in the replacement
+										abbreviation_end = closing_brace
+									end
+								end
+
+								if item.textEdit then
+									item.textEdit.range.start.character = trigger_pos -
+									    1
+									item.textEdit.range["end"].character =
+									    abbreviation_end
+								end
+							else
+								item.textEdit = {
+									newText = item.insertText or item.label,
+									range = {
+										start = { line = vim.fn.line(".") - 1, character = trigger_pos - 1 },
+										["end"] = { line = vim.fn.line(".") - 1, character = col },
+									},
+								}
+							end
 						end
 						return vim.tbl_filter(function(item)
 							return item.kind ==
-							require('blink.cmp.types').CompletionItemKind.Snippet
+							    require('blink.cmp.types').CompletionItemKind.Snippet
 						end, items)
 					else
 						return vim.tbl_filter(function(item)
 							return item.kind ~=
-							require('blink.cmp.types').CompletionItemKind.Snippet
+							    require('blink.cmp.types').CompletionItemKind.Snippet
 						end, items)
 					end
 				end,
@@ -118,6 +161,20 @@ return {
 						module = "lazydev.integrations.blink",
 						-- make lazydev completions top priority (see `:h blink.cmp`)
 						score_offset = 100,
+					},
+					lsp = {
+						name = "LSP",
+						module = "blink.cmp.sources.lsp",
+						-- Boost Emmet completions when they appear
+						transform_items = function(_, items)
+							for _, item in ipairs(items) do
+								-- Boost Emmet items (snippet format with matching detail/label)
+								if item.insertTextFormat == 2 and item.detail == item.label then
+									item.score_offset = 50 -- Higher priority than default
+								end
+							end
+							return items
+						end,
 					},
 				},
 			},

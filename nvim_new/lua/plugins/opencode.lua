@@ -4,14 +4,13 @@ return {
 		'folke/snacks.nvim',
 	},
 	config = function()
-		require('opencode').setup({
+		vim.g.opencode_opts = {
 			win = {
 				position = "float",
 				enter = true, -- Do not enter the opencode window after opening it
 				width = 0.6,
 				border = 'rounded'
 			},
-
-		})
+		}
 	end,
 }
