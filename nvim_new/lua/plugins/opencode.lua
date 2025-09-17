@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		'folke/snacks.nvim',
 	},
+	enabled = false,
 	config = function()
 		vim.g.opencode_opts = {
 			win = {
