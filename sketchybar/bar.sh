@@ -2,7 +2,7 @@
 
 bar=(
   position=top
-  height=37
+  height=30
   margin=12
   y_offset=0
   corner_radius=16

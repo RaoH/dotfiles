@@ -5,10 +5,10 @@ export WHITE=0xffffffff
 export TRANSPARENT=0x00000000
 
 # -- Gruv Box --
-# export BAR_COLOR=0x70282828
-# export ITEM_BG_COLOR=0xff1d2021
-# export ACCENT_COLOR=0xffd79921
-# export BACKGROUND=0xff282828
+export BAR_COLOR=0x70282828
+export ITEM_BG_COLOR=0xff1d2021
+export ACCENT_COLOR=0xffd79921
+export BACKGROUND=0xff282828
 
 # -- Teal Scheme --
 # export BAR_COLOR=0xff001f30
@@ -17,10 +17,10 @@ export TRANSPARENT=0x00000000
 # export BACKGROUND=$BAR_COLOR
 
 # -- Transparent Scheme --
-export BAR_COLOR=0x40000000
-export ITEM_BG_COLOR=0xff353c3f
-export ACCENT_COLOR=0xffffffff
-export BACKGROUND=0xff101314
+# export BAR_COLOR=0x40000000
+# export ITEM_BG_COLOR=0xff353c3f
+# export ACCENT_COLOR=0xffffffff
+# export BACKGROUND=0xff101314
 
 # -- Purple Scheme --
 # export BAR_COLOR=0xff140c42
