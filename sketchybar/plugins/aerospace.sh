@@ -51,35 +51,27 @@ fi
 # When icons is empty, set it to " "
 if [ -z "$icons" ]; then
   if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-    sketchybar --animate sin 10 \
-      --set "$NAME" \
-      y_offset=10 y_offset=0 \
-      background.drawing=on
-
     sketchybar --set "$NAME" \
       display="$monitor" \
       drawing=on \
       label="$icons" \
       label.color="$BACKGROUND" \
       icon.color="$BACKGROUND" \
-      background.color="$ACCENT_COLOR"
+      background.color="$ACCENT_COLOR" \
+      background.drawing=on
   else
     sketchybar --set "$NAME" drawing=off
   fi
 else
   if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-    sketchybar --animate sin 10 \
-      --set "$NAME" \
-      y_offset=10 y_offset=0 \
-      background.drawing=on
-
     sketchybar --set "$NAME" \
       display="$monitor" \
       drawing=on \
       label="$icons" \
       label.color="$BACKGROUND" \
       icon.color="$BACKGROUND" \
-      background.color="$ACCENT_COLOR"
+      background.color="$ACCENT_COLOR" \
+      background.drawing=on
   else
     sketchybar --set "$NAME" \
       display="$monitor" \
