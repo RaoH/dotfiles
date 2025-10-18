@@ -151,6 +151,88 @@ wk.add({
 			desc = "Format file or range (in visual mode)",
 		},
 	},
+	{ "<leader>co", group = "Opencode" },
+	{
+		"<leader>coa",
+		mode = { "n", "x" },
+		function()
+			print("test")
+			require("opencode").ask("@this: ", { submit = true })
+		end,
+		desc = "Ask about this",
+	},
+	{
+		"<leader>cos",
+		mode = { "n", "x" },
+		function()
+			require("opencode").select()
+		end,
+		desc = "Select prompt",
+	},
+	{
+		"<leader>co+",
+		mode = { "n", "x" },
+		function()
+			require("opencode").prompt("@this")
+		end,
+		desc = "Add this",
+	},
+	{
+		"<leader>cot",
+		mode = { "n" },
+		function()
+			require("opencode").toggle()
+		end,
+		desc = "Toggle embedded",
+	},
+	{
+		"<leader>coc",
+		mode = { "n" },
+		function()
+			require("opencode").command()
+		end,
+		desc = "Select command",
+	},
+	{
+		"<leader>con",
+		mode = { "n" },
+		function()
+			require("opencode").command("session_new")
+		end,
+		desc = "New session",
+	},
+	{
+		"<leader>coi",
+		mode = { "n" },
+		function()
+			require("opencode").command("session_interrupt")
+		end,
+		desc = "Interrupt session",
+	},
+	{
+		"<leader>coA",
+		mode = { "n" },
+		function()
+			require("opencode").command("agent_cycle")
+		end,
+		desc = "Cycle selected agent",
+	},
+	{
+		"<S-C-u>",
+		mode = { "n" },
+		function()
+			require("opencode").command("messages_half_page_up")
+		end,
+		desc = "Messages half page up",
+	},
+	{
+		"<S-C-d>",
+		mode = { "n" },
+		function()
+			require("opencode").command("messages_half_page_down")
+		end,
+		desc = "Messages half page down",
+	},
 
 	-- Copilot
 	{ "<leader>cp", group = "Copilot" },
