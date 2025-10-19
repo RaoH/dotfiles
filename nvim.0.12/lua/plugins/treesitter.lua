@@ -8,6 +8,7 @@ vim.pack.add({
 require("nvim-ts-autotag").setup()
 
 local ensure_install_list = {
+	"diff",
 	"gleam",
 	"astro",
 	"bash",

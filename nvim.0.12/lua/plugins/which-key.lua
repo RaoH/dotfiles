@@ -194,6 +194,15 @@ wk.add({
 		desc = "Select command",
 	},
 	{
+		"<leader>com",
+		mode = { "n" },
+		function()
+			local commitmsg = require("opencode.config").opts.prompts.commitmsg
+			require("opencode").prompt(commitmsg.prompt, commitmsg)
+		end,
+		desc = "New session",
+	},
+	{
 		"<leader>con",
 		mode = { "n" },
 		function()
@@ -234,15 +243,15 @@ wk.add({
 		desc = "Messages half page down",
 	},
 
-	-- Copilot
-	{ "<leader>cp", group = "Copilot" },
-	{ "<leader>cpo", mode = { "n", "v" }, "<cmd>:CopilotChatOpen<cr>", desc = "Copilot Chat" },
-	{ "<leader>cpt", mode = { "n", "v" }, "<cmd>:CopilotChatToggle<cr>", desc = "Copilot Chat toggle" },
-	{ "<leader>cpr", mode = { "n", "v" }, "<cmd>:CopilotChatReview<cr>", desc = "Copilot Chat Review" },
-	{ "<leader>cpe", mode = { "n", "v" }, "<cmd>:CopilotChatExplain<cr>", desc = "Copilot Chat Explain" },
-	{ "<leader>cpf", mode = { "n", "v" }, "<cmd>:CopilotChatFix<cr>", desc = "Copilot Chat Fix" },
-	{ "<leader>cpc", "<cmd>:CopilotChatCommit<cr>", desc = "Copilot Chat Commit" },
-	{ "<leader>cpq", "<cmd>:CopilotChatReset<cr>", desc = "Copilot Reset" },
+	-- -- Copilot
+	-- { "<leader>cp", group = "Copilot" },
+	-- { "<leader>cpo", mode = { "n", "v" }, "<cmd>:CopilotChatOpen<cr>", desc = "Copilot Chat" },
+	-- { "<leader>cpt", mode = { "n", "v" }, "<cmd>:CopilotChatToggle<cr>", desc = "Copilot Chat toggle" },
+	-- { "<leader>cpr", mode = { "n", "v" }, "<cmd>:CopilotChatReview<cr>", desc = "Copilot Chat Review" },
+	-- { "<leader>cpe", mode = { "n", "v" }, "<cmd>:CopilotChatExplain<cr>", desc = "Copilot Chat Explain" },
+	-- { "<leader>cpf", mode = { "n", "v" }, "<cmd>:CopilotChatFix<cr>", desc = "Copilot Chat Fix" },
+	-- { "<leader>cpc", "<cmd>:CopilotChatCommit<cr>", desc = "Copilot Chat Commit" },
+	-- { "<leader>cpq", "<cmd>:CopilotChatReset<cr>", desc = "Copilot Reset" },
 
 	{ "<leader>g", group = "git" },
 	{
