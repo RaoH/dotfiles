@@ -1,6 +1,7 @@
 vim.pack.add({ "https://github.com/folke/which-key.nvim.git" })
 
 local is_dimmed = false
+local opencode = require("opencode")
 
 local wk = require("which-key")
 wk.add({
@@ -157,7 +158,7 @@ wk.add({
 		mode = { "n", "x" },
 		function()
 			print("test")
-			require("opencode").ask("@this: ", { submit = true })
+			opencode.ask("@this: ", { submit = true })
 		end,
 		desc = "Ask about this",
 	},
@@ -165,7 +166,7 @@ wk.add({
 		"<leader>cos",
 		mode = { "n", "x" },
 		function()
-			require("opencode").select()
+			opencode.select()
 		end,
 		desc = "Select prompt",
 	},
@@ -173,7 +174,7 @@ wk.add({
 		"<leader>co+",
 		mode = { "n", "x" },
 		function()
-			require("opencode").prompt("@this")
+			opencode.prompt("@this")
 		end,
 		desc = "Add this",
 	},
@@ -181,7 +182,7 @@ wk.add({
 		"<leader>cot",
 		mode = { "n" },
 		function()
-			require("opencode").toggle()
+			opencode.toggle()
 		end,
 		desc = "Toggle embedded",
 	},
@@ -189,7 +190,7 @@ wk.add({
 		"<leader>coc",
 		mode = { "n" },
 		function()
-			require("opencode").command()
+			opencode.command()
 		end,
 		desc = "Select command",
 	},
@@ -198,7 +199,16 @@ wk.add({
 		mode = { "n" },
 		function()
 			local commitmsg = require("opencode.config").opts.prompts.commitmsg
-			require("opencode").prompt(commitmsg.prompt, commitmsg)
+			opencode.prompt(commitmsg.prompt, commitmsg)
+		end,
+		desc = "New session",
+	},
+	{
+		"<leader>cob",
+		mode = { "n" },
+		function()
+			local commitmsg = require("opencode.config").opts.prompts.createbranchfromdiff
+			opencode.prompt(commitmsg.prompt, commitmsg)
 		end,
 		desc = "New session",
 	},
@@ -206,7 +216,7 @@ wk.add({
 		"<leader>con",
 		mode = { "n" },
 		function()
-			require("opencode").command("session_new")
+			opencode.command("session_new")
 		end,
 		desc = "New session",
 	},
@@ -214,7 +224,7 @@ wk.add({
 		"<leader>coi",
 		mode = { "n" },
 		function()
-			require("opencode").command("session_interrupt")
+			opencode.command("session_interrupt")
 		end,
 		desc = "Interrupt session",
 	},
@@ -222,7 +232,7 @@ wk.add({
 		"<leader>coA",
 		mode = { "n" },
 		function()
-			require("opencode").command("agent_cycle")
+			opencode.command("agent_cycle")
 		end,
 		desc = "Cycle selected agent",
 	},
@@ -230,7 +240,7 @@ wk.add({
 		"<S-C-u>",
 		mode = { "n" },
 		function()
-			require("opencode").command("messages_half_page_up")
+			opencode.command("messages_half_page_up")
 		end,
 		desc = "Messages half page up",
 	},
@@ -238,7 +248,7 @@ wk.add({
 		"<S-C-d>",
 		mode = { "n" },
 		function()
-			require("opencode").command("messages_half_page_down")
+			opencode.command("messages_half_page_down")
 		end,
 		desc = "Messages half page down",
 	},
