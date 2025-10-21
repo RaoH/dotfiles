@@ -15,7 +15,7 @@ vim.g.opencode_opts = {
 		buffer = { prompt = "@buffer" },
 		this = { prompt = "@this" },
 		commitmsg = {
-			prompt = "@diff Write commit message for the change with commitizen convention. Keep the title under 50 characters and wrap message at 72 characters. Format as a gitcommit code block. Add the files and make a git commit. Make sure we are on a branch that is not the main.",
+			prompt = "@diff Write commit message for the change with commitizen convention. Keep the title under 50 characters and wrap message at 72 characters. Format as a gitcommit code block. Add the files and prompt me for moving on before making a git commit. Make sure we are on a branch that is not the main.",
 			submit = true,
 		},
 		createbranchfromdiff = {
