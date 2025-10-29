@@ -201,7 +201,7 @@ wk.add({
 			local commitmsg = require("opencode.config").opts.prompts.commitmsg
 			opencode.prompt(commitmsg.prompt, commitmsg)
 		end,
-		desc = "New session",
+		desc = "Create commitizen commit ",
 	},
 	{
 		"<leader>cob",
@@ -210,7 +210,7 @@ wk.add({
 			local commitmsg = require("opencode.config").opts.prompts.createbranchfromdiff
 			opencode.prompt(commitmsg.prompt, commitmsg)
 		end,
-		desc = "New session",
+		desc = "Create branch with name",
 	},
 	{
 		"<leader>con",
@@ -367,4 +367,18 @@ wk.add({
 		end,
 		desc = "Dismiss All Notifications",
 	},
+	{ "mv", mode = "n", "<cmd>split<cr>", desc = "Split horizontally" },
+	{ "mv", mode = "n", "<cmd>vsplit<cr>", desc = "Split vertically" },
+	{
+		"<C-j>",
+		mode = "n",
+		function()
+			vim.diagnostic.goto_next()
+		end,
+	},
+
+	-- { "mh", mode = "n", "<C-w>h" },
+	-- { "mh", mode = "n", "<C-w>k" },
+	-- { "mh", mode = "n", "<C-w>j" },
+	-- { "mh", mode = "n", "<C-w>l" },
 })

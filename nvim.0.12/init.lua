@@ -1,6 +1,5 @@
 -- Vim options
 require("config.autocmds")
-require("config.keymaps")
 require("config.options")
 require("config.lsp_config")
 --
@@ -16,6 +15,7 @@ require("plugins.blink")
 require("plugins.catppuccin")
 require("plugins.coding")
 require("plugins.conform")
+require("plugins.fidget")
 require("plugins.gitsigns")
 require("plugins.lualine")
 require("plugins.mason")

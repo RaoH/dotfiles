@@ -22,6 +22,23 @@ require("incline").setup({
 
 require("noice").setup({
 	use_diagnostic_signs = true,
+	routes = {
+		{
+			filter = {
+				event = "lsp",
+				kind = "message",
+				find = "supports_method",
+			},
+			opts = { skip = true },
+		},
+		{
+			filter = {
+				event = "msg_show",
+				find = "supports_method",
+			},
+			opts = { skip = true },
+		},
+	},
 	lsp = {
 		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 		override = {
