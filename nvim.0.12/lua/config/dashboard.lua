@@ -45,19 +45,19 @@ M.dashboard_layout_section = {
 
 		table.insert(cmds, {
 			title = "Open Issues",
-			cmd = "try {gh issue list -L 3}",
+			cmd = "gh issue list -L 3 2>/dev/null || echo 'Not in a GitHub repository'",
 			key = "i",
 			action = function()
 				vim.fn.jobstart("gh issue list --web", { detach = true })
 			end,
-			icon = " ",
+			icon = " ",
 			height = 7,
 		})
 
 		table.insert(cmds, {
-			icon = " ",
+			icon = " ",
 			title = "Open PRs",
-			cmd = "try {gh pr list -L 3}",
+			cmd = "gh pr list -L 3 2>/dev/null || echo 'Not in a GitHub repository'",
 			key = "p",
 			action = function()
 				vim.fn.jobstart("gh pr list --web", { detach = true })
@@ -67,9 +67,9 @@ M.dashboard_layout_section = {
 
 		-- Always add Git Status since it does not depend on "gh"
 		table.insert(cmds, {
-			icon = " ",
+			icon = " ",
 			title = "Git Status",
-			cmd = "try {git --no-pager diff --stat -B -M -C}",
+			cmd = "git --no-pager diff --stat -B -M -C 2>/dev/null || echo 'No changes'",
 			height = 10,
 		})
 
