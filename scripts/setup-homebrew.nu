@@ -21,11 +21,11 @@ def main [] {
     # Install formulae (CLI tools and libraries)
     let formulae = [
         "atac" "atuin" "bat" "bob" "borders" "btop" "bun" "cbonsai" 
-        "cmake" "cmatrix" "cowsay" "erlang" "esptool" "eza" "fd" "fnm" 
+        "cmake" "cmatrix" "cowsay" "erlang" "eza" "fd" "fnm" 
         "fzf" "gh" "gleam" "htop" "jq" "k9s" "kubernetes-cli" "lazygit" 
         "llvm" "lua" "luajit" "luarocks" "navi" "neovim" "nushell" "nvm" 
         "ollama" "opencode" "platformio" "pngpaste" "pnpm" "podman" 
-        "ripgrep" "rust" "sketchybar" "spotify_player" "starship" "tmux" 
+        "ripgrep" "rust" "sketchybar" "starship" "tmux" 
         "tree-sitter" "yazi" "yarn" "z3" "zoxide" "zsh-autosuggestions"
     ]
     
