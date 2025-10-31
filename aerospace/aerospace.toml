@@ -95,7 +95,7 @@ inner.horizontal = 20
 inner.vertical =   20
 outer.left =       5
 outer.bottom =     5
-outer.top =        5
+outer.top =        [{ monitor.built-in = 5 }, 38]  # 5 for laptop display, 38 for external monitors
 outer.right =      5
 
 # See https://nikitabobko.github.io/AeroSpace/guide#exec-env-vars
