@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Get battery info
+BATTERY_INFO=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
+POWER_SOURCE=$(pmset -g batt | grep -o "AC Power\|Battery Power")
+IS_CHARGING=$(pmset -g batt | grep -c "charging")
+
+if [[ -z "$BATTERY_INFO" ]]; then
+    # No battery found, hide the item
+    sketchybar --set "$NAME" drawing=off
+    exit 0
+fi
+
+# Set label based on battery level and charging status
+if [[ $IS_CHARGING -gt 0 ]]; then
+    LABEL="Charging $BATTERY_INFO%"
+else
+    LABEL="Battery $BATTERY_INFO%"
+fi
+
+sketchybar --set "$NAME" \
+                 drawing=on \
+                 label="$LABEL" \
+                 label.color="$LABEL_COLOR"

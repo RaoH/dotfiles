@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Check WiFi status (en1 is the WiFi interface)
+WIFI_STATUS=$(networksetup -getairportnetwork en1 2>/dev/null | grep -v "You are not associated with an AirPort network")
+WIFI_SSID=$(echo "$WIFI_STATUS" | sed 's/Current Wi-Fi Network: //')
+
+# Check Ethernet status (en0 is typically ethernet)
+ETHERNET_STATUS=$(ifconfig en0 2>/dev/null | grep "inet " | awk '{print $2}')
+
+# Determine connection type and icon
+if [[ -n "$WIFI_SSID" && "$WIFI_SSID" != "" && "$WIFI_SSID" != "en1 is not a Wi-Fi interface." ]]; then
+    # Connected to WiFi
+    LABEL="WiFi: $WIFI_SSID"
+elif [[ -n "$ETHERNET_STATUS" ]]; then
+    # Connected via Ethernet
+    LABEL="Ethernet"
+else
+    # No connection
+    LABEL="Disconnected"
+fi
+
+sketchybar --set "$NAME" \
+                 label="$LABEL"

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+source "$CONFIG_DIR/environment"
+source "$THEME_DIR/tokyonight"
+
+# Check if battery exists before adding the item
+if ioreg -rn AppleSmartBattery | grep -q "MaxCapacity" && [[ $(ioreg -rn AppleSmartBattery | grep "MaxCapacity" | awk '{print $3}') -gt 0 ]]; then
+    sketchybar --add item battery right \
+               --set battery \
+                     background.drawing=off \
+                     label.color="$LABEL_COLOR" \
+                     label.padding_left=0 \
+                     label.padding_right=0 \
+                     update_freq=30 \
+                     script="$PLUGIN_DIR/battery"
+fi
