@@ -1,23 +1,86 @@
 #!/usr/bin/env bash
 
-# Check WiFi status (en1 is the WiFi interface)
-WIFI_STATUS=$(networksetup -getairportnetwork en1 2>/dev/null | grep -v "You are not associated with an AirPort network")
-WIFI_SSID=$(echo "$WIFI_STATUS" | sed 's/Current Wi-Fi Network: //')
+# Dynamically detect WiFi interface (works across different machines)
+WIFI_DEVICE=$(networksetup -listallhardwareports | awk '/Wi-Fi|AirPort/{getline; print $2}')
 
-# Check Ethernet status (en0 is typically ethernet)
-ETHERNET_STATUS=$(ifconfig en0 2>/dev/null | grep "inet " | awk '{print $2}')
+# Dynamically detect active Ethernet interface (one with an IP address)
+ETHERNET_DEVICE=$(networksetup -listallhardwareports | awk '/^Hardware Port: Ethernet/{getline; print $2}' | while read iface; do
+    if ifconfig "$iface" 2>/dev/null | grep -q "inet "; then
+        echo "$iface"
+        break
+    fi
+done)
 
-# Determine connection type and icon
-if [[ -n "$WIFI_SSID" && "$WIFI_SSID" != "" && "$WIFI_SSID" != "en1 is not a Wi-Fi interface." ]]; then
+# Check WiFi status
+WIFI_CONNECTED=false
+WIFI_IP=""
+if [[ -n "$WIFI_DEVICE" ]]; then
+    # Try to get SSID from networksetup first
+    WIFI_STATUS=$(networksetup -getairportnetwork "$WIFI_DEVICE" 2>/dev/null | grep -v "You are not associated with an AirPort network")
+    WIFI_SSID=$(echo "$WIFI_STATUS" | sed 's/Current Wi-Fi Network: //')
+    
+    # Get WiFi IP address and status
+    WIFI_IP=$(ifconfig "$WIFI_DEVICE" 2>/dev/null | grep "inet " | awk '{print $2}')
+    WIFI_STATUS_LINE=$(ifconfig "$WIFI_DEVICE" 2>/dev/null | grep "status:" | awk '{print $2}')
+    
+    # Check if WiFi is actually connected
+    if [[ -n "$WIFI_SSID" && "$WIFI_SSID" != "" ]]; then
+        WIFI_CONNECTED=true
+    elif [[ -n "$WIFI_IP" && "$WIFI_STATUS_LINE" == "active" ]]; then
+        # WiFi is connected but SSID can't be retrieved via networksetup
+        # Try using CoreWLAN framework via Swift (works on macOS 15+)
+        WIFI_SSID=$(swift -framework CoreWLAN - <<'SWIFT' 2>/dev/null
+import CoreWLAN
+if let interface = CWWiFiClient.shared().interface(),
+   let profiles = interface.configuration()?.networkProfiles,
+   let firstProfile = profiles.firstObject as? CWNetworkProfile,
+   let ssid = firstProfile.ssid, !ssid.isEmpty {
+    print(ssid)
+}
+SWIFT
+        )
+        
+        # If Swift retrieval worked, use it; otherwise fall back to IP
+        if [[ -n "$WIFI_SSID" && "$WIFI_SSID" != "" ]]; then
+            WIFI_CONNECTED=true
+        else
+            WIFI_CONNECTED=true
+            WIFI_SSID="$WIFI_IP"  # Show IP as last resort
+        fi
+    fi
+fi
+
+# Check Ethernet status
+if [[ -n "$ETHERNET_DEVICE" ]]; then
+    ETHERNET_STATUS=$(ifconfig "$ETHERNET_DEVICE" 2>/dev/null | grep "inet " | awk '{print $2}')
+fi
+
+# Determine connection type and label
+# Prioritize showing actual connectivity over connection type
+if [[ "$WIFI_CONNECTED" == true ]]; then
     # Connected to WiFi
     LABEL="WiFi: $WIFI_SSID"
 elif [[ -n "$ETHERNET_STATUS" ]]; then
-    # Connected via Ethernet
-    LABEL="Ethernet"
+    # Connected via Ethernet (show IP for clarity)
+    LABEL="Ethernet: $ETHERNET_STATUS"
 else
     # No connection
     LABEL="Disconnected"
 fi
 
+# Update the main network item
 sketchybar --set "$NAME" \
                  label="$LABEL"
+
+# Handle mouse events for showing IP address on hover
+if [[ "$SENDER" == "mouse.entered" ]]; then
+    # Show IP address when hovering
+    if [[ "$WIFI_CONNECTED" == true && -n "$WIFI_IP" ]]; then
+        sketchybar --set "$NAME" label="IP: $WIFI_IP"
+    elif [[ -n "$ETHERNET_STATUS" ]]; then
+        sketchybar --set "$NAME" label="IP: $ETHERNET_STATUS"
+    fi
+elif [[ "$SENDER" == "mouse.exited" ]]; then
+    # Restore original label when not hovering
+    sketchybar --set "$NAME" label="$LABEL"
+fi

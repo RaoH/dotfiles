@@ -14,7 +14,10 @@ sketchybar --add item network right \
                  label.padding_left=0 \
                  label.padding_right=0 \
                  update_freq=15 \
-                 script="$PLUGIN_DIR/network"
+                 script="$PLUGIN_DIR/network" \
+           --subscribe network \
+                 mouse.entered \
+                 mouse.exited
 
 sketchybar --add item network_spacer_left right \
            --set      network_spacer_left \
