@@ -12,7 +12,7 @@ wk.add({
 		end,
 		desc = "Open dashboard",
 	},
-	{ "<leader>f", group = "Project" }, -- group
+	{ "<leader>f",  group = "Project" }, -- group
 	{
 		"<leader>/",
 		function()
@@ -70,7 +70,7 @@ wk.add({
 		end,
 		desc = "Open Help Tags",
 	},
-	{ "<leader>fe", "<cmd>Oil<cr>", desc = "Oil" },
+	{ "<leader>fe", "<cmd>Oil<cr>",   desc = "Oil" },
 	{
 		"<leader>u",
 		function()
@@ -79,7 +79,7 @@ wk.add({
 		desc = "Undo picker",
 	},
 	-- Buffers
-	{ "<leader>b", group = "Buffers" },
+	{ "<leader>b",  group = "Buffers" },
 	{
 		"<leader>bl",
 		function()
@@ -126,10 +126,10 @@ wk.add({
 	},
 
 	--code
-	{ "<leader>c", group = "code" },
+	{ "<leader>c",  group = "code" },
 	{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code action " },
-	{ "<leader>cr", ":IncRename ", desc = "IncRename" },
-	{ "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
+	{ "<leader>cr", ":IncRename ",           desc = "IncRename" },
+	{ "<leader>cm", "<cmd>Mason<cr>",        desc = "Mason" },
 	-- { "<leader>cl", "<cmd>LspRestart<cr>", desc = "LspRestart" },
 	{
 		"<leader>cc",
@@ -263,7 +263,7 @@ wk.add({
 	-- { "<leader>cpc", "<cmd>:CopilotChatCommit<cr>", desc = "Copilot Chat Commit" },
 	-- { "<leader>cpq", "<cmd>:CopilotChatReset<cr>", desc = "Copilot Reset" },
 
-	{ "<leader>g", group = "git" },
+	{ "<leader>g",  group = "git" },
 	{
 		"<leader>gb",
 		function()
@@ -329,8 +329,8 @@ wk.add({
 	},
 	{
 		mode = { "n" },
-		{ "gd", vim.lsp.buf.definition, hidden = true },
-		{ "K", vim.lsp.buf.hover({ border = "rounded" }), hidden = true },
+		{ "gd", vim.lsp.buf.definition,                    hidden = true },
+		{ "K",  vim.lsp.buf.hover({ border = "rounded" }), hidden = true },
 		{
 			"<leader>z",
 			function()
@@ -367,8 +367,8 @@ wk.add({
 		end,
 		desc = "Dismiss All Notifications",
 	},
-	{ "mv", mode = "n", "<cmd>split<cr>", desc = "Split horizontally" },
-	{ "mv", mode = "n", "<cmd>vsplit<cr>", desc = "Split vertically" },
+	{ "ms",        mode = "n",             "<cmd>split<cr>",  desc = "Split horizontally" },
+	{ "mv",        mode = "n",             "<cmd>vsplit<cr>", desc = "Split vertically" },
 	{
 		"<C-j>",
 		mode = "n",
