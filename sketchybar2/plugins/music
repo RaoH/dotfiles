@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+
+# Configuration
+MAX_CHARS=30
+SCROLL_SPEED=1  # Update position every 1.5 seconds (faster)
+SCROLL_PAUSE=2  # Pause at start/end for 2 seconds
+
+# State file for scrolling
+STATE_FILE="/tmp/sketchybar_music_scroll"
+
+# Initialize state if it doesn't exist
+if [[ ! -f "$STATE_FILE" ]]; then
+    echo "0:0::" > "$STATE_FILE"
+fi
+
+# Read current state: position:direction:last_text:last_update
+IFS=':' read -r scroll_pos scroll_dir last_text last_update < "$STATE_FILE"
+current_time=$(date +%s)
+
+# Check if Music.app is running
+if ! pgrep -x "Music" > /dev/null; then
+    echo "0:0::" > "$STATE_FILE"
+    sketchybar --set "$NAME" \
+                     icon="" \
+                     label=""
+    exit 0
+fi
+
+# Get player state
+PLAYER_STATE=$(osascript -e 'tell application "Music" to get player state' 2>/dev/null)
+
+case "$PLAYER_STATE" in
+    "playing")
+        # Get current track information
+        TRACK_NAME=$(osascript -e 'tell application "Music" to get name of current track' 2>/dev/null)
+        ARTIST_NAME=$(osascript -e 'tell application "Music" to get artist of current track' 2>/dev/null)
+        ALBUM_NAME=$(osascript -e 'tell application "Music" to get album of current track' 2>/dev/null)
+        
+        # Format the display text
+        if [[ -n "$TRACK_NAME" && -n "$ARTIST_NAME" ]]; then
+            FULL_TEXT="$TRACK_NAME - $ARTIST_NAME"
+            HOVER_TEXT="$TRACK_NAME by $ARTIST_NAME"
+            if [[ -n "$ALBUM_NAME" ]]; then
+                HOVER_TEXT="$HOVER_TEXT (from $ALBUM_NAME)"
+            fi
+        else
+            FULL_TEXT="Playing"
+            HOVER_TEXT="Music is playing"
+        fi
+        
+        # Handle scrolling if text is longer than max chars
+        if (( ${#FULL_TEXT} > MAX_CHARS )); then
+            # Reset scroll if text changed
+            if [[ "$FULL_TEXT" != "$last_text" ]]; then
+                scroll_pos=$((${#FULL_TEXT} - MAX_CHARS))  # Start from end (rightmost)
+                scroll_dir=0
+                last_update=$current_time
+            fi
+            
+            # Only update scroll position every SCROLL_SPEED seconds
+            if (( current_time - last_update >= SCROLL_SPEED )); then
+                max_scroll=$((${#FULL_TEXT} - MAX_CHARS))
+                
+                if [[ $scroll_dir == 0 ]]; then
+                    # Moving backward (revealing from left)
+                    if (( scroll_pos <= 0 )); then
+                        scroll_dir=1  # Start moving forward
+                        scroll_pos=0
+                    else
+                        ((scroll_pos--))
+                    fi
+                else
+                    # Moving forward (revealing from right)
+                    if (( scroll_pos >= max_scroll )); then
+                        scroll_dir=0  # Start moving backward
+                        scroll_pos=$max_scroll
+                    else
+                        ((scroll_pos++))
+                    fi
+                fi
+                
+                last_update=$current_time
+            fi
+            
+            # Extract the visible portion
+            DISPLAY_TEXT="${FULL_TEXT:$scroll_pos:$MAX_CHARS}"
+            
+            # Save state
+            echo "$scroll_pos:$scroll_dir:$FULL_TEXT:$last_update" > "$STATE_FILE"
+        else
+            # Text fits, no scrolling needed
+            DISPLAY_TEXT="$FULL_TEXT"
+            echo "0:0:$FULL_TEXT:$current_time" > "$STATE_FILE"
+        fi
+        
+        sketchybar --set "$NAME" \
+                         icon="♪" \
+                         label="$DISPLAY_TEXT"
+        ;;
+    "paused")
+        # Show paused state
+        echo "0:0::" > "$STATE_FILE"
+        sketchybar --set "$NAME" \
+                         icon="⏸" \
+                         label="Paused"
+        ;;
+    *)
+        # Not playing or stopped
+        echo "0:0::" > "$STATE_FILE"
+        sketchybar --set "$NAME" \
+                         icon="" \
+                         label=""
+        ;;
+esac
+
+# Handle mouse events
+if [[ "$SENDER" == "mouse.entered" && "$PLAYER_STATE" == "playing" ]]; then
+    # Show detailed info on hover
+    if [[ -n "$HOVER_TEXT" ]]; then
+        sketchybar --set "$NAME" label="$HOVER_TEXT"
+    fi
+elif [[ "$SENDER" == "mouse.exited" ]]; then
+    # Restore scrolling display
+    case "$PLAYER_STATE" in
+        "playing")
+            if [[ -n "$DISPLAY_TEXT" ]]; then
+                sketchybar --set "$NAME" label="$DISPLAY_TEXT"
+            fi
+            ;;
+        "paused")
+            sketchybar --set "$NAME" label="Paused"
+            ;;
+    esac
+elif [[ "$SENDER" == "mouse.clicked" ]]; then
+    # Toggle play/pause
+    osascript -e 'tell application "Music" to playpause' 2>/dev/null
+fi

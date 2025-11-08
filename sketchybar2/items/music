@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+source "$CONFIG_DIR/environment"
+source "$THEME_DIR/tokyonight"
+
+sketchybar --add item music_spacer_right right \
+           --set      music_spacer_right \
+                      background.drawing=off
+
+sketchybar --add item music right \
+           --set music \
+                 background.drawing=off \
+                 label.color="$LABEL_COLOR" \
+                 label.padding_left=0 \
+                 label.padding_right=0 \
+                 label.max_chars=30 \
+                 update_freq=1 \
+                 script="$PLUGIN_DIR/music" \
+           --subscribe music \
+                 mouse.entered \
+                 mouse.exited \
+                 mouse.clicked
+
+sketchybar --add item music_spacer_left right \
+           --set      music_spacer_left \
+                      background.drawing=off
+
+sketchybar --add bracket music_bracket music_spacer_left music music_spacer_right \
+           --set         music_bracket \
+                         background.border_color="$BRACKET_BACKGROUND_BORDER_COLOR" \
+                         background.color="$BRACKET_BACKGROUND_COLOR" \
+                         background.corner_radius="$BRACKET_BACKGROUND_CORNER_RADIUS" \
+                         background.border_width="$BRACKET_BACKGROUND_BORDER_WIDTH"

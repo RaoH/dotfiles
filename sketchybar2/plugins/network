@@ -51,18 +51,25 @@ SWIFT
 fi
 
 # Check Ethernet status
+ETHERNET_CONNECTED=false
+ETHERNET_IP=""
 if [[ -n "$ETHERNET_DEVICE" ]]; then
-    ETHERNET_STATUS=$(ifconfig "$ETHERNET_DEVICE" 2>/dev/null | grep "inet " | awk '{print $2}')
+    ETHERNET_IP=$(ifconfig "$ETHERNET_DEVICE" 2>/dev/null | grep "inet " | awk '{print $2}')
+    if [[ -n "$ETHERNET_IP" ]]; then
+        ETHERNET_CONNECTED=true
+    fi
 fi
 
-# Determine connection type and label
-# Prioritize showing actual connectivity over connection type
-if [[ "$WIFI_CONNECTED" == true ]]; then
-    # Connected to WiFi
+# Determine connection type and label based on what's connected
+if [[ "$WIFI_CONNECTED" == true && "$ETHERNET_CONNECTED" == true ]]; then
+    # Both WiFi and Ethernet are connected
+    LABEL="Network Connected"
+elif [[ "$WIFI_CONNECTED" == true ]]; then
+    # Only WiFi connected
     LABEL="WiFi: $WIFI_SSID"
-elif [[ -n "$ETHERNET_STATUS" ]]; then
-    # Connected via Ethernet (show IP for clarity)
-    LABEL="Ethernet: $ETHERNET_STATUS"
+elif [[ "$ETHERNET_CONNECTED" == true ]]; then
+    # Only Ethernet connected
+    LABEL="Ethernet: $ETHERNET_IP"
 else
     # No connection
     LABEL="Disconnected"
@@ -74,11 +81,16 @@ sketchybar --set "$NAME" \
 
 # Handle mouse events for showing IP address on hover
 if [[ "$SENDER" == "mouse.entered" ]]; then
-    # Show IP address when hovering
-    if [[ "$WIFI_CONNECTED" == true && -n "$WIFI_IP" ]]; then
+    # Show appropriate details based on connection state
+    if [[ "$WIFI_CONNECTED" == true && "$ETHERNET_CONNECTED" == true ]]; then
+        # Both connected - show both networks and IPs
+        sketchybar --set "$NAME" label="WiFi: $WIFI_SSID ($WIFI_IP) | Ethernet: $ETHERNET_IP"
+    elif [[ "$WIFI_CONNECTED" == true && -n "$WIFI_IP" ]]; then
+        # Only WiFi - show IP
         sketchybar --set "$NAME" label="IP: $WIFI_IP"
-    elif [[ -n "$ETHERNET_STATUS" ]]; then
-        sketchybar --set "$NAME" label="IP: $ETHERNET_STATUS"
+    elif [[ "$ETHERNET_CONNECTED" == true ]]; then
+        # Only Ethernet - show IP
+        sketchybar --set "$NAME" label="IP: $ETHERNET_IP"
     fi
 elif [[ "$SENDER" == "mouse.exited" ]]; then
     # Restore original label when not hovering
