@@ -41,7 +41,7 @@ elif [[ "$SENDER" == "mouse.exited" ]]; then
     PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages stored in compressor:" | awk '{print $5}' | sed 's/\.//')
     
     # Calculate used memory in bytes (Active + Wired + Compressed)
-    USED_BYTES=$(echo "($PAGES_ACTIVE + $PAGES_WIRED + $PAGES_COMPRESSED) * $PAGE_SIZE" | awk '{printf "%.0f", $1}')
+    USED_BYTES=$(echo "$PAGES_ACTIVE $PAGES_WIRED $PAGES_COMPRESSED $PAGE_SIZE" | awk '{printf "%.0f", ($1 + $2 + $3) * $4}')
     
     # Calculate percentage
     MEMORY_PERCENT=$(echo "$USED_BYTES $TOTAL_MEMORY_BYTES" | awk '{printf "%.0f", $1 * 100 / $2}')
@@ -56,7 +56,7 @@ else
     PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages stored in compressor:" | awk '{print $5}' | sed 's/\.//')
     
     # Calculate used memory in bytes (Active + Wired + Compressed)
-    USED_BYTES=$(echo "($PAGES_ACTIVE + $PAGES_WIRED + $PAGES_COMPRESSED) * $PAGE_SIZE" | awk '{printf "%.0f", $1}')
+    USED_BYTES=$(echo "$PAGES_ACTIVE $PAGES_WIRED $PAGES_COMPRESSED $PAGE_SIZE" | awk '{printf "%.0f", ($1 + $2 + $3) * $4}')
     
     # Calculate percentage
     MEMORY_PERCENT=$(echo "$USED_BYTES $TOTAL_MEMORY_BYTES" | awk '{printf "%.0f", $1 * 100 / $2}')
