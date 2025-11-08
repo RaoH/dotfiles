@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+source "$CONFIG_DIR/environment"
+source "$THEME_DIR/tokyonight"
+
+sketchybar --add item cpu_spacer_right right \
+           --set      cpu_spacer_right \
+                      background.drawing=off
+
+sketchybar --add item cpu right \
+           --set cpu \
+                 background.drawing=off \
+                 icon.drawing=on \
+		 icon=􀧓 \
+                 icon.font="JetBrainsMono Nerd Font:Bold:14.0" \
+                 icon.color="$LABEL_COLOR" \
+                 icon.padding_left=0 \
+                 icon.padding_right=5 \
+                 label.color="$LABEL_COLOR" \
+                 label.padding_left=0 \
+                 label.padding_right=0 \
+                 update_freq=5 \
+                 script="$PLUGIN_DIR/cpu" \
+           --subscribe cpu \
+                 mouse.entered \
+                 mouse.exited
+
+sketchybar --add item cpu_spacer_left right \
+           --set      cpu_spacer_left \
+                      background.drawing=off
+
+sketchybar --add bracket cpu_bracket cpu_spacer_left cpu cpu_spacer_right \
+           --set         cpu_bracket \
+                         background.border_color="$BRACKET_BACKGROUND_BORDER_COLOR" \
+                         background.color="$BRACKET_BACKGROUND_COLOR" \
+                         background.corner_radius="$BRACKET_BACKGROUND_CORNER_RADIUS" \
+                         background.border_width="$BRACKET_BACKGROUND_BORDER_WIDTH"
