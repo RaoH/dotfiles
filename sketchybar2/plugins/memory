@@ -3,6 +3,10 @@
 # Get memory info using vm_stat
 MEMORY_INFO=$(vm_stat)
 
+# Get total system memory in bytes
+TOTAL_MEMORY_BYTES=$(sysctl -n hw.memsize)
+TOTAL_GB=$((TOTAL_MEMORY_BYTES / 1024 / 1024 / 1024))
+
 if [[ "$SENDER" == "mouse.entered" ]]; then
     # Parse detailed memory information
     PAGE_SIZE=$(vm_stat | grep "page size" | awk '{print $8}')
@@ -13,56 +17,49 @@ if [[ "$SENDER" == "mouse.entered" ]]; then
     PAGES_WIRED=$(echo "$MEMORY_INFO" | grep "Pages wired down:" | awk '{print $4}' | sed 's/\.//')
     PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages stored in compressor:" | awk '{print $5}' | sed 's/\.//')
     
-    # Convert pages to GB
-    FREE_GB=$((PAGES_FREE * PAGE_SIZE / 1024 / 1024 / 1024))
-    ACTIVE_GB=$((PAGES_ACTIVE * PAGE_SIZE / 1024 / 1024 / 1024))
-    INACTIVE_GB=$((PAGES_INACTIVE * PAGE_SIZE / 1024 / 1024 / 1024))
-    WIRED_GB=$((PAGES_WIRED * PAGE_SIZE / 1024 / 1024 / 1024))
-    COMPRESSED_GB=$((PAGES_COMPRESSED * PAGE_SIZE / 1024 / 1024 / 1024))
+    # Convert pages to GB using awk for floating point
+    FREE_GB=$(echo "$PAGES_FREE $PAGE_SIZE" | awk '{printf "%.1f", $1 * $2 / 1024 / 1024 / 1024}')
+    ACTIVE_GB=$(echo "$PAGES_ACTIVE $PAGE_SIZE" | awk '{printf "%.1f", $1 * $2 / 1024 / 1024 / 1024}')
+    INACTIVE_GB=$(echo "$PAGES_INACTIVE $PAGE_SIZE" | awk '{printf "%.1f", $1 * $2 / 1024 / 1024 / 1024}')
+    WIRED_GB=$(echo "$PAGES_WIRED $PAGE_SIZE" | awk '{printf "%.1f", $1 * $2 / 1024 / 1024 / 1024}')
+    COMPRESSED_GB=$(echo "$PAGES_COMPRESSED $PAGE_SIZE" | awk '{printf "%.1f", $1 * $2 / 1024 / 1024 / 1024}')
     
-    # Calculate used memory (active + inactive + wired + compressed)
-    USED_GB=$((ACTIVE_GB + INACTIVE_GB + WIRED_GB + COMPRESSED_GB))
-    TOTAL_GB=$((USED_GB + FREE_GB))
+    # Used memory = Active + Wired + Compressed (like Activity Monitor)
+    USED_GB=$(echo "$ACTIVE_GB $WIRED_GB $COMPRESSED_GB" | awk '{printf "%.1f", $1 + $2 + $3}')
+    # Available = Free + Inactive + Speculative
+    AVAILABLE_GB=$(echo "$FREE_GB $INACTIVE_GB" | awk '{printf "%.1f", $1 + $2}')
     
-    DETAILED_INFO="${TOTAL_GB}GB | Used:${USED_GB}GB Free:${FREE_GB}GB Wired:${WIRED_GB}GB"
+    DETAILED_INFO="${TOTAL_GB}GB | Used:${USED_GB}GB Available:${AVAILABLE_GB}GB Wired:${WIRED_GB}GB"
     
     sketchybar --set "$NAME" label="$DETAILED_INFO"
     
 elif [[ "$SENDER" == "mouse.exited" ]]; then
     # Restore normal memory percentage display
     PAGE_SIZE=$(vm_stat | grep "page size" | awk '{print $8}')
-    PAGES_FREE=$(echo "$MEMORY_INFO" | grep "Pages free:" | awk '{print $3}' | sed 's/\.//')
     PAGES_ACTIVE=$(echo "$MEMORY_INFO" | grep "Pages active:" | awk '{print $3}' | sed 's/\.//')
-    PAGES_INACTIVE=$(echo "$MEMORY_INFO" | grep "Pages inactive:" | awk '{print $3}' | sed 's/\.//')
     PAGES_WIRED=$(echo "$MEMORY_INFO" | grep "Pages wired down:" | awk '{print $4}' | sed 's/\.//')
     PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages stored in compressor:" | awk '{print $5}' | sed 's/\.//')
     
-    # Convert to GB and calculate percentage
-    FREE_GB=$((PAGES_FREE * PAGE_SIZE / 1024 / 1024 / 1024))
-    USED_GB=$(((PAGES_ACTIVE + PAGES_INACTIVE + PAGES_WIRED + PAGES_COMPRESSED) * PAGE_SIZE / 1024 / 1024 / 1024))
-    TOTAL_GB=$((USED_GB + FREE_GB))
+    # Calculate used memory in bytes (Active + Wired + Compressed)
+    USED_BYTES=$(echo "($PAGES_ACTIVE + $PAGES_WIRED + $PAGES_COMPRESSED) * $PAGE_SIZE" | awk '{printf "%.0f", $1}')
     
-    if [[ $TOTAL_GB -gt 0 ]]; then
-        MEMORY_PERCENT=$((USED_GB * 100 / TOTAL_GB))
-        sketchybar --set "$NAME" label="$MEMORY_PERCENT%"
-    fi
+    # Calculate percentage
+    MEMORY_PERCENT=$(echo "$USED_BYTES $TOTAL_MEMORY_BYTES" | awk '{printf "%.0f", $1 * 100 / $2}')
+    
+    sketchybar --set "$NAME" label="${MEMORY_PERCENT}%"
     
 else
     # Normal update (not hover event)
     PAGE_SIZE=$(vm_stat | grep "page size" | awk '{print $8}')
-    PAGES_FREE=$(echo "$MEMORY_INFO" | grep "Pages free:" | awk '{print $3}' | sed 's/\.//')
     PAGES_ACTIVE=$(echo "$MEMORY_INFO" | grep "Pages active:" | awk '{print $3}' | sed 's/\.//')
-    PAGES_INACTIVE=$(echo "$MEMORY_INFO" | grep "Pages inactive:" | awk '{print $3}' | sed 's/\.//')
     PAGES_WIRED=$(echo "$MEMORY_INFO" | grep "Pages wired down:" | awk '{print $4}' | sed 's/\.//')
     PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages stored in compressor:" | awk '{print $5}' | sed 's/\.//')
     
-    # Convert to GB and calculate percentage
-    FREE_GB=$((PAGES_FREE * PAGE_SIZE / 1024 / 1024 / 1024))
-    USED_GB=$(((PAGES_ACTIVE + PAGES_INACTIVE + PAGES_WIRED + PAGES_COMPRESSED) * PAGE_SIZE / 1024 / 1024 / 1024))
-    TOTAL_GB=$((USED_GB + FREE_GB))
+    # Calculate used memory in bytes (Active + Wired + Compressed)
+    USED_BYTES=$(echo "($PAGES_ACTIVE + $PAGES_WIRED + $PAGES_COMPRESSED) * $PAGE_SIZE" | awk '{printf "%.0f", $1}')
     
-    if [[ $TOTAL_GB -gt 0 ]]; then
-        MEMORY_PERCENT=$((USED_GB * 100 / TOTAL_GB))
-        sketchybar --set "$NAME" label="$MEMORY_PERCENT%"
-    fi
+    # Calculate percentage
+    MEMORY_PERCENT=$(echo "$USED_BYTES $TOTAL_MEMORY_BYTES" | awk '{printf "%.0f", $1 * 100 / $2}')
+    
+    sketchybar --set "$NAME" label="${MEMORY_PERCENT}%"
 fi
