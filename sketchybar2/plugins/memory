@@ -15,7 +15,7 @@ if [[ "$SENDER" == "mouse.entered" ]]; then
     PAGES_INACTIVE=$(echo "$MEMORY_INFO" | grep "Pages inactive:" | awk '{print $3}' | sed 's/\.//')
     PAGES_SPECULATIVE=$(echo "$MEMORY_INFO" | grep "Pages speculative:" | awk '{print $3}' | sed 's/\.//')
     PAGES_WIRED=$(echo "$MEMORY_INFO" | grep "Pages wired down:" | awk '{print $4}' | sed 's/\.//')
-    PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages stored in compressor:" | awk '{print $5}' | sed 's/\.//')
+    PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages occupied by compressor:" | awk '{print $5}' | sed 's/\.//')
     
     # Convert pages to GB using awk for floating point
     FREE_GB=$(echo "$PAGES_FREE $PAGE_SIZE" | awk '{printf "%.1f", $1 * $2 / 1024 / 1024 / 1024}')
@@ -24,8 +24,8 @@ if [[ "$SENDER" == "mouse.entered" ]]; then
     WIRED_GB=$(echo "$PAGES_WIRED $PAGE_SIZE" | awk '{printf "%.1f", $1 * $2 / 1024 / 1024 / 1024}')
     COMPRESSED_GB=$(echo "$PAGES_COMPRESSED $PAGE_SIZE" | awk '{printf "%.1f", $1 * $2 / 1024 / 1024 / 1024}')
     
-    # Used memory = Active + Wired + Compressed (like Activity Monitor)
-    USED_GB=$(echo "$ACTIVE_GB $WIRED_GB $COMPRESSED_GB" | awk '{printf "%.1f", $1 + $2 + $3}')
+    # Used memory = Active + Wired (like btop/Linux tools)
+    USED_GB=$(echo "$ACTIVE_GB $WIRED_GB" | awk '{printf "%.1f", $1 + $2}')
     # Available = Free + Inactive + Speculative
     AVAILABLE_GB=$(echo "$FREE_GB $INACTIVE_GB" | awk '{printf "%.1f", $1 + $2}')
     
@@ -38,10 +38,10 @@ elif [[ "$SENDER" == "mouse.exited" ]]; then
     PAGE_SIZE=$(vm_stat | grep "page size" | awk '{print $8}')
     PAGES_ACTIVE=$(echo "$MEMORY_INFO" | grep "Pages active:" | awk '{print $3}' | sed 's/\.//')
     PAGES_WIRED=$(echo "$MEMORY_INFO" | grep "Pages wired down:" | awk '{print $4}' | sed 's/\.//')
-    PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages stored in compressor:" | awk '{print $5}' | sed 's/\.//')
+    PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages occupied by compressor:" | awk '{print $5}' | sed 's/\.//')
     
-    # Calculate used memory in bytes (Active + Wired + Compressed)
-    USED_BYTES=$(echo "$PAGES_ACTIVE $PAGES_WIRED $PAGES_COMPRESSED $PAGE_SIZE" | awk '{printf "%.0f", ($1 + $2 + $3) * $4}')
+    # Calculate used memory in bytes (Active + Wired only)
+    USED_BYTES=$(echo "$PAGES_ACTIVE $PAGES_WIRED $PAGE_SIZE" | awk '{printf "%.0f", ($1 + $2) * $3}')
     
     # Calculate percentage
     MEMORY_PERCENT=$(echo "$USED_BYTES $TOTAL_MEMORY_BYTES" | awk '{printf "%.0f", $1 * 100 / $2}')
@@ -53,10 +53,10 @@ else
     PAGE_SIZE=$(vm_stat | grep "page size" | awk '{print $8}')
     PAGES_ACTIVE=$(echo "$MEMORY_INFO" | grep "Pages active:" | awk '{print $3}' | sed 's/\.//')
     PAGES_WIRED=$(echo "$MEMORY_INFO" | grep "Pages wired down:" | awk '{print $4}' | sed 's/\.//')
-    PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages stored in compressor:" | awk '{print $5}' | sed 's/\.//')
+    PAGES_COMPRESSED=$(echo "$MEMORY_INFO" | grep "Pages occupied by compressor:" | awk '{print $5}' | sed 's/\.//')
     
-    # Calculate used memory in bytes (Active + Wired + Compressed)
-    USED_BYTES=$(echo "$PAGES_ACTIVE $PAGES_WIRED $PAGES_COMPRESSED $PAGE_SIZE" | awk '{printf "%.0f", ($1 + $2 + $3) * $4}')
+    # Calculate used memory in bytes (Active + Wired only)
+    USED_BYTES=$(echo "$PAGES_ACTIVE $PAGES_WIRED $PAGE_SIZE" | awk '{printf "%.0f", ($1 + $2) * $3}')
     
     # Calculate percentage
     MEMORY_PERCENT=$(echo "$USED_BYTES $TOTAL_MEMORY_BYTES" | awk '{printf "%.0f", $1 * 100 / $2}')
