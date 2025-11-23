@@ -39,15 +39,15 @@ sketchybar --default "${default[@]}"
 
 # Left
 source "$ITEM_DIR/aerospace"
-source "$ITEM_DIR/spacer"
+sketchybar --add item spacer.left left --set spacer.left width=20 background.drawing=off
 source "$ITEM_DIR/front_app"
 
 # Right
 source "$ITEM_DIR/clock"
-source "$ITEM_DIR/network"  
-source "$ITEM_DIR/spacer"
+source "$ITEM_DIR/network"
+sketchybar --add item spacer.1 right --set spacer.1 width=20 background.drawing=off
 source "$ITEM_DIR/music"
-source "$ITEM_DIR/spacer"
+sketchybar --add item spacer.2 right --set spacer.2 width=20 background.drawing=off
 source "$ITEM_DIR/battery"
 source "$ITEM_DIR/memory"
 source "$ITEM_DIR/cpu"

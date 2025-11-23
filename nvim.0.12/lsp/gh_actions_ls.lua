@@ -23,9 +23,9 @@ return {
 	root_dir = function(bufnr, on_dir)
 		local parent = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr))
 		if
-			vim.endswith(parent, "/.github/workflows")
-			or vim.endswith(parent, "/.forgejo/workflows")
-			or vim.endswith(parent, "/.gitea/workflows")
+		    vim.endswith(parent, "/.github/workflows")
+		    or vim.endswith(parent, "/.forgejo/workflows")
+		    or vim.endswith(parent, "/.gitea/workflows")
 		then
 			on_dir(parent)
 		end
@@ -46,7 +46,9 @@ return {
 			return nil, nil
 		end,
 	},
-	init_options = {}, -- needs to be present https://github.com/neovim/nvim-lspconfig/pull/3713#issuecomment-2857394868
+	init_options = {
+		token = vim.fn.system('gh auth token'):gsub('\n', ''),
+	}, -- needs to be present https://github.com/neovim/nvim-lspconfig/pull/3713#issuecomment-2857394868
 	capabilities = {
 		workspace = {
 			didChangeWorkspaceFolders = {
@@ -54,4 +56,20 @@ return {
 			},
 		},
 	},
+	on_attach = function(_, bufnr)
+		-- Setup commands for GitHub Actions workflows
+		local helpers = require('config.gh-actions-helpers')
+
+		vim.api.nvim_buf_create_user_command(bufnr, 'GHActionsInsertSecret', function()
+			helpers.insert_secret()
+		end, { desc = 'Insert GitHub Actions secret' })
+
+		vim.api.nvim_buf_create_user_command(bufnr, 'GHActionsInsertVariable', function()
+			helpers.insert_variable()
+		end, { desc = 'Insert GitHub Actions variable' })
+
+		vim.api.nvim_buf_create_user_command(bufnr, 'GHActionsClearCache', function()
+			helpers.clear_cache()
+		end, { desc = 'Clear GitHub Actions cache' })
+	end,
 }
