@@ -12,7 +12,7 @@ wk.add({
 		end,
 		desc = "Open dashboard",
 	},
-	{ "<leader>f",  group = "Project" }, -- group
+	{ "<leader>f", group = "Project" }, -- group
 	{
 		"<leader>/",
 		function()
@@ -26,14 +26,14 @@ wk.add({
 		function()
 			Snacks.picker.git_files({ hidden = true })
 		end,
-		desc = "Find files",
+		desc = "Find Git files",
 	},
 	{
 		"<leader>ff",
 		function()
 			Snacks.picker.files({ hidden = true })
 		end,
-		desc = "Find Git File",
+		desc = "Find files",
 	},
 	{
 		"<leader>fo",
@@ -70,16 +70,16 @@ wk.add({
 		end,
 		desc = "Open Help Tags",
 	},
-	{ "<leader>fe", "<cmd>Oil<cr>",   desc = "Oil" },
+	{ "<leader>fe", "<cmd>Oil<cr>", desc = "Oil" },
 	{
 		"<leader>u",
 		function()
-			Snacks.picker.help()
+			Snacks.picker.undo()
 		end,
 		desc = "Undo picker",
 	},
 	-- Buffers
-	{ "<leader>b",  group = "Buffers" },
+	{ "<leader>b", group = "Buffers" },
 	{
 		"<leader>bl",
 		function()
@@ -92,7 +92,7 @@ wk.add({
 		function()
 			Snacks.picker.grep_buffers()
 		end,
-		desc = "Find buffers",
+		desc = "Grep in buffers",
 	},
 	{
 		"<leader>bD",
@@ -126,10 +126,10 @@ wk.add({
 	},
 
 	--code
-	{ "<leader>c",  group = "code" },
+	{ "<leader>c", group = "code" },
 	{ "<leader>ca", vim.lsp.buf.code_action, desc = "Code action " },
-	{ "<leader>cr", ":IncRename ",           desc = "IncRename" },
-	{ "<leader>cm", "<cmd>Mason<cr>",        desc = "Mason" },
+	{ "<leader>cr", ":IncRename ", desc = "IncRename" },
+	{ "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
 	-- { "<leader>cl", "<cmd>LspRestart<cr>", desc = "LspRestart" },
 	{
 		"<leader>cc",
@@ -157,7 +157,6 @@ wk.add({
 		"<leader>coa",
 		mode = { "n", "x" },
 		function()
-			print("test")
 			opencode.ask("@this: ", { submit = true })
 		end,
 		desc = "Ask about this",
@@ -263,7 +262,7 @@ wk.add({
 	-- { "<leader>cpc", "<cmd>:CopilotChatCommit<cr>", desc = "Copilot Chat Commit" },
 	-- { "<leader>cpq", "<cmd>:CopilotChatReset<cr>", desc = "Copilot Reset" },
 
-	{ "<leader>g",  group = "git" },
+	{ "<leader>g", group = "git" },
 	{
 		"<leader>gb",
 		function()
@@ -329,8 +328,8 @@ wk.add({
 	},
 	{
 		mode = { "n" },
-		{ "gd", vim.lsp.buf.definition,                    hidden = true },
-		{ "K",  vim.lsp.buf.hover({ border = "rounded" }), hidden = true },
+		{ "gd", vim.lsp.buf.definition, hidden = true },
+		{ "K", vim.lsp.buf.hover({ border = "rounded" }), hidden = true },
 		{
 			"<leader>z",
 			function()
@@ -367,15 +366,28 @@ wk.add({
 		end,
 		desc = "Dismiss All Notifications",
 	},
-	{ "ms",        mode = "n",             "<cmd>split<cr>",  desc = "Split horizontally" },
-	{ "mv",        mode = "n",             "<cmd>vsplit<cr>", desc = "Split vertically" },
+	{ "ms", mode = "n", "<cmd>split<cr>", desc = "Split horizontally" },
+	{ "mv", mode = "n", "<cmd>vsplit<cr>", desc = "Split vertically" },
 	{
-		"<C-j>",
+		"gj",
 		mode = "n",
 		function()
 			vim.diagnostic.goto_next()
 		end,
+		desc = "Next diagnostic",
 	},
+	{
+		"gk",
+		mode = "n",
+		function()
+			vim.diagnostic.goto_prev()
+		end,
+		desc = "Previous diagnostic",
+	},
+	{ "<C-j>", mode = "n", ":m .+1<cr>==", desc = "Move line down" },
+	{ "<C-k>", mode = "n", ":m .-2<cr>==", desc = "Move line up" },
+	{ "<C-j>", mode = "v", ":m '>+1<cr>gv=gv", desc = "Move selection down" },
+	{ "<C-k>", mode = "v", ":m '<-2<cr>gv=gv", desc = "Move selection up" },
 
 	-- { "mh", mode = "n", "<C-w>h" },
 	-- { "mh", mode = "n", "<C-w>k" },
