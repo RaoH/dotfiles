@@ -4,6 +4,34 @@ return {
 	init_options = {
 		hostInfo = "neovim",
 	},
+	settings = {
+		vtsls = {
+			autoUseWorkspaceTsdk = true,
+			experimental = {
+				completion = {
+					enableServerSideFuzzyMatch = true,
+				},
+			},
+		},
+		typescript = {
+			preferences = {
+				importModuleSpecifier = "non-relative",
+				importModuleSpecifierEnding = "minimal",
+			},
+			updateImportsOnFileMove = {
+				enabled = "always",
+			},
+		},
+		javascript = {
+			preferences = {
+				importModuleSpecifier = "non-relative",
+				importModuleSpecifierEnding = "minimal",
+			},
+			updateImportsOnFileMove = {
+				enabled = "always",
+			},
+		},
+	},
 	filetypes = {
 		"javascript",
 		"javascriptreact",

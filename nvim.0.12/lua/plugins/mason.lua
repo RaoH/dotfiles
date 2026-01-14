@@ -16,6 +16,7 @@ vim.pack.add({"https://github.com/mason-org/mason-lspconfig.nvim"})
 					"css-variables-language-server",
 					"csharp-language-server",
 					"vtsls",
+					"js-debug-adapter",
 				},
 			})
 

@@ -312,6 +312,102 @@ wk.add({
 	},
 	-- Project
 	{ "<leader>p", group = "Project" },
+	-- Debug
+	{ "<leader>d", group = "debug" },
+	{
+		"<leader>db",
+		function()
+			require("dap").toggle_breakpoint()
+		end,
+		desc = "Toggle breakpoint",
+	},
+	{
+		"<leader>dB",
+		function()
+			require("dap").set_breakpoint(vim.fn.input("Condition: "))
+		end,
+		desc = "Conditional breakpoint",
+	},
+	{
+		"<leader>dc",
+		function()
+			require("dap").continue()
+		end,
+		desc = "Continue/Start",
+	},
+	{
+		"<leader>ds",
+		function()
+			require("dap").step_over()
+		end,
+		desc = "Step over",
+	},
+	{
+		"<leader>di",
+		function()
+			require("dap").step_into()
+		end,
+		desc = "Step into",
+	},
+	{
+		"<leader>do",
+		function()
+			require("dap").step_out()
+		end,
+		desc = "Step out",
+	},
+	{
+		"<leader>dt",
+		function()
+			require("dap-view").toggle()
+		end,
+		desc = "Toggle DAP UI",
+	},
+	{
+		"<leader>dr",
+		function()
+			require("dap").restart()
+		end,
+		desc = "Restart",
+	},
+	{
+		"<leader>dq",
+		function()
+			require("dap").terminate()
+		end,
+		desc = "Terminate",
+	},
+	{
+		"<leader>dl",
+		function()
+			require("dap").run_last()
+		end,
+		desc = "Run last",
+	},
+	{
+		"<leader>dh",
+		function()
+			require("dap.ui.widgets").hover()
+		end,
+		desc = "Hover variables",
+	},
+	{
+		"<leader>dp",
+		function()
+			require("dap.ui.widgets").preview()
+		end,
+		desc = "Preview",
+	},
+	{
+		"<leader>dv",
+		"<cmd>DapVirtualTextToggle<cr>",
+		desc = "Toggle virtual text",
+	},
+	{
+		"<leader>dw",
+		"<cmd>DapAddWatch<cr>",
+		desc = "Add watch (pre-debug)",
+	},
 	-- Editor
 	{ "<leader>e", group = "Editor" },
 	{
