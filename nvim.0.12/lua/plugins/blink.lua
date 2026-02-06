@@ -54,6 +54,9 @@ require("blink.cmp").setup({
 			javascriptreact = { "lsp", "snippets" },
 			typescriptreact = { "lsp", "snippets" },
 			svelte = { "lsp", "snippets" },
+			sql = { "dadbod", "snippets", "buffer" },
+			mysql = { "dadbod", "snippets", "buffer" },
+			plsql = { "dadbod", "snippets", "buffer" },
 		},
 		-- transform_items = function(ctx, items)
 		-- 	local _ = ctx
@@ -129,6 +132,11 @@ require("blink.cmp").setup({
 			-- 	-- make lazydev completions top priority (see `:h blink.cmp`)
 			-- 	score_offset = 100,
 			-- },
+			dadbod = {
+				name = "Dadbod",
+				module = "vim_dadbod_completion.blink",
+				score_offset = 90,
+			},
 			lsp = {
 				name = "LSP",
 				score_offset = 100,

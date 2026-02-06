@@ -42,7 +42,7 @@ vim.api.nvim_set_hl(0, "DapStoppedLine", { bg = "#3d3d29" })
 -- Configure js-debug-adapter (installed via Mason)
 local js_debug_adapter_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter"
 
--- pwa-node adapter for server-side debugging
+-- pwa-node adapter for server-side debugging (attach requests)
 dap.adapters["pwa-node"] = {
 	type = "server",
 	host = "localhost",
@@ -51,6 +51,24 @@ dap.adapters["pwa-node"] = {
 		command = "node",
 		args = { js_debug_adapter_path .. "/js-debug/src/dapDebugServer.js", "${port}" },
 	},
+}
+
+-- pwa-node-launch: alias to pwa-node but not in terminal hide list
+-- This allows launch configs to show the terminal while attach configs hide it
+dap.adapters["pwa-node-launch"] = {
+	type = "server",
+	host = "localhost",
+	port = "${port}",
+	executable = {
+		command = "node",
+		args = { js_debug_adapter_path .. "/js-debug/src/dapDebugServer.js", "${port}" },
+	},
+	enrich_config = function(config, on_config)
+		-- Override the type to pwa-node for the debug adapter
+		local final_config = vim.deepcopy(config)
+		final_config.type = "pwa-node"
+		on_config(final_config)
+	end,
 }
 
 -- pwa-chrome adapter for client-side debugging
@@ -67,6 +85,22 @@ dap.adapters["pwa-chrome"] = {
 -- Configurations for JavaScript/TypeScript/Svelte
 for _, language in ipairs({ "typescript", "javascript", "svelte", "typescriptreact", "javascriptreact" }) do
 	dap.configurations[language] = {
+		-- Server-side: Launch npm run dev (with terminal)
+		{
+			type = "pwa-node-launch",
+			request = "launch",
+			name = "Launch Dev Server (npm run dev)",
+			runtimeExecutable = "npm",
+			runtimeArgs = { "run", "dev" },
+			cwd = "${workspaceFolder}",
+			console = "integratedTerminal",
+			sourceMaps = true,
+			resolveSourceMapLocations = {
+				"${workspaceFolder}/**",
+				"!**/node_modules/**",
+			},
+			skipFiles = { "<node_internals>/**", "**/node_modules/**" },
+		},
 		-- Server-side: Attach to running node --inspect process
 		{
 			type = "pwa-node",
@@ -81,13 +115,14 @@ for _, language in ipairs({ "typescript", "javascript", "svelte", "typescriptrea
 			},
 			skipFiles = { "<node_internals>/**", "**/node_modules/**" },
 		},
-		-- Server-side: Launch current file
+		-- Server-side: Launch current file (with terminal)
 		{
-			type = "pwa-node",
+			type = "pwa-node-launch",
 			request = "launch",
 			name = "Launch Current File (Node)",
 			program = "${file}",
 			cwd = "${workspaceFolder}",
+			console = "integratedTerminal",
 			sourceMaps = true,
 			resolveSourceMapLocations = {
 				"${workspaceFolder}/**",
