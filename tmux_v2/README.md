@@ -91,7 +91,7 @@
 - Prefix is set to `Ctrl+A` instead of default `Ctrl+B`
 - Vi-style key bindings enabled for copy mode
 - All splits preserve current working directory
-- Session restore enabled via tmux-continuum
+- Session restore available via tmux-resurrect (manual: prefix + Ctrl-s to save, prefix + Ctrl-r to restore)
 
 ## Configuration Files
 - `tmux.conf` - Main configuration file

@@ -3,6 +3,7 @@ vim.pack.add({
 	{ src = "https://github.com/smjonas/inc-rename.nvim.git" },
 	{ src = "https://github.com/ThePrimeagen/refactoring.nvim.git" },
 	{ src = "https://github.com/folke/todo-comments.nvim.git" },
+	{ src = "https://github.com/b0o/SchemaStore.nvim.git" },
 })
 
 require("inc_rename").setup()

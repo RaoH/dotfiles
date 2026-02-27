@@ -1,14 +1,13 @@
+-- Leader keys (must be set before any keybindings)
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 -- Vim options
 require("config.autocmds")
 require("config.options")
 require("config.lsp_config")
 --
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 --
--- -- Project-specific indent detection
-require("config.project-indent")
-
 --
 -- -- PLUGINS
 require("plugins.blink")

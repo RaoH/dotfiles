@@ -1,9 +1,9 @@
 --- @brief
 ---
---- https://github.com/hrsh7th/vscode-langservers-extracted
+--- https://github.com/microsoft/vscode-eslint
 ---
 --- `vscode-eslint-language-server` is a linting engine for JavaScript / Typescript.
---- It can be installed via `npm`:
+--- It can be installed via Mason (`eslint-lsp`) or `npm`:
 ---
 --- ```sh
 --- npm i -g vscode-langservers-extracted
@@ -125,9 +125,6 @@ return {
 		validate = "on",
 		packageManager = nil,
 		useESLintClass = false,
-		experimental = {
-			useFlatConfig = false,
-		},
 		codeActionOnSave = {
 			enable = false,
 			mode = "all",

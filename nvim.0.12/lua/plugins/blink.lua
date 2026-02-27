@@ -8,8 +8,14 @@ vim.pack.add({
 --local trigger_text = ";"
 --
 require("blink.cmp").setup({
-	keymap = { preset = "enter" },
+	keymap = { preset = "super-tab" },
 	completion = {
+		list = {
+			selection = {
+				preselect = true,
+				auto_insert = false,
+			},
+		},
 		menu = {
 			border = "rounded",
 			scrolloff = 1,

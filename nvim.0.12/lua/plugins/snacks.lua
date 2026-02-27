@@ -15,6 +15,7 @@ require('snacks').setup({
 		-- or leave it empty to use the default settings
 		-- refer to the configuratikkon section below
 		git = { enabled = true },
+		input = { enabled = true },
 		dim = { enabled = true },
 		bigfile = { enabled = true },
 		bufdelete = { enabled = true },

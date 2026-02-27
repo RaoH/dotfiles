@@ -43,6 +43,7 @@ alias cat = bat
 alias ai = ollama run codellama
 alias lt = eza --tree --level=2 --long --icons --git
 alias n = nvim
+alias oc = opencode --port 0
 
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")

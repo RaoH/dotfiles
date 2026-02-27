@@ -15,7 +15,27 @@ M.logo = [[
 
 M.dashboard_layout_section = {
 	{ section = "header" },
-	{ section = "keys", gap = 1, padding = 1 },
+	{
+		section = "keys",
+		gap = 1,
+		padding = 1,
+		-- Override default keys to exclude "Restore Session"
+		keys = {
+			{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.picker.files()" },
+			{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+			{ icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
+			{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
+			{
+				icon = " ",
+				key = "c",
+				desc = "Config",
+				action = ":lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })",
+			},
+			{ icon = " ", key = "p", desc = "Projects", action = ":Pj" },
+			{ icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+			{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+		},
+	},
 	{
 		pane = 2,
 		icon = " ",

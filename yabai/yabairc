@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+#
+# Yabai config - NO SIP disabled required
+# Equivalent to your Aerospace setup
+#
+# Install:
+#   brew install koekeishiya/formulae/yabai
+#   brew install koekeishiya/formulae/skhd
+#
+# Setup:
+#   ln -sf ~/.dotfiles/yabai/yabairc ~/.config/yabai/yabairc
+#   ln -sf ~/.dotfiles/yabai/skhdrc ~/.config/skhd/skhdrc
+#
+# Start:
+#   yabai --start-service
+#   skhd --start-service
+
+# ===== Tiling settings =====
+yabai -m config layout bsp
+yabai -m config auto_balance off
+
+# New window spawns to the right/bottom
+yabai -m config window_placement second_child
+
+# ===== Gaps (matching your Aerospace config) =====
+yabai -m config top_padding    38   # External monitor, use 5 for laptop
+yabai -m config bottom_padding 5
+yabai -m config left_padding   5
+yabai -m config right_padding  5
+yabai -m config window_gap     20
+
+# ===== Mouse settings =====
+yabai -m config mouse_follows_focus off
+yabai -m config focus_follows_mouse off
+yabai -m config mouse_modifier alt
+yabai -m config mouse_action1 move
+yabai -m config mouse_action2 resize
+yabai -m config mouse_drop_action swap
+
+# ===== Window settings =====
+yabai -m config window_shadow off
+yabai -m config window_opacity off
+yabai -m config split_ratio 0.5
+
+# ===== App-specific rules (matching your Aerospace on-window-detected) =====
+
+# Workspace 2: File managers
+yabai -m rule --add app="^ForkLift$" space=2
+yabai -m rule --add app="^Finder$" space=2
+
+# Workspace 6: Communication
+yabai -m rule --add app="^Discord$" space=6
+yabai -m rule --add app="^Messages$" space=6
+
+# Workspace 7: Productivity
+yabai -m rule --add app="^Mail$" space=7
+yabai -m rule --add app="^Calendar$" space=7
+
+# Workspace 8: Terminal
+yabai -m rule --add app="^Ghostty$" space=8
+
+# Workspace 9: Notes
+yabai -m rule --add app="^Obsidian$" space=9
+
+# ===== Apps to float (not tile) =====
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+yabai -m rule --add app="^Raycast$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^Karabiner" manage=off
+yabai -m rule --add app="^1Password" manage=off
+yabai -m rule --add title="^Preferences$" manage=off
+yabai -m rule --add title="^Settings$" manage=off
+
+# ===== Sketchybar integration =====
+# Notify sketchybar on space change
+yabai -m signal --add event=space_changed action="sketchybar --trigger yabai_space_changed"
+yabai -m signal --add event=window_focused action="sketchybar --trigger yabai_window_focused"
+
+echo "yabai configuration loaded"

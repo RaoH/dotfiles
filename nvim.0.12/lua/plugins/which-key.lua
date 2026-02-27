@@ -312,6 +312,21 @@ wk.add({
 	},
 	-- Project
 	{ "<leader>p", group = "Project" },
+	{ "<leader>pp", "<cmd>Pj<cr>", desc = "Switch project" },
+	{
+		"<leader>ps",
+		function()
+			SessionPicker()
+		end,
+		desc = "Select session",
+	},
+	{
+		"<leader>pl",
+		function()
+			require("persistence").load({ last = true })
+		end,
+		desc = "Load last session",
+	},
 	-- Debug
 	{ "<leader>d", group = "debug" },
 	{
@@ -420,12 +435,11 @@ wk.add({
 				Snacks.dim.enable()
 			end
 		end,
-		desc = "Precognition toggle",
+		desc = "Toggle dim",
 	},
 	{
 		mode = { "n" },
 		{ "gd", vim.lsp.buf.definition, hidden = true },
-		{ "K", vim.lsp.buf.hover({ border = "rounded" }), hidden = true },
 		{
 			"<leader>z",
 			function()
@@ -451,6 +465,9 @@ wk.add({
 	{
 		"<leader>nh",
 		function()
+			if vim.fn.getcmdwintype() ~= "" then
+				return
+			end
 			Snacks.notifier.show_history()
 		end,
 		desc = "Notification History",
@@ -468,7 +485,7 @@ wk.add({
 		"gj",
 		mode = "n",
 		function()
-			vim.diagnostic.goto_next()
+			vim.diagnostic.jump({ count = 1 })
 		end,
 		desc = "Next diagnostic",
 	},
@@ -476,7 +493,7 @@ wk.add({
 		"gk",
 		mode = "n",
 		function()
-			vim.diagnostic.goto_prev()
+			vim.diagnostic.jump({ count = -1 })
 		end,
 		desc = "Previous diagnostic",
 	},

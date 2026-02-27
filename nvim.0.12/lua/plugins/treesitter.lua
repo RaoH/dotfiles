@@ -21,7 +21,6 @@ local ensure_install_list = {
 	"go",
 	"graphql",
 	"html",
-	"html",
 	"http",
 	"java",
 	"javascript",
@@ -45,7 +44,6 @@ require("nvim-treesitter.configs").setup({
 	ensure_installed = ensure_install_list,
 	highlight = { enable = true },
 	indent = { enable = true },
-	autotag = true,
 	incremental_selection = {
 		enable = true,
 		keymaps = {

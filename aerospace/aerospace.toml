@@ -13,8 +13,8 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-	'exec-and-forget sketchybar', 
-	'exec-and-forget borders'
+	'exec-and-forget sketchybar'
+	# 'exec-and-forget borders'  # Disabled - uses 680MB RAM
 ]
 
 # Start AeroSpace at login
