@@ -21,6 +21,7 @@ path add "/Users/raoul/.orbstack/bin"
 path add "/opt/homebrew/opt/redis@6.2/bin"
 path add "/opt/podman/bin"
 path add "/usr/local/share/dotnet"
+path add "/Applications/Obsidian.app/Contents/MacOS"
 
 # Load aliass	
 source /Users/raoul/.config/nushell/my-aliases.nu

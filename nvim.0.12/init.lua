@@ -5,6 +5,10 @@ vim.g.maplocalleader = "\\"
 -- Vim options
 require("config.autocmds")
 require("config.options")
+
+-- Load SchemaStore before LSP config (jsonls depends on it)
+vim.cmd.packadd("SchemaStore.nvim")
+
 require("config.lsp_config")
 --
 --
@@ -28,5 +32,6 @@ require("plugins.treesitter")
 require("plugins.ui")
 require("plugins.ufo")
 require("plugins.dap")
+require("plugins.octo")
 require("plugins.which-key")
 require("plugins.dadbod")

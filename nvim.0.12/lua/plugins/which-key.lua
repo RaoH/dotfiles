@@ -439,7 +439,7 @@ wk.add({
 	},
 	{
 		mode = { "n" },
-		{ "gd", vim.lsp.buf.definition, hidden = true },
+		{ "gd", require("config.jsdoc-goto").smart_definition, hidden = true },
 		{
 			"<leader>z",
 			function()
@@ -501,6 +501,53 @@ wk.add({
 	{ "<C-k>", mode = "n", ":m .-2<cr>==", desc = "Move line up" },
 	{ "<C-j>", mode = "v", ":m '>+1<cr>gv=gv", desc = "Move selection down" },
 	{ "<C-k>", mode = "v", ":m '<-2<cr>gv=gv", desc = "Move selection up" },
+
+	-- Octo (GitHub)
+	{ "<leader>go", group = "Octo (GitHub)" },
+
+	-- Issues
+	{ "<leader>goi", group = "Issues" },
+	{ "<leader>goil", "<cmd>Octo issue list<cr>", desc = "List issues" },
+	{ "<leader>goic", "<cmd>Octo issue create<cr>", desc = "Create issue" },
+	{ "<leader>gois", "<cmd>Octo issue search<cr>", desc = "Search issues" },
+	{ "<leader>goio", "<cmd>Octo issue close<cr>", desc = "Close issue" },
+	{ "<leader>goir", "<cmd>Octo issue reopen<cr>", desc = "Reopen issue" },
+
+	-- Pull Requests
+	{ "<leader>gop", group = "Pull Requests" },
+	{ "<leader>gopl", "<cmd>Octo pr list<cr>", desc = "List PRs" },
+	{ "<leader>gopc", "<cmd>Octo pr create<cr>", desc = "Create PR" },
+	{ "<leader>gops", "<cmd>Octo pr search<cr>", desc = "Search PRs" },
+	{ "<leader>gopd", "<cmd>Octo pr diff<cr>", desc = "Show PR diff" },
+	{ "<leader>goph", "<cmd>Octo pr checkout<cr>", desc = "Checkout PR" },
+	{ "<leader>gopm", "<cmd>Octo pr merge<cr>", desc = "Merge PR" },
+	{ "<leader>gopx", "<cmd>Octo pr close<cr>", desc = "Close PR" },
+	{ "<leader>gopr", "<cmd>Octo pr ready<cr>", desc = "Mark PR ready" },
+
+	-- Reviews
+	{ "<leader>gor", group = "Reviews" },
+	{ "<leader>gors", "<cmd>Octo review start<cr>", desc = "Start review" },
+	{ "<leader>gorr", "<cmd>Octo review resume<cr>", desc = "Resume review" },
+	{ "<leader>goru", "<cmd>Octo review submit<cr>", desc = "Submit review" },
+	{ "<leader>gorc", "<cmd>Octo review comments<cr>", desc = "View comments" },
+	{ "<leader>gord", "<cmd>Octo review discard<cr>", desc = "Discard review" },
+
+	-- Comments
+	{ "<leader>goc", group = "Comments" },
+	{ "<leader>goca", "<cmd>Octo comment add<cr>", desc = "Add comment" },
+	{ "<leader>gocd", "<cmd>Octo comment delete<cr>", desc = "Delete comment" },
+
+	-- Reactions
+	{ "<leader>goe", group = "Reactions" },
+	{ "<leader>goet", "<cmd>Octo reaction thumbs_up<cr>", desc = "👍" },
+	{ "<leader>goed", "<cmd>Octo reaction thumbs_down<cr>", desc = "👎" },
+	{ "<leader>goeh", "<cmd>Octo reaction heart<cr>", desc = "❤️" },
+	{ "<leader>goer", "<cmd>Octo reaction rocket<cr>", desc = "🚀" },
+	{ "<leader>goey", "<cmd>Octo reaction eyes<cr>", desc = "👀" },
+
+	-- Other
+	{ "<leader>gog", "<cmd>Octo gist list<cr>", desc = "List gists" },
+	{ "<leader>goa", "<cmd>Octo actions<cr>", desc = "Actions" },
 
 	-- { "mh", mode = "n", "<C-w>h" },
 	-- { "mh", mode = "n", "<C-w>k" },

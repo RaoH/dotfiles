@@ -1,9 +1,6 @@
 vim.pack.add({ "https://github.com/NickvanDyke/opencode.nvim.git" })
 
 vim.g.opencode_opts = {
-	provider = {
-		enabled = false,
-	},
 	prompts = {
 		-- With an "Ask" item, the select menu can serve as the only entrypoint to all plugin-exclusive functionality, without numerous keymaps.
 		ask = { prompt = "", ask = true, submit = true },

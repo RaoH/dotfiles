@@ -50,4 +50,7 @@ esac
 export PATH="/opt/homebrew/opt/redis@6.2/bin:/opt/podman/bin/podman:$PATH"
 eval "$(atuin init zsh)"
 
-PATH=~/.console-ninja/.bin:$PATH
+PATH=.bin:$PATH
+
+# Vite+ bin (https://viteplus.dev)
+. "$HOME/.vite-plus/env"

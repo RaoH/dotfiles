@@ -14,7 +14,7 @@ sketchybar --add item music right \
                  label.padding_left=0 \
                  label.padding_right=0 \
                  label.max_chars=30 \
-                 update_freq=1 \
+                 update_freq=3 \
                  script="$PLUGIN_DIR/music" \
            --subscribe music \
                  mouse.entered \
