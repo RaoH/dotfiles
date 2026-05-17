@@ -7,7 +7,9 @@ require("config.autocmds")
 require("config.options")
 
 -- Load SchemaStore before LSP config (jsonls depends on it)
-vim.cmd.packadd("SchemaStore.nvim")
+vim.pack.add({
+	{ src = "https://github.com/b0o/SchemaStore.nvim.git" },
+})
 
 require("config.lsp_config")
 --
