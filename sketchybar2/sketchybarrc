@@ -37,10 +37,26 @@ default=(
 )
 sketchybar --default "${default[@]}"
 
-# Left
-source "$ITEM_DIR/aerospace"
-sketchybar --add item spacer.left left --set spacer.left width=20 background.drawing=off
+# sketchybar --default "${default[@]}"
+# source "$ITEM_DIR/flashspace"
+# sketchybar --add item spacer.left left --set spacer.left width=20 background.drawing=off --add event flashspace_workspace_change --subscribe flashspace flashspace_workspace_change
+# source "$ITEM_DIR/front_app"
+#
+sketchybar --add item flashspace left \
+  --set flashspace \
+  background.color=0x22ffffff \
+  background.corner_radius=5 \
+  label.padding_left=5 \
+  label.padding_right=5 \
+  script="$PLUGIN_DIR/flashspace" \
+  --add event flashspace_workspace_change \
+  --subscribe flashspace flashspace_workspace_change
 source "$ITEM_DIR/front_app"
+
+# Left
+#source "$ITEM_DIR/aerospace"
+#sketchybar --add item spacer.left left --set spacer.left width=20 background.drawing=off
+#source "$ITEM_DIR/front_app"
 
 # Right
 source "$ITEM_DIR/clock"
@@ -59,4 +75,4 @@ sketchybar --hotload on
 sketchybar --update
 
 # Initialize focused workspace
-sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$(aerospace list-workspaces --focused)
+sketchybar --trigger flashspace_workspace_change WORKSPACE="$(flashspace get-workspace)" DISPLAY="$(flashspace get-display)"
