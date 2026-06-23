@@ -29,7 +29,7 @@ alias v="fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs nvi
 alias ls="eza"
 alias cat="bat"
 alias ai="ollama run codellama"
-alias lt='eza --tree --level=2 --long --icons --git'
+alias ltt='eza --tree --level=2 --long --icons --git'
 alias n=nvim
 
 # Cursor setup

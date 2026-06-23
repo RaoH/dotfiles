@@ -13,6 +13,7 @@ $env.config = {
 use std "path add"
 path add "/opt/homebrew/bin/"
 path add "/User/raoul/.local/share/bob"
+path add "/User/raoul/.vite-plus/bin"
 path add "/opt/homebrew/sbin/"
 path add "/Users/raoul/.local/bin"
 path add "/Users/raoul/Library/pnpm"

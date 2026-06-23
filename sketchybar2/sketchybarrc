@@ -60,12 +60,16 @@ source "$ITEM_DIR/front_app"
 
 # Right
 source "$ITEM_DIR/clock"
+sketchybar --add item spacer.1 right --set spacer.1 width=5 background.drawing=off
 source "$ITEM_DIR/network"
-sketchybar --add item spacer.1 right --set spacer.1 width=20 background.drawing=off
-source "$ITEM_DIR/music"
-sketchybar --add item spacer.2 right --set spacer.2 width=20 background.drawing=off
+sketchybar --add item spacer.2 right --set spacer.2 width=5 background.drawing=off
+# sketchybar --add item spacer.1 right --set spacer.1 width=20 background.drawing=off
+# #source "$ITEM_DIR/music"
+# sketchybar --add item spacer.2 right --set spacer.2 width=20 background.drawing=off
 source "$ITEM_DIR/battery"
+sketchybar --add item spacer.3 right --set spacer.3 width=5 background.drawing=off
 source "$ITEM_DIR/memory"
+sketchybar --add item spacer.4 right --set spacer.4 width=5 background.drawing=off
 source "$ITEM_DIR/cpu"
 
 # Automatically apply configuration changes

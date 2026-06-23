@@ -71,12 +71,10 @@ return {
 		local fname = vim.api.nvim_buf_get_name(bufnr)
 		-- Svelte LSP only supports file:// schema. https://github.com/sveltejs/language-tools/issues/2777
 		if vim.uv.fs_stat(fname) ~= nil then
-			local root_markers =
-			{ "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock", "deno.lock" }
-			root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, { ".git" } }
-			    or vim.list_extend(root_markers, { ".git" })
-			-- We fallback to the current working directory if no project root is found
-			local project_root = vim.fs.root(bufnr, root_markers) or vim.fn.getcwd()
+			-- Use nearest svelte.config.js or package.json so pnpm workspace packages
+			-- are resolved from the correct app/package root (not the monorepo root).
+			local project_root = vim.fs.root(bufnr, { "svelte.config.js", "package.json" })
+				or vim.fn.getcwd()
 			on_dir(project_root)
 		end
 	end,

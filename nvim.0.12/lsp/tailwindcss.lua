@@ -108,8 +108,33 @@ return {
 	end,
 	workspace_required = true,
 	root_dir = function(bufnr, on_dir)
+		local fname = vim.api.nvim_buf_get_name(bufnr)
+
+		-- In a monorepo, prefer the nearest package.json that references tailwindcss
+		-- over .git (which would resolve to the repo root where tailwindcss is not installed).
+		-- We check for package.json with "tailwindcss" first, then fall back to config files,
+		-- then .git.
+		local pkg_root = nil
+		local pkg_files = vim.fs.find({ "package.json" }, { path = fname, upward = true, limit = math.huge })
+		for _, pkg in ipairs(pkg_files or {}) do
+			for line in io.lines(pkg) do
+				if line:find("tailwindcss") then
+					pkg_root = vim.fs.dirname(pkg)
+					break
+				end
+			end
+			if pkg_root then
+				break
+			end
+		end
+
+		if pkg_root then
+			on_dir(pkg_root)
+			return
+		end
+
+		-- Fallback: generic config files and .git
 		local root_files = {
-			-- Generic
 			"tailwind.config.js",
 			"tailwind.config.cjs",
 			"tailwind.config.mjs",
@@ -118,17 +143,8 @@ return {
 			"postcss.config.cjs",
 			"postcss.config.mjs",
 			"postcss.config.ts",
-			-- Django
-			"theme/static_src/tailwind.config.js",
-			"theme/static_src/tailwind.config.cjs",
-			"theme/static_src/tailwind.config.mjs",
-			"theme/static_src/tailwind.config.ts",
-			"theme/static_src/postcss.config.js",
-			-- Fallback for tailwind v4, where tailwind.config.* is not required anymore
 			".git",
 		}
-		local fname = vim.api.nvim_buf_get_name(bufnr)
-		root_files = util.insert_package_json(root_files, "tailwindcss", fname)
 		root_files = util.root_markers_with_field(root_files, { "mix.lock", "Gemfile.lock" }, "tailwind", fname)
 		on_dir(vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1]))
 	end,
