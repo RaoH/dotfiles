@@ -8,7 +8,7 @@ into `$HOME`.
 ## One-line setup on a new machine
 
 ```sh
-git clone git@git.bblab.se:raoul/RaoHDev-DOTFILES.git ~/.raohdev && ~/.raohdev/install.sh
+~/<checkout_dir>/install.sh
 ```
 
 `install.sh` is idempotent — safe to re-run any time. It will:
@@ -23,7 +23,7 @@ Then: `exec $SHELL`, open `nvim` (plugins auto-install via `vim.pack`), and star
 ## Layout
 
 ```
-~/.raohdev/
+~/<checkout_dir>/
   install.sh           # bootstrap script
   Brewfile             # Homebrew bundle (regenerate: brew bundle dump --force)
   .gitignore
@@ -50,7 +50,7 @@ becomes `~/.config/nvim/init.lua`.
 ```sh
 mkdir -p myapp/.config/myapp
 $EDITOR myapp/.config/myapp/config.toml
-stow -R --target ~ --dir ~/.raohdev myapp
+stow -R --target ~ --dir ~/<checkout_dir> myapp
 ```
 
 Then add `myapp` to `STOW_PACKAGES` in `install.sh` and commit.
@@ -66,7 +66,7 @@ brew bundle dump --force --file Brewfile
 ## Uninstalling a package's links
 
 ```sh
-stow -D --target ~ --dir ~/.raohdev <package>
+stow -D --target ~ --dir ~/<checkout_dir> <package>
 ```
 
 ## Notes
