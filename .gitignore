@@ -1,5 +1,10 @@
-tmux*/plugins/*
+# tmux plugins (managed by TPM, cloned at runtime)
+tmux/.config/tmux/plugins/*
+
+# Editor/plugin lock files
 **/lazy-lock.json
 **/nvim-pack-lock.json
+
+# Misc runtime
 **/history.txt
-nushell/vendor/
+nushell/.config/nushell/vendor/

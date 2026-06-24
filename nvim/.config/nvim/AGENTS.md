@@ -6,7 +6,7 @@ plugin manager and the new native LSP configuration system via the `lsp/` direct
 ## Project Structure
 
 ```
-nvim.0.12/
+nvim/
 ├── init.lua              # Entry point - loads all modules
 ├── lsp/                  # LSP server configurations (native vim.lsp.config)
 │   ├── lua_ls.lua        # Lua language server

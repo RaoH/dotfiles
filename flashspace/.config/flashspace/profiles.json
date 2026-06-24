@@ -1,0 +1,59 @@
+{
+  "profiles" : [
+    {
+      "id" : "E68F9166-5440-4ACA-8F17-CED379A36DDD",
+      "name" : "Default",
+      "workspaces" : [
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.mitchellh.ghostty",
+              "iconPath" : "/Applications/Ghostty.app/Contents/Resources/Ghostty.icns",
+              "name" : "Ghostty"
+            }
+          ],
+          "display" : "BenQ RD320UA",
+          "id" : "B66B1DE1-3F9C-4CFD-A843-604ACA8CBE96",
+          "name" : "Development",
+          "openAppsOnActivation" : false,
+          "shortcut" : "opt+1",
+          "symbolIconName" : "apple.terminal"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.google.Chrome",
+              "iconPath" : "/Applications/Google Chrome.app/Contents/Resources/app.icns",
+              "name" : "Google Chrome"
+            }
+          ],
+          "display" : "BenQ RD320UA",
+          "id" : "17913E72-79FD-4959-AD8D-C3F38F8247BE",
+          "name" : "Browser",
+          "openAppsOnActivation" : false,
+          "shortcut" : "opt+2",
+          "symbolIconName" : "globe"
+        },
+        {
+          "appToFocus" : {
+            "bundleIdentifier" : "com.apple.Music",
+            "iconPath" : "/System/Applications/Music.app/Contents/Resources/AppIcon.icns",
+            "name" : "Music"
+          },
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.apple.Music",
+              "iconPath" : "/System/Applications/Music.app/Contents/Resources/AppIcon.icns",
+              "name" : "Music"
+            }
+          ],
+          "display" : "BenQ RD320UA",
+          "id" : "8EAB949C-C2DF-44D3-8042-6E973C2EA1C2",
+          "name" : "Music",
+          "openAppsOnActivation" : false,
+          "symbolIconName" : "music.note"
+        }
+      ]
+    }
+  ]
+}
