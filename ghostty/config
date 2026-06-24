@@ -8,4 +8,6 @@ font-family = "Jetbrains Nerd Font Mono"
 font-size = 12
 font-feature = -liga
 mouse-hide-while-typing = true
-command = /opt/homebrew/bin/nu
+cursor-style = block
+shell-integration-features = no-cursor
+#command = /opt/homebrew/bin/nu

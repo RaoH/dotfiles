@@ -1,18 +1,18 @@
 export LANG=en_US.UTF-8
 
 eval "$(starship init zsh)"
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 
 export TERM="xterm-256color"
-export DOCKER_HOST=unix:///var/folders/s7/5yc_kfq10_7937dgr3xfcv600000gn/T/podman/podman-machine-default-api.sock
-export CONTAINER_ENGINE_PODMAN=1
+#export DOCKER_HOST=unix:///var/folders/s7/5yc_kfq10_7937dgr3xfcv600000gn/T/podman/podman-machine-default-api.sock
+#export CONTAINER_ENGINE_PODMAN=1
 
 [[ -n $TMUX ]] && export TERM="screen-256color"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 #ZSH_THEME="spaceship"  #"steeef" #gnzh
 
 #THEME SETTINGS:
@@ -31,6 +31,8 @@ alias cat="bat"
 alias ai="ollama run codellama"
 alias ltt='eza --tree --level=2 --long --icons --git'
 alias n=nvim
+alias ssh='TERM=xterm-256color ssh'
+
 
 # Cursor setup
 echo -ne "\e[2 q"
@@ -53,4 +55,6 @@ eval "$(atuin init zsh)"
 PATH=.bin:$PATH
 
 # Vite+ bin (https://viteplus.dev)
-. "$HOME/.vite-plus/env"
+#. "$HOME/.vite-plus/env"
+
+
