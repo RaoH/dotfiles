@@ -52,6 +52,26 @@
           "name" : "Music",
           "openAppsOnActivation" : false,
           "symbolIconName" : "music.note"
+        },
+        {
+          "apps" : [
+            {
+              "bundleIdentifier" : "com.apple.mail",
+              "iconPath" : "/System/Applications/Mail.app/Contents/Resources/ApplicationIcon.icns",
+              "name" : "Mail"
+            },
+            {
+              "bundleIdentifier" : "com.apple.MobileSMS",
+              "iconPath" : "/System/Applications/Messages.app/Contents/Resources/AppIcon.icns",
+              "name" : "Messages"
+            }
+          ],
+          "display" : "Mail, Messenger",
+          "id" : "688B5F50-D280-49E7-B53B-CDF1F0D13140",
+          "name" : "Communication",
+          "openAppsOnActivation" : false,
+          "shortcut" : "opt+0",
+          "symbolIconName" : "envelope"
         }
       ]
     }

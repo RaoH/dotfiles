@@ -55,3 +55,4 @@ function _chrome_debug() {
 # Theme settings (unused with starship but kept for reference)
 SPACESHIP_TIME_SHOW=true
 SPACESHIP_HOST_SHOW="always"
+export PATH="$HOME/.local/bin:$PATH"

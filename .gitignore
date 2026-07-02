@@ -1,5 +1,6 @@
 # tmux plugins (managed by TPM, cloned at runtime)
 tmux/.config/tmux/plugins/*
+!tmux/.config/tmux/plugins/custom
 
 # Editor/plugin lock files
 **/lazy-lock.json
